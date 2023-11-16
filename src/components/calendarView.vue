@@ -1,22 +1,5 @@
 <script setup lang="ts">
 
-/*
-  const {
-    selection,
-    openedDays,
-  } = defineProps({
-    selection: {
-      type: Number,
-      required: true,
-    },
-    openedDays: {
-      type: [] as any,
-      required: true,
-      default: () => [],
-    },
-  });
-*/
-
   const {
     selection,
     openedDays,
@@ -29,7 +12,8 @@
 </script>
 
 <template>
-  <div class="calenderGrid">
+  <div id="calendarView"
+       class="calenderGrid">
 
     <div v-for="index in daysAmount"
          :key="`day_${index}`"
@@ -50,13 +34,16 @@
 
 <style scoped>
   .calenderGrid {
+    position: absolute;
+    top: 0;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: repeat(4, 1fr);
     gap: 5px;
-    width: 434px;
-    height: 258px;
-    padding: 24px 0 0 38px;
+    width: 400px;
+    height: 238px;
+    padding: 22px 0 0 36px;
+    z-index: 1;
   }
 
   .calenderCell {
