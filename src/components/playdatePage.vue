@@ -1,22 +1,18 @@
 <script setup lang="ts">
 import CalendarView from "@/components/calendarView.vue";
 import ConsoleView from "@/components/consoleView.vue";
-import {BUTTON_A} from "@/interaction";
-import {ref} from "vue";
+import GalleryView from "@/components/galleryView.vue";
 
-const {
-  selection,
-  openedDays,
-} = defineProps<{
-  selection: number
-  daysAmount: number,
-  openedDays: any[],
-}>()
+import {usePlaydateStore, useCalendarStore} from "@/stores/store";
+
+const calendarStore = useCalendarStore();
 
 const emit = defineEmits<{
   dPadClick: [upOrDown: number, leftOrRight: number] // named tuple syntax
   buttonClick: [buttonName: string]
 }>()
+
+const playdateStore = usePlaydateStore();
 
 const catchPad = (upOrDown: number, leftOrRight: number) => {
   emit('dPadClick', upOrDown, leftOrRight);
@@ -37,11 +33,18 @@ const catchButton = (buttonName: string) => {
   
     </ConsoleView>
 
-    <CalendarView :selection="selection"
-                  :daysAmount="daysAmount"
-                  :openedDays="openedDays"
+    <CalendarView v-show="playdateStore.showCalendar"
+                  :selection="calendarStore.calendarIndex"
+                  :daysAmount="calendarStore.daysAmount"
+                  :openedDays="calendarStore.openedDays"
                   >
     </CalendarView>
+
+    <GalleryView v-show="playdateStore.showGallery"
+                 :name="calendarStore.selectedGame.name"
+                 :screenshots="calendarStore.selectedGame.screenshots" >
+
+    </GalleryView>
 
   </div>
 </template>

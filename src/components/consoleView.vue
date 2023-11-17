@@ -43,7 +43,9 @@
          :src="playdateConsole"
          alt="playdate frame"/>
 
+<!--
     <slot style="height: 100%"></slot>
+-->
 
     <div class="dPadOverlay">
       <div :id="DPAD_T"

@@ -4,11 +4,13 @@ const {
   day,
   gameTitle,
   url,
+  iframe,
 } = defineProps<{
   unlocked: boolean,
   day: number,
   gameTitle: string,
   url: string,
+  iframe: string,
 }>()
 </script>
 
@@ -23,11 +25,19 @@ const {
     </div>
 
     <div v-if="unlocked">
-      <h3>{{ gameTitle }}</h3>
+      <h3>{{ `Advent Game #${day}: ${gameTitle}` }}</h3>
 
 
-      <a v-if="url"
-         :href="url" target="_blank" >{{url}}</a>
+      <div v-if="!iframe">
+
+        <a v-if="!iframe"
+           :href="url" target="_blank" >{{url}}</a>
+      </div>
+
+      <div v-if="iframe"
+            v-html="iframe"
+            style="max-width: 527px;">
+      </div>
     </div>
   </div>
 </template>

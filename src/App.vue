@@ -2,78 +2,71 @@
 
 import PlaydatePage from "@/components/playdatePage.vue";
 import GameView from "@/components/gameView.vue";
-import {ref} from "vue";
-import {BUTTON_A} from "@/interaction";
+import {BUTTON_A, BUTTON_B} from "@/interaction";
 
-let selectionIndex = ref(2)
-const openedDays = ref<any[]>([])
-const daysAmount = 24;
+import CommunityView from "@/components/communityView.vue";
+import WelcomeView from "@/components/welcomeView.vue";
+import {usePlaydateStore, useCalendarStore, useGalleryStore} from "@/stores/store";
+
+const playdateStore = usePlaydateStore();
+const calendarStore = useCalendarStore();
+const galleryStore = useGalleryStore();
 
 const catchPad = (upOrDown: number, leftOrRight: number) => {
-  // console.log('upOrDown ' + upOrDown);
-  // console.log('leftOrRight ' + leftOrRight);
-  if (upOrDown !== 0) {
-    selectionIndex.value += upOrDown * 6;
-  }
-  if (leftOrRight !== 0) {
-    selectionIndex.value += leftOrRight;
+  if (playdateStore.showCalendar) {
+    calendarStore.updateCalendarIndex(upOrDown, leftOrRight);
+    console.log('calendarIndex')
+    console.log(calendarStore.calendarIndex)
   }
 
-  if (selectionIndex.value <= 0) {
-    if (selectionIndex.value < 0) {
-      selectionIndex.value = daysAmount + selectionIndex.value;
-    } else {
-      selectionIndex.value = daysAmount;
-    }
-  } else if (selectionIndex.value > daysAmount) {
-    if (selectionIndex.value > daysAmount + 1) {
-      selectionIndex.value = selectionIndex.value - daysAmount;
-    } else {
-      selectionIndex.value = 0;
-    }
+  if (playdateStore.showGallery) {
+    galleryStore.updateScreenshotIndex(leftOrRight);
+    console.log('screenshotIndex')
+    console.log(galleryStore.screenshotIndex)
   }
 
-  // console.log(selectionIndex.value)
 }
 
 const catchButton = (buttonName: string) => {
   if (buttonName === BUTTON_A) {
-    if (!openedDays.value.includes(selectionIndex.value)) {
-      openedDays.value.push(selectionIndex.value);
-    }
+    calendarStore.openDay(calendarStore.calendarIndex);
+    playdateStore.changeToGallery();
+  }
+
+  if (buttonName === BUTTON_B) {
+    playdateStore.changeToCalendar();
   }
 }
+
+
 </script>
 
 <template>
 
   <div class="pageGrid">
     <div class="left">
-      <h3>Left Side</h3>
-      Hello / Welcome Text
-      And give info how it works
+      <welcome-view />
     </div>
 
     <div class="middle">
       <div class="playdate">
-        <PlaydatePage :selection="selectionIndex"
-                      :daysAmount="daysAmount"
-                      :openedDays="openedDays"
+        <PlaydatePage :selection="calendarStore.calendarIndex"
                       @dPadClick="catchPad"
                       @buttonClick="catchButton" />
       </div>
 
       <div class="game">
-        <GameView :gameTitle="`Game ${selectionIndex}`"
-                  :unlocked="openedDays.includes(selectionIndex)"
-                  :day="selectionIndex"
-                  url="" />
+        <GameView :gameTitle="calendarStore.selectedGame.name"
+                  :unlocked="calendarStore.currentDayUnlocked"
+                  :day="calendarStore.calendarIndex"
+                  :url="calendarStore.selectedGame.url"
+                  :iframe="calendarStore.selectedGame.iframe"
+        />
       </div>
     </div>
 
     <div class="right">
-      Community links, discord etc.
-      Credits
+      <community-view />
     </div>
   </div>
 
@@ -82,7 +75,9 @@ const catchButton = (buttonName: string) => {
 <style>
   body {
     height: 100vh;
+    margin: 0;
   }
+
   #app {
     height: 100%;
   }
