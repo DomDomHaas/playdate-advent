@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import giftW from '@/assets/adventGiftW.png'
+import giftG from '@/assets/adventGiftG.png'
 
   const {
     selection,
@@ -22,11 +24,14 @@
          :class="openedDays.includes(index) ? 'cellOpened' : 'cellClosed'"
          >
 
-      <div :class="`${selection === index ? 'cellSelected' : ''}`"
-           style="width: 100%;"
-      >
+      <div style="position: absolute; top: 5px; left: 5px; ">
         Day {{ index }}
       </div>
+
+      <img :class="`${selection === index ? 'cellSelected' : ''}`"
+           style="max-width: 100%; max-height: 100%;"
+           :src="selection === index ? giftW : giftG"
+           alt="gift image"/>
 
     </div>
   </div>
@@ -48,15 +53,20 @@
 
   .calenderCell {
     display: flex;
+    position: relative;
   }
+
   .cellClosed {
     background-color: rgb(128, 128, 128);
   }
+
   .cellOpened {
     background-color: white;
   }
 
   .cellSelected {
+    /*
     border: black solid 2px;
+    */
   }
 </style>

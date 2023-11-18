@@ -41,8 +41,7 @@ const catchButton = (buttonName: string) => {
     </CalendarView>
 
     <GalleryView v-show="playdateStore.showGallery"
-                 :name="calendarStore.selectedGame.name"
-                 :screenshots="calendarStore.selectedGame.screenshots" >
+                 :name="calendarStore.selectedGame.name"  >
 
     </GalleryView>
 

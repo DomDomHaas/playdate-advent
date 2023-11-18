@@ -1,13 +1,11 @@
 <script setup lang="ts">
 
-  import {useGalleryStore} from "@/stores/store";
+import {useGalleryStore} from "@/stores/store";
 
   const {
     name,
-    screenshots,
   } = defineProps<{
     name: string,
-    screenshots: string[],
   }>()
 
   const galleryStore = useGalleryStore();
@@ -17,27 +15,14 @@
 <template>
   <div id="galleryView"
        class="galleryGrid">
-<!--
-    <h1>{{ name }}</h1>
--->
 
-    <img :src="`/src/assets/${screenshots[galleryStore.screenshotIndex]}`"
-         :alt="`screenshots ${galleryStore.screenshotIndex}`" />
+    <div style="position:absolute; top: 0;">
+      <h1>{{ name }}</h1>
+    </div>
 
-<!--    <div v-for="index in daysAmount"
-         :key="`day_${index}`"
-         :id="`day_${index}`"
-         class="calenderCell"
-         :class="openedDays.includes(index) ? 'cellOpened' : 'cellClosed'"
-         >
-
-      <div :class="`${selection === index ? 'cellSelected' : ''}`"
-           style="width: 100%;"
-      >
-        Day {{ index }}
-      </div>
-
-    </div>-->
+    <img style="width: 100%;"
+          :src="galleryStore.currentScreenshots[galleryStore.screenshotIndex]"
+          :alt="`screenshots ${galleryStore.screenshotIndex}`" />
 
   </div>
 </template>

@@ -143,7 +143,9 @@ const catchButton = (buttonName: string) => {
   }
   .playdate {
     grid-area: playdate;
+    /*
     background-color: darkkhaki;
+    */
 
     display: grid;
     grid-template-rows: 1fr;
