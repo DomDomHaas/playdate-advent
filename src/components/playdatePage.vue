@@ -5,13 +5,12 @@ import GalleryView from "@/components/galleryView.vue";
 
 import {usePlaydateStore, useCalendarStore} from "@/stores/store";
 
-const calendarStore = useCalendarStore();
-
 const emit = defineEmits<{
   dPadClick: [upOrDown: number, leftOrRight: number] // named tuple syntax
   buttonClick: [buttonName: string]
 }>()
 
+const calendarStore = useCalendarStore();
 const playdateStore = usePlaydateStore();
 
 const catchPad = (upOrDown: number, leftOrRight: number) => {

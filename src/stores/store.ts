@@ -23,7 +23,7 @@ export const usePlaydateStore = defineStore('playdateStore', () => {
 
 export const useCalendarStore = defineStore('calendarStore', () => {
 
-  let index = ref<number>(2);
+  let index = ref<number>(1);
   const openedDays = ref<any[]>([]);
   const daysAmount = 24;
 
@@ -54,13 +54,13 @@ export const useCalendarStore = defineStore('calendarStore', () => {
       if (index.value > daysAmount + 1) {
         index.value = index.value - daysAmount;
       } else {
-        index.value = 0;
+        index.value = 1;
       }
     }
 /*
     console.log('index.value')
     console.log(index.value)
-*/
+    */
   }
 
   const openDay = (day: number) => {
@@ -111,9 +111,9 @@ export const useGalleryStore = defineStore('galleryStore', () => {
     }
 
     if (sIndex.value < 0) {
-        sIndex.value = screenshotAmount - 1;
+      sIndex.value = screenshotAmount - 1;
     } else if (sIndex.value > screenshotAmount - 1) {
-        sIndex.value = 0;
+      sIndex.value = 0;
     }
 
   }

@@ -33,7 +33,7 @@ import {useGalleryStore} from "@/stores/store";
   top: 0;
   width: 400px;
   height: 238px;
-  padding: 22px 0 0 36px;
+  padding: 36px 0 0 34px;
   z-index: 1;
 }
 

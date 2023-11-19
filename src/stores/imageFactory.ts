@@ -1,9 +1,15 @@
-const addImages = (array: string[], gifGlob: any, pngGlob: any) => {
-  let entries = Object.entries(gifGlob);
-  const gifUrls = entries.map(([key, value]) => value.default);
+import seedrandom from 'seedrandom';
 
-  entries = Object.entries(pngGlob);
-  const pngUrls = entries.map(([key, value]) => value.default);
+const addImages = (array: string[], gifGlob: any, pngGlob: any|null) => {
+  let entries = Object.entries(gifGlob);
+  const gifUrls: string[] = entries.map(([key, value]) => value.default);
+
+  let pngUrls: string[] = [];
+
+  if (pngGlob) {
+    entries = Object.entries(pngGlob);
+    pngUrls = entries.map(([key, value]) => value.default);
+  }
 
   array.push([...gifUrls, ...pngUrls]);
 };
@@ -116,4 +122,40 @@ export const getScreenshots = () => {
 */
 
   return screenshots;
+}
+
+const prng = seedrandom('playdate-advent');
+
+export function randomInt(min: number, max: number) {
+  const random = prng();
+  const r = Math.floor(random * 10);
+
+  if (r > max) {
+    return max;
+  }
+  if (r < min) {
+    return min;
+  }
+
+  return r;
+}
+
+export const getGiftIndecies = (ammount: number, max: number) => {
+  const indecies = [];
+
+  for (let i = 0; i < ammount; i++) {
+    const randomIndex = randomInt(0, max);
+    indecies.push(randomIndex);
+  }
+
+  return indecies;
+}
+
+export const getGifts = () => {
+  const gifts: any[] = [];
+
+  const pngGlob = import.meta.glob('@/assets/calendar/*.png', { eager: true });
+  addImages(gifts, pngGlob, null);
+
+  return gifts[0];
 }

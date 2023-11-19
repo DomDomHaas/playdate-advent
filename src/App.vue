@@ -21,8 +21,10 @@ const catchPad = (upOrDown: number, leftOrRight: number) => {
 
   if (playdateStore.showGallery) {
     galleryStore.updateScreenshotIndex(leftOrRight);
+/*
     console.log('screenshotIndex')
     console.log(galleryStore.screenshotIndex)
+*/
   }
 
 }
@@ -50,8 +52,7 @@ const catchButton = (buttonName: string) => {
 
     <div class="middle">
       <div class="playdate">
-        <PlaydatePage :selection="calendarStore.calendarIndex"
-                      @dPadClick="catchPad"
+        <PlaydatePage @dPadClick="catchPad"
                       @buttonClick="catchButton" />
       </div>
 
@@ -80,6 +81,15 @@ const catchButton = (buttonName: string) => {
 
   #app {
     height: 100%;
+  }
+
+  .playdateFrame {
+    /*
+    height: 489px;
+    width: 527px;
+    */
+    height: 541px;
+    width: 560px;
   }
 </style>
 
@@ -120,11 +130,11 @@ const catchButton = (buttonName: string) => {
   .middle {
     display: grid;
     grid-area: middle;
-    grid-template-rows: 489px auto;
+    grid-template-rows: 541px auto;
     /*
     height: 489px;
     */
-    width: 527px;
+    width: 560px;
     grid-template-columns: 1fr;
     grid-template-areas:
         "playdate"

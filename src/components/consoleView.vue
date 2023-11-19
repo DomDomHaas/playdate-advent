@@ -1,5 +1,6 @@
 <script setup lang="ts">
-  import playdateConsole from '@/assets/playdateCut.png';
+  // import playdateConsole from '@/assets/playdateCut.png';
+  import playdateConsole from '@/assets/playdate.png';
   import {BUTTON_A, BUTTON_B, DPAD_L, DPAD_R, DPAD_B, DPAD_T} from "@/interaction";
 
 //  const emit = defineEmits(['dPadClick', 'buttonClick']);
@@ -50,22 +51,34 @@
     <div class="dPadOverlay">
       <div :id="DPAD_T"
            class="dPadButton"
-           @click="dPadClick">
+           @click.prevent="dPadClick">
+        <i :id="DPAD_T"
+           @click.stop="dPadClick"
+           class="material-icons">keyboard_arrow_up</i>
       </div>
       <div :id="DPAD_L"
            class="dPadButton"
-           style="top: 53px; left: -104px;"
-           @click="dPadClick">
+           style="top: 48px; left: -98px;"
+           @click.prevent="dPadClick">
+        <i :id="DPAD_L"
+           @click.stop="dPadClick"
+           class="material-icons">keyboard_arrow_left</i>
       </div>
       <div :id="DPAD_R"
            class="dPadButton"
-           style="top: 55px; left: -50px;"
-           @click="dPadClick">
+           style="top: 48px; left: -55px;"
+           @click.prevent="dPadClick">
+        <i :id="DPAD_R"
+           @click.stop="dPadClick"
+           class="material-icons">keyboard_arrow_right</i>
       </div>
       <div :id="DPAD_B"
            class="dPadButton"
-           style="top: 108px; left: -154px;"
-           @click="dPadClick">
+           style="top: 95px; left: -155px;"
+           @click.prevent="dPadClick">
+        <i :id="DPAD_B"
+           @click.stop="dPadClick"
+           class="material-icons">keyboard_arrow_down</i>
       </div>
     </div>
 
@@ -101,13 +114,19 @@
   }
 
   .dPadOverlay {
+    /*
     top: 312px;
     left: 63px;
+    */
+    top: 333px;
+    left: 81px;
   }
 
   .buttonOverlay {
-    top: 325px;
-    left: 272px;
+/*    top: 325px;
+    left: 272px;*/
+    top: 350px;
+    left: 279px;
   }
 
   /*
@@ -143,7 +162,7 @@
 
   .pdButton,
   .dPadButton {
-    border: solid 1px black;
+    border: solid 1px transparent;
     border-radius: 50%;
     cursor: pointer;
     position: relative;
@@ -154,17 +173,15 @@
     height: 50px;
   }
 
-  .pdButton {
-    width: 70px;
-    height: 70px;
+  .dPadButton > .material-icons {
+    position: relative;
+    top: 12px;
+    left: 12px;
   }
 
-  .playdateFrame {
-    /*
-    height: 100%;
-    width: 100%;
-    */
-    height: 489px;
-    width: 527px;
+  .pdButton {
+    width: 60px;
+    height: 60px;
   }
+
 </style>
