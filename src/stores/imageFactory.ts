@@ -11,7 +11,8 @@ const addImages = (array: string[], gifGlob: any, pngGlob: any|null) => {
     pngUrls = entries.map(([key, value]) => value.default);
   }
 
-  array.push([...gifUrls, ...pngUrls]);
+  array.push(...gifUrls);
+  array.push(...pngUrls);
 };
 
 export const getScreenshots = () => {
