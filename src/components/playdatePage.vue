@@ -4,6 +4,7 @@ import ConsoleView from "@/components/consoleView.vue";
 import GalleryView from "@/components/galleryView.vue";
 
 import {usePlaydateStore, useCalendarStore} from "@/stores/store";
+import pgBg from "@/assets/pdBackground.png";
 
 const emit = defineEmits<{
   dPadClick: [upOrDown: number, leftOrRight: number] // named tuple syntax
@@ -44,9 +45,22 @@ const catchButton = (buttonName: string) => {
 
     </GalleryView>
 
+    <img class="pdBackground"
+         :src="pgBg"
+         alt="background playdate screen" />
   </div>
 </template>
 
 <style scoped>
 
+  .pdBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    padding: 35px 0 0 32px;
+
+    height: 241px;
+    width: 404px;
+  }
 </style>

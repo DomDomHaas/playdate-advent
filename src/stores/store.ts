@@ -1,6 +1,5 @@
 import {ref, computed, type Ref, type UnwrapRef, type ComputedRef} from 'vue'
 import { defineStore } from 'pinia'
-import {gameList} from "@/gameList";
 import {getScreenshots} from "@/stores/imageFactory";
 
 export enum playdateState {
@@ -25,7 +24,9 @@ export const useCalendarStore = defineStore('calendarStore', () => {
 
   let index = ref<number>(1);
   const openedDays = ref<any[]>([]);
-  const daysAmount = 24;
+  const daysAmount: number = 24;
+
+  let gameList = ref<object[]>([]);
 
   const currentDayUnlocked = computed(() => openedDays.value.includes(index.value));
 
@@ -70,8 +71,8 @@ export const useCalendarStore = defineStore('calendarStore', () => {
   }
 
   const selectedGame = computed(() => {
-    if (currentDayUnlocked) {
-      return gameList[0]; /* [index.value]; */
+    if (currentDayUnlocked && gameList.value.length > 0) {
+      return gameList.value[index.value];
     }
 
     return {
@@ -80,6 +81,15 @@ export const useCalendarStore = defineStore('calendarStore', () => {
       iframe: '',
     };
   });
+
+   const fetchGameInfos = async () => {
+     const gsheetUrl = 'https://opensheet.elk.sh/1pPornYJbWkLL_V7ZQoxwWrs8_EVv0GAV0OrRcCA1xRc/Calendar%202023';
+     const response = await fetch(gsheetUrl);
+     gameList.value = await response.json();
+     console.log(gameList.value);
+   }
+
+  fetchGameInfos();
 
   return {
     calendarIndex, openedDays,

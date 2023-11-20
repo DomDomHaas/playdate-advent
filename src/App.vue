@@ -15,8 +15,10 @@ const galleryStore = useGalleryStore();
 const catchPad = (upOrDown: number, leftOrRight: number) => {
   if (playdateStore.showCalendar) {
     calendarStore.updateCalendarIndex(upOrDown, leftOrRight);
+/*
     console.log('calendarIndex')
     console.log(calendarStore.calendarIndex)
+*/
   }
 
   if (playdateStore.showGallery) {
@@ -81,6 +83,7 @@ const catchButton = (buttonName: string) => {
 
   #app {
     height: 100%;
+    font-family: 'Libre Franklin', sans-serif;
   }
 
   .playdateFrame {
@@ -91,6 +94,7 @@ const catchButton = (buttonName: string) => {
     height: 541px;
     width: 560px;
   }
+
 </style>
 
 <style scoped>
@@ -100,7 +104,7 @@ const catchButton = (buttonName: string) => {
     height: 100%;
     width: 100%;
     grid-template-areas: "left middle right";
-    background-color: dimgray;
+    background-color: #214646;
   }
 
   @media (max-width: 1024px) {

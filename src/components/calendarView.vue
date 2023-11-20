@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {getGiftIndecies, getGifts} from "@/stores/imageFactory";
+import {getGiftIndecies, getGifts, getIcons} from "@/stores/imageFactory";
 
   const {
     selection,
@@ -12,6 +12,7 @@ import {getGiftIndecies, getGifts} from "@/stores/imageFactory";
   }>()
 
   const giftImages = getGifts();
+  const icons = getIcons();
   const giftIndecies = getGiftIndecies(daysAmount, giftImages.length - 1);
 
 /*  function getCellClass (index: number) {
@@ -24,6 +25,15 @@ import {getGiftIndecies, getGifts} from "@/stores/imageFactory";
     return classes;
   }*/
 
+  function cellImage(index: number) {
+    let diffIndex = index; // - 1
+    if (openedDays.includes(index)) {
+      return icons[diffIndex];
+    }
+
+    diffIndex = index - 1;
+    return giftImages[giftIndecies[diffIndex]]
+  }
 </script>
 
 <template>
@@ -34,17 +44,23 @@ import {getGiftIndecies, getGifts} from "@/stores/imageFactory";
          :key="`day_${index}`"
          :id="`day_${index}`"
          class="calenderCell"
-         :class="openedDays.includes(index) ? 'cellOpened' : 'cellClosed' && selection === index ? 'cellSelected' : ''"
+         :class="{
+          'cellOpened': openedDays.includes(index),
+          'cellClosed': !openedDays.includes(index),
+          'cellSelected': selection === index,
+          }"
          >
 
-      <div :style="index % 2 === 0 ? 'top: 5px;': 'top: 35px;'"
+      <div :style="index % 2 === 0 ? 'top: -3px;': 'top: 30px;'"
            class="dayBadge">
-        {{ index }}
+        <span style="position: relative; top: 3px;">{{ index }}</span>
       </div>
 
-      <img style="max-width: 100%; max-height: 100%;"
-           :src="giftImages[giftIndecies[index]]"
-           alt="gift image"/>
+      <div class="cellImg">
+        <img style="max-width: 100%; max-height: 100%;"
+             :src="cellImage(index)"
+             alt="gift image"/>
+      </div>
 
     </div>
   </div>
@@ -57,7 +73,9 @@ import {getGiftIndecies, getGifts} from "@/stores/imageFactory";
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: repeat(4, 1fr);
+    /*
     gap: 5px;
+    */
     width: 400px;
     height: 238px;
     padding: 36px 0 0 36px;
@@ -69,33 +87,49 @@ import {getGiftIndecies, getGifts} from "@/stores/imageFactory";
     position: relative;
     transform: scale(0.9);
     transition: all 0.3s;
+    margin: 0 5px;
+    padding: 5px;
+    border: transparent solid 2px;
+  }
+
+  .cellSelected {
+    border: black solid 2px;
+    border-radius: 10px;
   }
 
   .cellClosed {
 /*    background-color: rgb(128, 128, 128);*/
   }
 
-  .cellOpened {
+  .cellOpened > .cellImg{
+    filter: invert(0%) !important;
+  }
+
+  .cellOpened > .cellImg {
+    transform: scale(0.95);
+    padding: 8px 5px 0 6px;
 /*    background-color: white;*/
   }
 
   .dayBadge {
-    position: absolute; top: 5px; right: 0;
+    position: absolute; right: -5px;
     border-radius: 50%;
     background-color: floralwhite;
-    height: 22px;
-    min-width: 22px;
-    font-size: 1.1rem;
+    height: 25px;
+    min-width: 25px;
+    font-size: 1rem;
     text-align: center;
   }
 
-  .cellSelected {
+  .cellSelected > .cellImg,
+  .cellSelected > .dayBadge {
     filter: invert(100%);
-    transform: scale(1.1);
+    transform: scale(1.1) !important;
   }
 
-  .cellSelected > img {
-    border: black solid 2px;
-    border-radius: 10px;
+  .cellSelected > .dayBadge,
+  .cellOpened > .dayBadge {
+    z-index: 1;
   }
+
 </style>

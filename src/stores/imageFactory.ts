@@ -1,7 +1,7 @@
 import seedrandom from 'seedrandom';
 
 const addImages = (array: string[], gifGlob: any, pngGlob: any|null) => {
-  let entries = Object.entries(gifGlob);
+  let entries: [string, object][] = Object.entries(gifGlob);
   const gifUrls: string[] = entries.map(([key, value]) => value.default);
 
   let pngUrls: string[] = [];
@@ -158,4 +158,22 @@ export const getGifts = () => {
   addImages(gifts, pngGlob, null);
 
   return gifts[0];
+}
+
+export const getCards = () => {
+  const cards: any[] = [];
+
+  const pngGlob = import.meta.glob('@/assets/cards/*.png', { eager: true });
+  addImages(cards, pngGlob, null);
+
+  return cards[0];
+}
+
+export const getIcons = () => {
+  const icons: any[] = [];
+
+  const pngGlob = import.meta.glob('@/assets/icons/*.png', { eager: true });
+  addImages(icons, pngGlob, null);
+
+  return icons[0];
 }
