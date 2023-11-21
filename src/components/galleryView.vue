@@ -1,13 +1,7 @@
 <script setup lang="ts">
+  import {useCalendarStore, useGalleryStore} from "@/stores/store";
 
-import {useGalleryStore} from "@/stores/store";
-
-  const {
-    name,
-  } = defineProps<{
-    name: string,
-  }>()
-
+  const calendarStore = useCalendarStore();
   const galleryStore = useGalleryStore();
 
 </script>
@@ -17,7 +11,7 @@ import {useGalleryStore} from "@/stores/store";
        class="galleryGrid">
 
     <div style="position:absolute; top: 0;">
-      <h1>{{ name }}</h1>
+      <h1>{{ calendarStore.selectedGame.Name }}</h1>
     </div>
 
     <img style="width: 100%;"
@@ -28,41 +22,14 @@ import {useGalleryStore} from "@/stores/store";
 </template>
 
 <style scoped>
-.galleryGrid {
-  position: absolute;
-  top: 0;
-  width: 400px;
-  height: 238px;
-  padding: 36px 0 0 34px;
-  z-index: 1;
-}
-
-/*
   .galleryGrid {
     position: absolute;
     top: 0;
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    gap: 5px;
     width: 400px;
     height: 238px;
-    padding: 22px 0 0 36px;
+    padding: 36px 0 0 34px;
     z-index: 1;
   }
 
-  .calenderCell {
-    display: flex;
-  }
-  .cellClosed {
-    background-color: rgb(128, 128, 128);
-  }
-  .cellOpened {
-    background-color: white;
-  }
 
-  .cellSelected {
-    border: black solid 2px;
-  }
-  */
 </style>

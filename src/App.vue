@@ -59,12 +59,8 @@ const catchButton = (buttonName: string) => {
       </div>
 
       <div class="game">
-        <GameView :gameTitle="calendarStore.selectedGame.name"
-                  :unlocked="calendarStore.currentDayUnlocked"
-                  :day="calendarStore.calendarIndex"
-                  :url="calendarStore.selectedGame.url"
-                  :iframe="calendarStore.selectedGame.iframe"
-        />
+        <!-- loads content from calendarStore -->
+        <GameView />
       </div>
     </div>
 

@@ -1,4 +1,5 @@
 import {ref, computed, type Ref, type UnwrapRef, type ComputedRef} from 'vue'
+import type {adventGame} from "../../env";
 import { defineStore } from 'pinia'
 import {getScreenshots} from "@/stores/imageFactory";
 
@@ -70,15 +71,24 @@ export const useCalendarStore = defineStore('calendarStore', () => {
     }
   }
 
-  const selectedGame = computed(() => {
+  const selectedGame: ComputedRef<adventGame> = computed(() => {
     if (currentDayUnlocked && gameList.value.length > 0) {
-      return gameList.value[index.value];
+      const currentGame = gameList.value[index.value] as adventGame;
+      console.log(currentGame)
+      return currentGame;
     }
 
     return {
-      name: `Advent ${index.value}`,
-      url: '',
-      iframe: '',
+      Day: index.value.toString(),
+      Name: `Advent ${index.value}`,
+      Discount: '',
+      Dev: '',
+      "Secret words": '',
+      "Date confirmed": '',
+      "Sale confirmed": '',
+      Url: '',
+      CatalogUrl: '',
+      Iframe: '',
     };
   });
 

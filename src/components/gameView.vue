@@ -1,41 +1,35 @@
 <script setup lang="ts">
-const {
-  unlocked,
-  day,
-  gameTitle,
-  url,
-  iframe,
-} = defineProps<{
-  unlocked: boolean,
-  day: number,
-  gameTitle: string,
-  url: string,
-  iframe: string,
-}>()
+  import {useCalendarStore} from "@/stores/store";
+  import {computed} from "vue";
+
+  const calendarStore = useCalendarStore();
+
+  const adventGame = computed(() => {
+    return calendarStore.selectedGame;
+  })
 </script>
 
 <template>
   <div>
-    <div v-if="!unlocked">
-      <h3>Game of Day {{ day }}</h3>
+    <div v-if="!calendarStore.currentDayUnlocked">
+      <h3>Advent Gift of Day {{ adventGame.Day }}</h3>
 
-      The game info once one is selected, with screenshots and itch.io link
-      Or it's a day in the future show the typically gift wrap from the playdate?
+      {{ adventGame["Secret words"] }}
 
     </div>
 
-    <div v-if="unlocked">
-      <h3>{{ `Advent Game #${day}: ${gameTitle}` }}</h3>
+    <div v-if="calendarStore.currentDayUnlocked">
+      <h3>{{ `Advent Game #${adventGame.Day}: ${adventGame.Name}` }}</h3>
 
 
-      <div v-if="!iframe">
+      <div v-if="!adventGame.Iframe">
 
-        <a v-if="!iframe"
-           :href="url" target="_blank" >{{url}}</a>
+        <a v-if="adventGame.Url"
+           :href="adventGame.Url" target="_blank" >{{adventGame.Url}}</a>
       </div>
 
-      <div v-if="iframe"
-            v-html="iframe"
+      <div v-if="adventGame.Iframe"
+            v-html="adventGame.Iframe"
             style="max-width: 527px;">
       </div>
     </div>
