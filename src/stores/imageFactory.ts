@@ -1,6 +1,7 @@
 import seedrandom from 'seedrandom';
 
-const addImages = (array: string[], gifGlob: any, pngGlob: any|null) => {
+const addImages = (gifGlob: any, pngGlob: any|null) => {
+  let array: string[] = [];
   let entries: [string, object][] = Object.entries(gifGlob);
   const gifUrls: string[] = entries.map(([key, value]) => value.default);
 
@@ -11,8 +12,8 @@ const addImages = (array: string[], gifGlob: any, pngGlob: any|null) => {
     pngUrls = entries.map(([key, value]) => value.default);
   }
 
-  array.push(...gifUrls);
-  array.push(...pngUrls);
+  array = [...gifUrls, ...pngUrls];
+  return array;
 };
 
 export const getScreenshots = () => {
@@ -22,99 +23,99 @@ export const getScreenshots = () => {
 
   gifGlob = import.meta.glob('@/assets/1/*.gif', { eager: true });
   pngGlob = import.meta.glob('@/assets/1/*.png', { eager: true });
-  addImages(screenshots, gifGlob, pngGlob);
+  screenshots.push([...addImages(gifGlob, pngGlob)]);
 
   gifGlob = import.meta.glob('@/assets/2/*.gif', { eager: true });
   pngGlob = import.meta.glob('@/assets/2/*.png', { eager: true });
-  addImages(screenshots, gifGlob, pngGlob);
+  screenshots.push([...addImages(gifGlob, pngGlob)]);
 
   gifGlob = import.meta.glob('@/assets/3/*.gif', { eager: true });
   pngGlob = import.meta.glob('@/assets/3/*.png', { eager: true });
-  addImages(screenshots, gifGlob, pngGlob);
+  screenshots.push([...addImages(gifGlob, pngGlob)]);
 
   gifGlob = import.meta.glob('@/assets/4/*.gif', { eager: true });
   pngGlob = import.meta.glob('@/assets/4/*.png', { eager: true });
-  addImages(screenshots, gifGlob, pngGlob);
+  screenshots.push([...addImages(gifGlob, pngGlob)]);
 
   gifGlob = import.meta.glob('@/assets/5/*.gif', { eager: true });
   pngGlob = import.meta.glob('@/assets/5/*.png', { eager: true });
-  addImages(screenshots, gifGlob, pngGlob);
+  screenshots.push([...addImages(gifGlob, pngGlob)]);
 
   gifGlob = import.meta.glob('@/assets/6/*.gif', { eager: true });
   pngGlob = import.meta.glob('@/assets/6/*.png', { eager: true });
-  addImages(screenshots, gifGlob, pngGlob);
+  screenshots.push([...addImages(gifGlob, pngGlob)]);
 
   gifGlob = import.meta.glob('@/assets/7/*.gif', { eager: true });
   pngGlob = import.meta.glob('@/assets/7/*.png', { eager: true });
-  addImages(screenshots, gifGlob, pngGlob);
+  screenshots.push([...addImages(gifGlob, pngGlob)]);
 
   gifGlob = import.meta.glob('@/assets/8/*.gif', { eager: true });
   pngGlob = import.meta.glob('@/assets/8/*.png', { eager: true });
-  addImages(screenshots, gifGlob, pngGlob);
+  screenshots.push([...addImages(gifGlob, pngGlob)]);
 
   gifGlob = import.meta.glob('@/assets/9/*.gif', { eager: true });
   pngGlob = import.meta.glob('@/assets/9/*.png', { eager: true });
-  addImages(screenshots, gifGlob, pngGlob);
+  screenshots.push([...addImages(gifGlob, pngGlob)]);
 
   gifGlob = import.meta.glob('@/assets/10/*.gif', { eager: true });
   pngGlob = import.meta.glob('@/assets/10/*.png', { eager: true });
-  addImages(screenshots, gifGlob, pngGlob);
+  screenshots.push([...addImages(gifGlob, pngGlob)]);
 
   gifGlob = import.meta.glob('@/assets/11/*.gif', { eager: true });
   pngGlob = import.meta.glob('@/assets/11/*.png', { eager: true });
-  addImages(screenshots, gifGlob, pngGlob);
+  screenshots.push([...addImages(gifGlob, pngGlob)]);
 
   gifGlob = import.meta.glob('@/assets/12/*.gif', { eager: true });
   pngGlob = import.meta.glob('@/assets/12/*.png', { eager: true });
-  addImages(screenshots, gifGlob, pngGlob);
+  screenshots.push([...addImages(gifGlob, pngGlob)]);
 
   gifGlob = import.meta.glob('@/assets/13/*.gif', { eager: true });
   pngGlob = import.meta.glob('@/assets/13/*.png', { eager: true });
-  addImages(screenshots, gifGlob, pngGlob);
+  screenshots.push([...addImages(gifGlob, pngGlob)]);
 
   gifGlob = import.meta.glob('@/assets/14/*.gif', { eager: true });
   pngGlob = import.meta.glob('@/assets/14/*.png', { eager: true });
-  addImages(screenshots, gifGlob, pngGlob);
+  screenshots.push([...addImages(gifGlob, pngGlob)]);
 
   gifGlob = import.meta.glob('@/assets/15/*.gif', { eager: true });
   pngGlob = import.meta.glob('@/assets/15/*.png', { eager: true });
-  addImages(screenshots, gifGlob, pngGlob);
+  screenshots.push([...addImages(gifGlob, pngGlob)]);
 
   gifGlob = import.meta.glob('@/assets/16/*.gif', { eager: true });
   pngGlob = import.meta.glob('@/assets/16/*.png', { eager: true });
-  addImages(screenshots, gifGlob, pngGlob);
+  screenshots.push([...addImages(gifGlob, pngGlob)]);
 
   gifGlob = import.meta.glob('@/assets/17/*.gif', { eager: true });
   pngGlob = import.meta.glob('@/assets/17/*.png', { eager: true });
-  addImages(screenshots, gifGlob, pngGlob);
+  screenshots.push([...addImages(gifGlob, pngGlob)]);
 
   gifGlob = import.meta.glob('@/assets/18/*.gif', { eager: true });
   pngGlob = import.meta.glob('@/assets/18/*.png', { eager: true });
-  addImages(screenshots, gifGlob, pngGlob);
+  screenshots.push([...addImages(gifGlob, pngGlob)]);
 
   gifGlob = import.meta.glob('@/assets/19/*.gif', { eager: true });
   pngGlob = import.meta.glob('@/assets/19/*.png', { eager: true });
-  addImages(screenshots, gifGlob, pngGlob);
+  screenshots.push([...addImages(gifGlob, pngGlob)]);
 
   gifGlob = import.meta.glob('@/assets/20/*.gif', { eager: true });
   pngGlob = import.meta.glob('@/assets/20*.png', { eager: true });
-  addImages(screenshots, gifGlob, pngGlob);
+  screenshots.push([...addImages(gifGlob, pngGlob)]);
 
   gifGlob = import.meta.glob('@/assets/21/*.gif', { eager: true });
   pngGlob = import.meta.glob('@/assets/21/*.png', { eager: true });
-  addImages(screenshots, gifGlob, pngGlob);
+  screenshots.push([...addImages(gifGlob, pngGlob)]);
 
   gifGlob = import.meta.glob('@/assets/22/*.gif', { eager: true });
   pngGlob = import.meta.glob('@/assets/22/*.png', { eager: true });
-  addImages(screenshots, gifGlob, pngGlob);
+  screenshots.push([...addImages(gifGlob, pngGlob)]);
 
   gifGlob = import.meta.glob('@/assets/23/*.gif', { eager: true });
   pngGlob = import.meta.glob('@/assets/23/*.png', { eager: true });
-  addImages(screenshots, gifGlob, pngGlob);
+  screenshots.push([...addImages(gifGlob, pngGlob)]);
 
   gifGlob = import.meta.glob('@/assets/24/*.gif', { eager: true });
   pngGlob = import.meta.glob('@/assets/24/*.png', { eager: true });
-  addImages(screenshots, gifGlob, pngGlob);
+  screenshots.push([...addImages(gifGlob, pngGlob)]);
 
 /*
   gifGlob = import.meta.glob('@/assets/25/!*.gif', { eager: true });
@@ -153,28 +154,25 @@ export const getGiftIndecies = (ammount: number, max: number) => {
 }
 
 export const getGifts = () => {
-  const gifts: any[] = [];
 
   const pngGlob = import.meta.glob('@/assets/calendar/*.png', { eager: true });
-  addImages(gifts, pngGlob, null);
+  const gifts: any[] = addImages(pngGlob, null);
 
-  return gifts[0];
+  return gifts;
 }
 
 export const getCards = () => {
-  const cards: any[] = [];
 
   const pngGlob = import.meta.glob('@/assets/cards/*.png', { eager: true });
-  addImages(cards, pngGlob, null);
+  const cards: any[] = addImages(pngGlob, null);
 
-  return cards[0];
+  return cards;
 }
 
 export const getIcons = () => {
-  const icons: any[] = [];
 
   const pngGlob = import.meta.glob('@/assets/icons/*.png', { eager: true });
-  addImages(icons, pngGlob, null);
+  const icons: any[] = addImages(pngGlob, null);
 
-  return icons[0];
+  return icons;
 }
