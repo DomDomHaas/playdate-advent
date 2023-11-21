@@ -1,7 +1,7 @@
-import {ref, computed, type Ref, type UnwrapRef, type ComputedRef} from 'vue'
+import {computed, type ComputedRef, type Ref, ref, type UnwrapRef} from 'vue'
+
 import type {adventGame} from "../../env";
-import { defineStore } from 'pinia'
-import {getScreenshots} from "@/stores/imageFactory";
+import {defineStore} from 'pinia'
 
 export enum playdateState {
   CALENDAR = 1,
@@ -73,9 +73,9 @@ export const useCalendarStore = defineStore('calendarStore', () => {
 
   const selectedGame: ComputedRef<adventGame> = computed(() => {
     if (currentDayUnlocked && gameList.value.length > 0) {
-      const currentGame = gameList.value[index.value] as adventGame;
-      console.log(currentGame)
-      return currentGame;
+      const indexDiff = index.value - 1
+      // console.log(gameList.value[indexDiff])
+      return gameList.value[indexDiff] as adventGame;
     }
 
     return {
@@ -109,41 +109,4 @@ export const useCalendarStore = defineStore('calendarStore', () => {
   }
 
 });
-
-export const useGalleryStore = defineStore('galleryStore', () => {
-
-  const calendarStore = useCalendarStore();
-
-  const pngAndGifs: any[] = getScreenshots()
-  const screenshots: Ref<UnwrapRef<any[]>> = ref(pngAndGifs);
-
-  let sIndex = ref<number>(0);
-  const screenshotIndex = computed(() => sIndex.value);
-
-  const currentScreenshots : ComputedRef<any[]> = computed(() => screenshots.value[calendarStore.calendarIndex - 1]);
-
-  const updateScreenshotIndex = (leftOrRight: number) => {
-
-    const screenshotAmount = currentScreenshots.value.length;
-
-    if (leftOrRight !== 0) {
-      sIndex.value += leftOrRight;
-    }
-
-    if (sIndex.value < 0) {
-      sIndex.value = screenshotAmount - 1;
-    } else if (sIndex.value > screenshotAmount - 1) {
-      sIndex.value = 0;
-    }
-
-  }
-
-  return {
-    screenshotIndex,
-    currentScreenshots,
-    updateScreenshotIndex,
-  }
-})
-
-
 

@@ -161,18 +161,42 @@ export const getGifts = () => {
   return gifts;
 }
 
+const getFileNumber = (filePath: string) => {
+  const splits = filePath.split('/');
+  const fileName = splits[splits.length - 1];
+  const numberStr = fileName.split('.')[0];
+  return Number.parseInt(numberStr, 10);
+}
+
 export const getCards = () => {
 
   const pngGlob = import.meta.glob('@/assets/cards/*.png', { eager: true });
   const cards: any[] = addImages(pngGlob, null);
 
+  cards.sort((a: string , b: string) => {
+    const aNumber = getFileNumber(a);
+    const bNumber = getFileNumber(b);
+
+    console.log(`${aNumber} < ${bNumber}`);
+
+    return aNumber < bNumber ? -1 : 1;
+  });
+
   return cards;
 }
+
 
 export const getIcons = () => {
 
   const pngGlob = import.meta.glob('@/assets/icons/*.png', { eager: true });
-  const icons: any[] = addImages(pngGlob, null);
+  const icons: string[] = addImages(pngGlob, null);
+
+  icons.sort((a: string , b: string) => {
+    const aNumber = getFileNumber(a);
+    const bNumber = getFileNumber(b);
+
+    return aNumber < bNumber ? 1 : -1;
+  });
 
   return icons;
 }

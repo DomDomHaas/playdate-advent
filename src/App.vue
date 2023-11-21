@@ -6,7 +6,8 @@ import {BUTTON_A, BUTTON_B} from "@/interaction";
 
 import CommunityView from "@/components/communityView.vue";
 import WelcomeView from "@/components/welcomeView.vue";
-import {usePlaydateStore, useCalendarStore, useGalleryStore} from "@/stores/store";
+import {usePlaydateStore, useCalendarStore} from "@/stores/store";
+import {useGalleryStore} from "@/stores/galleryStore";
 
 const playdateStore = usePlaydateStore();
 const calendarStore = useCalendarStore();
@@ -22,7 +23,7 @@ const catchPad = (upOrDown: number, leftOrRight: number) => {
   }
 
   if (playdateStore.showGallery) {
-    galleryStore.updateScreenshotIndex(leftOrRight);
+    galleryStore.updateGalleryIndex(leftOrRight);
 /*
     console.log('screenshotIndex')
     console.log(galleryStore.screenshotIndex)
