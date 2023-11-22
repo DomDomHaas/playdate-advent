@@ -38,6 +38,11 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
       openedDays: [],
     }, localStorage,
     { mergeDefaults: true },
+/*
+    {
+      mergeDefaults: (storageValue, defaults) => deepMerge(defaults, storageValue)
+    },
+*/
   );
 
   const daysAmount: number = 24;
