@@ -62,8 +62,10 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
   };
 
   const updateCalendarIndex = (upOrDown: number, leftOrRight: number) => {
+/*
     console.log('upOrDown ' + upOrDown);
     console.log('leftOrRight ' + leftOrRight);
+*/
     const currentIndex : number = consistent.value.calendarIndex
     let newIndex : number = currentIndex;
 
