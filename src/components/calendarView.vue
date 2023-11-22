@@ -1,40 +1,35 @@
 <script setup lang="ts">
-import {getGiftIndecies, getGifts, getIcons} from "@/stores/imageFactory";
-import {useCalendarStore} from "@/stores/store";
+  import {getGiftIndecies, getGifts, getIcons} from "@/stores/imageFactory";
+  import {storeToRefs} from "pinia";
+  import {usePlaydateStore} from "@/stores/pdStore";
 
   const {
     selection,
     daysAmount,
     openedDays,
+    showWaitMessage,
   } = defineProps<{
     selection: number
     daysAmount: number,
-    openedDays: any[],
+    openedDays: number[],
+    showWaitMessage: boolean,
   }>()
 
-  const calendarStore = useCalendarStore();
+  const pdStore = usePlaydateStore();
+  const { themeDark } = storeToRefs(pdStore);
 
   const giftImages = getGifts();
   const icons = getIcons();
   const giftIndecies = getGiftIndecies(daysAmount, giftImages.length - 1);
 
-/*  function getCellClass (index: number) {
-    let classes: string = openedDays.includes(index);
-    if (selection === index) {
-      classes += ' cellSelected';
-    }
-/!*    console.log(`class for ${index} ${selection}`)*!/
-
-    return classes;
-  }*/
 
   function cellImage(index: number) {
-    let diffIndex = index; // - 1
+    let diffIndex = index - 1;
+
     if (openedDays.includes(index)) {
       return icons[diffIndex];
     }
 
-    diffIndex = index - 1;
     return giftImages[giftIndecies[diffIndex]]
   }
 </script>
@@ -51,6 +46,7 @@ import {useCalendarStore} from "@/stores/store";
           'cellOpened': openedDays.includes(index),
           'cellClosed': !openedDays.includes(index),
           'cellSelected': selection === index,
+          'cellInverted': themeDark,
           }"
          >
 
@@ -68,7 +64,7 @@ import {useCalendarStore} from "@/stores/store";
     </div>
 
     <div class="waitMsg"
-        :class="calendarStore.showWaitMessage ? 'waitOut' : ''">
+        :class="showWaitMessage ? 'waitOut' : ''">
       <div>Wait for it, it's not time yet!</div>
     </div>
   </div>
@@ -97,11 +93,15 @@ import {useCalendarStore} from "@/stores/store";
     transition: all 0.3s;
     margin: 0 5px;
     padding: 5px;
+    /*
     border: transparent solid 2px;
+    */
   }
 
   .cellSelected {
+    /*
     border: black solid 2px;
+    */
     border-radius: 10px;
   }
 
@@ -127,12 +127,23 @@ import {useCalendarStore} from "@/stores/store";
     min-width: 25px;
     font-size: 1rem;
     text-align: center;
+    z-index: 1;
   }
 
   .cellSelected > .cellImg,
   .cellSelected > .dayBadge {
     filter: invert(100%);
     transform: scale(1.1) !important;
+  }
+
+  .cellSelected.cellInverted > .cellImg,
+  .cellSelected.cellInverted > .dayBadge {
+    filter: invert(0%) !important;
+  }
+
+  .cellInverted > .cellImg,
+  .cellInverted > .dayBadge {
+    filter: invert(100%) !important;
   }
 
   .cellSelected > .dayBadge,

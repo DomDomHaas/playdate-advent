@@ -169,17 +169,31 @@ const getFileNumber = (filePath: string) => {
   return Number.parseInt(numberStr, 10);
 }
 
+const sortASC = (a: string , b: string) => {
+  const aNumber = getFileNumber(a);
+  const bNumber = getFileNumber(b);
+
+  return aNumber < bNumber ? -1 : 1;
+}
+
+const sortDESC = (a: string , b: string) => {
+  const aNumber = getFileNumber(a);
+  const bNumber = getFileNumber(b);
+
+  return aNumber < bNumber ? 1 : -1;
+}
+
 export const getCards = () => {
 
   const pngGlob = import.meta.glob('@/assets/cards/*.png', { eager: true });
   const cards: any[] = addImages(pngGlob, null);
 
-  cards.sort((a: string , b: string) => {
-    const aNumber = getFileNumber(a);
-    const bNumber = getFileNumber(b);
+  cards.sort(sortASC);
 
-    return aNumber < bNumber ? -1 : 1;
-  });
+/*
+  console.log('sorted cards');
+  console.log(cards);
+*/
 
   return cards;
 }
@@ -190,12 +204,12 @@ export const getIcons = () => {
   const pngGlob = import.meta.glob('@/assets/icons/*.png', { eager: true });
   const icons: string[] = addImages(pngGlob, null);
 
-  icons.sort((a: string , b: string) => {
-    const aNumber = getFileNumber(a);
-    const bNumber = getFileNumber(b);
+  icons.sort(sortASC);
 
-    return aNumber < bNumber ? 1 : -1;
-  });
+/*
+  console.log('sorted icons');
+  console.log(icons);
+*/
 
   return icons;
 }

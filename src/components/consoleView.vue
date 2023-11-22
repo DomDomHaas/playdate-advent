@@ -1,7 +1,7 @@
 <script setup lang="ts">
-  // import playdateConsole from '@/assets/playdateCut.png';
   import playdateConsole from '@/assets/playdate.png';
   import {BUTTON_A, BUTTON_B, DPAD_L, DPAD_R, DPAD_B, DPAD_T} from "@/interaction";
+  import { Button } from 'ant-design-vue';
 
 //  const emit = defineEmits(['dPadClick', 'buttonClick']);
 
@@ -49,8 +49,61 @@
 -->
 
     <div class="dPadOverlay">
+      <Button :id="DPAD_T"
+              class="dPadButton"
+              @keyup.up="dPadClick"
+              @click="dPadClick" >
+        <i :id="DPAD_T"
+           class="material-icons">keyboard_arrow_up</i>
+      </Button>
+
+      <Button :id="DPAD_L"
+               class="dPadButton"
+               style="top: 48px; left: -98px;"
+               @keyup.left="dPadClick"
+               @click="dPadClick" >
+        <i :id="DPAD_L"
+           class="material-icons">keyboard_arrow_left</i>
+      </Button>
+
+      <Button :id="DPAD_R"
+               class="dPadButton"
+               style="top: 48px; left: -55px;"
+               @keyup.right="dPadClick"
+               @click="dPadClick" >
+        <i :id="DPAD_R"
+           class="material-icons">keyboard_arrow_right</i>
+      </Button>
+
+      <Button :id="DPAD_B"
+               class="dPadButton"
+               style="top: 95px; left: -155px;"
+               @keyup.down="dPadClick"
+               @click="dPadClick" >
+        <i :id="DPAD_B"
+           class="material-icons">keyboard_arrow_down</i>
+      </Button>
+
+    </div>
+
+    <div class="buttonOverlay">
+      <Button :id="BUTTON_B"
+               class="pdButton"
+               @click="buttonClick">
+      </Button>
+
+      <Button :id="BUTTON_A"
+               class="pdButton btnA"
+               style="position: relative; left: 53px"
+               @click="buttonClick">
+      </Button>
+    </div>
+
+<!--
+    <div class="dPadOverlay">
       <div :id="DPAD_T"
            class="dPadButton"
+           @keyup.up="dPadClick"
            @click.prevent="dPadClick">
         <i :id="DPAD_T"
            @click.stop="dPadClick"
@@ -59,6 +112,7 @@
       <div :id="DPAD_L"
            class="dPadButton"
            style="top: 48px; left: -98px;"
+           @keyup.left="dPadClick"
            @click.prevent="dPadClick">
         <i :id="DPAD_L"
            @click.stop="dPadClick"
@@ -67,6 +121,7 @@
       <div :id="DPAD_R"
            class="dPadButton"
            style="top: 48px; left: -55px;"
+           @keyup.right="dPadClick"
            @click.prevent="dPadClick">
         <i :id="DPAD_R"
            @click.stop="dPadClick"
@@ -75,13 +130,16 @@
       <div :id="DPAD_B"
            class="dPadButton"
            style="top: 95px; left: -155px;"
+           @keyup.down="dPadClick"
            @click.prevent="dPadClick">
         <i :id="DPAD_B"
            @click.stop="dPadClick"
            class="material-icons">keyboard_arrow_down</i>
       </div>
     </div>
+-->
 
+<!--
     <div class="buttonOverlay">
       <div :id="BUTTON_B"
            class="pdButton"
@@ -94,6 +152,7 @@
            @click="buttonClick">
       </div>
     </div>
+-->
 
   </div>
 </template>
@@ -108,7 +167,6 @@
 
   .buttonOverlay,
   .dPadOverlay {
-    height: 100%;
     position: absolute;
     display: flex;
   }
@@ -166,17 +224,29 @@
     border-radius: 50%;
     cursor: pointer;
     position: relative;
+    background-color: transparent;
   }
 
   .dPadButton {
     width: 50px;
     height: 50px;
+    /*
+    background-color: transparent;
+    */
   }
 
+  /*
   .dPadButton > .material-icons {
     position: relative;
     top: 12px;
     left: 12px;
+  }
+  */
+
+  .dPadButton > .material-icons {
+    position: relative;
+    top: 0;
+    left: -2px;
   }
 
   .pdButton {

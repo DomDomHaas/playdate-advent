@@ -2,7 +2,9 @@ import {ref, computed, type Ref, type UnwrapRef, type ComputedRef} from 'vue'
 
 import { defineStore } from 'pinia'
 import {getCards, getScreenshots} from "./imageFactory";
-import {useCalendarStore} from "./store";
+import {useCalendarStore} from "./calendarStore";
+
+export const GALLERY_STORE: string = 'GALLERY_STORE';
 
 
 export const useGalleryStore = defineStore('galleryStore', () => {
@@ -11,7 +13,6 @@ export const useGalleryStore = defineStore('galleryStore', () => {
 
   const pngAndGifs: any[] = getScreenshots()
   const cards: any[] = getCards()
-  console.log(cards);
 
   const screenshots: Ref<UnwrapRef<any[]>> = ref(pngAndGifs);
   const screenshotsCards: Ref<UnwrapRef<any[]>> = ref(cards);

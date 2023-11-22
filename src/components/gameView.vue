@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { Card } from 'ant-design-vue';
-  import {useCalendarStore} from "@/stores/store";
+  import {useCalendarStore} from "@/stores/calendarStore";
   import {computed} from "vue";
 
   const calendarStore = useCalendarStore();

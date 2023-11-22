@@ -6,8 +6,9 @@ import {BUTTON_A, BUTTON_B} from "@/interaction";
 
 import CommunityView from "@/components/communityView.vue";
 import WelcomeView from "@/components/welcomeView.vue";
-import {usePlaydateStore, useCalendarStore, isUnlockable} from "@/stores/store";
+import {useCalendarStore} from "@/stores/calendarStore";
 import {useGalleryStore} from "@/stores/galleryStore";
+import {usePlaydateStore} from "@/stores/pdStore";
 
 const playdateStore = usePlaydateStore();
 const calendarStore = useCalendarStore();

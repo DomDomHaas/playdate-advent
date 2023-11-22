@@ -12,3 +12,13 @@ export type adventGame = {
   CatalogUrl: string,
   Iframe: string,
 }
+
+export type consistent = {
+  calendarIndex: number,
+  openedDays: number[],
+}
+
+export type consitentPdData = {
+  state: playdateState,
+  themeDark: boolean,
+}

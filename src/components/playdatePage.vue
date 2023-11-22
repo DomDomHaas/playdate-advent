@@ -1,10 +1,15 @@
 <script setup lang="ts">
+import pgBg from "@/assets/pdBackground.png";
+
 import CalendarView from "@/components/calendarView.vue";
 import ConsoleView from "@/components/consoleView.vue";
 import GalleryView from "@/components/galleryView.vue";
 
-import {usePlaydateStore, useCalendarStore} from "@/stores/store";
-import pgBg from "@/assets/pdBackground.png";
+import {useCalendarStore} from "@/stores/calendarStore";
+import {usePlaydateStore} from "@/stores/pdStore";
+import {useRoute} from "vue-router";
+import {watch} from "vue";
+import {storeToRefs} from "pinia";
 
 const emit = defineEmits<{
   dPadClick: [upOrDown: number, leftOrRight: number] // named tuple syntax
@@ -12,7 +17,19 @@ const emit = defineEmits<{
 }>()
 
 const calendarStore = useCalendarStore();
+const { openedDays } = storeToRefs(calendarStore);
+const { setCalendarIndex } = calendarStore;
 const playdateStore = usePlaydateStore();
+
+const route = useRoute();
+
+watch<string, boolean>((): any => route.params.day,
+  async (newDay, oldDay) => {
+    const newDayNumber: number = Number.parseInt(newDay, 10);
+    setCalendarIndex(newDayNumber);
+  }
+)
+
 
 const catchPad = (upOrDown: number, leftOrRight: number) => {
   emit('dPadClick', upOrDown, leftOrRight);
@@ -36,7 +53,8 @@ const catchButton = (buttonName: string) => {
     <CalendarView v-show="playdateStore.showCalendar"
                   :selection="calendarStore.calendarIndex"
                   :daysAmount="calendarStore.daysAmount"
-                  :openedDays="calendarStore.openedDays"
+                  :openedDays="openedDays"
+                  :showWaitMessage="calendarStore.showWaitMessage"
                   >
     </CalendarView>
 
