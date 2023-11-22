@@ -8,6 +8,11 @@ export enum playdateState {
   GALLERY,
 }
 
+// testing
+const calendarStartDate = '2023-11-01';
+
+// const calendarStartDate = '2023-12-01';
+
 export const usePlaydateStore = defineStore('playdateStore', () => {
 
   let state: Ref<UnwrapRef<playdateState>> = ref<playdateState>(1)
@@ -21,17 +26,41 @@ export const usePlaydateStore = defineStore('playdateStore', () => {
   return { state, changeToGallery, changeToCalendar, showGallery, showCalendar }
 });
 
+export const isUnlockable = (day: number): boolean => {
+
+  const now = new Date();
+  const nowString = now.toISOString().substring(0, 10); // `${now.getDay()}-${now.getMonth()}-${now.getFullYear()}`;
+/*
+  console.log(nowString)
+*/
+
+  if(nowString < calendarStartDate) {
+    return false;
+  }
+
+  const nowDay = nowString.substring(8, 10)
+  const nowDayNumber = Number.parseInt(nowDay, 10); // - 10
+
+  return day <= nowDayNumber
+}
+
 export const useCalendarStore = defineStore('calendarStore', () => {
 
   let index = ref<number>(1);
   const openedDays = ref<any[]>([]);
   const daysAmount: number = 24;
 
+  let showWait = ref<boolean>(false);
+
   let gameList = ref<object[]>([]);
 
   const currentDayUnlocked = computed(() => openedDays.value.includes(index.value));
 
+  const isCurrentDayUnlockable = computed(() => isUnlockable(index.value) );
+
   const calendarIndex = computed(() => index.value);
+
+  const showWaitMessage = computed(() => showWait.value)
 
   const updateCalendarIndex = (upOrDown: number, leftOrRight: number) => {
 /*
@@ -68,7 +97,10 @@ export const useCalendarStore = defineStore('calendarStore', () => {
   const openDay = (day: number) => {
     if (!openedDays.value.includes(day)) {
       openedDays.value.push(day);
+      return true;
     }
+
+    return false;
   }
 
   const selectedGame: ComputedRef<adventGame> = computed(() => {
@@ -101,11 +133,22 @@ export const useCalendarStore = defineStore('calendarStore', () => {
 
   fetchGameInfos();
 
+  function triggerWaitMessage() {
+
+   if (!showWaitMessage.value) {
+     showWait.value = true;
+
+     setTimeout(() => {
+       showWait.value = false;
+     }, 2000)
+   }
+  }
+
   return {
     calendarIndex, openedDays,
-    openDay, updateCalendarIndex,
-    currentDayUnlocked, selectedGame,
-    daysAmount,
+    openDay, updateCalendarIndex, triggerWaitMessage,
+    currentDayUnlocked, isCurrentDayUnlockable,
+    showWaitMessage, selectedGame, daysAmount,
   }
 
 });

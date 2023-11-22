@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {getGiftIndecies, getGifts, getIcons} from "@/stores/imageFactory";
+import {useCalendarStore} from "@/stores/store";
 
   const {
     selection,
@@ -10,6 +11,8 @@ import {getGiftIndecies, getGifts, getIcons} from "@/stores/imageFactory";
     daysAmount: number,
     openedDays: any[],
   }>()
+
+  const calendarStore = useCalendarStore();
 
   const giftImages = getGifts();
   const icons = getIcons();
@@ -62,6 +65,11 @@ import {getGiftIndecies, getGifts, getIcons} from "@/stores/imageFactory";
              alt="gift image"/>
       </div>
 
+    </div>
+
+    <div class="waitMsg"
+        :class="calendarStore.showWaitMessage ? 'waitOut' : ''">
+      <div>Wait for it, it's not time yet!</div>
     </div>
   </div>
 </template>
@@ -130,6 +138,34 @@ import {getGiftIndecies, getGifts, getIcons} from "@/stores/imageFactory";
   .cellSelected > .dayBadge,
   .cellOpened > .dayBadge {
     z-index: 1;
+  }
+
+  .waitMsg {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    padding: 0 10px 0 10px;
+    margin: 30px 0 0 30px;
+    transition: 0.5s all;
+    background-color: #ddd;
+    height: 0;
+  }
+
+  .waitMsg > div {
+    transition: 0.5s all;
+    overflow: hidden;
+    height: 0;
+    font-size: 1.5rem;
+  }
+
+  .waitOut {
+    top: 0;
+    height: 70px;
+  }
+
+  .waitMsg.waitOut > div {
+    padding: 20px;
+    height: 100%;
   }
 
 </style>

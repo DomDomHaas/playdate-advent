@@ -165,6 +165,7 @@ const getFileNumber = (filePath: string) => {
   const splits = filePath.split('/');
   const fileName = splits[splits.length - 1];
   const numberStr = fileName.split('.')[0];
+
   return Number.parseInt(numberStr, 10);
 }
 
@@ -176,8 +177,6 @@ export const getCards = () => {
   cards.sort((a: string , b: string) => {
     const aNumber = getFileNumber(a);
     const bNumber = getFileNumber(b);
-
-    console.log(`${aNumber} < ${bNumber}`);
 
     return aNumber < bNumber ? -1 : 1;
   });

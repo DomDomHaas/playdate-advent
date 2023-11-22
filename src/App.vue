@@ -6,7 +6,7 @@ import {BUTTON_A, BUTTON_B} from "@/interaction";
 
 import CommunityView from "@/components/communityView.vue";
 import WelcomeView from "@/components/welcomeView.vue";
-import {usePlaydateStore, useCalendarStore} from "@/stores/store";
+import {usePlaydateStore, useCalendarStore, isUnlockable} from "@/stores/store";
 import {useGalleryStore} from "@/stores/galleryStore";
 
 const playdateStore = usePlaydateStore();
@@ -34,15 +34,18 @@ const catchPad = (upOrDown: number, leftOrRight: number) => {
 
 const catchButton = (buttonName: string) => {
   if (buttonName === BUTTON_A) {
-    calendarStore.openDay(calendarStore.calendarIndex);
-    playdateStore.changeToGallery();
+    if (calendarStore.isCurrentDayUnlockable) {
+      calendarStore.openDay(calendarStore.calendarIndex);
+      playdateStore.changeToGallery();
+    } else {
+      calendarStore.triggerWaitMessage();
+    }
   }
 
   if (buttonName === BUTTON_B) {
     playdateStore.changeToCalendar();
   }
 }
-
 
 </script>
 
