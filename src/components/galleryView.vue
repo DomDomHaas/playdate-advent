@@ -13,6 +13,11 @@
   const galleryStore = useGalleryStore();
   const { galleryIndex } = storeToRefs(galleryStore);
 
+/*
+  console.log('galleryStore screenshots');
+  console.log(galleryStore.currentScreenshots);
+*/
+
   watch(galleryIndex,
     (newValue, oldValue) => {
       galleryCarousel.value.goTo(newValue);
@@ -20,11 +25,6 @@
     { deep: true }
   )
 
-/*
-  const onChange = (current: number) => {
-    console.log(current);
-  };
-*/
 
 </script>
 

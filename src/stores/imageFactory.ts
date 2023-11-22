@@ -185,23 +185,21 @@ const sortDESC = (a: string , b: string) => {
 
 export const getCards = () => {
 
-  const pngGlob = import.meta.glob('@/assets/cards/*.png', { eager: true });
+  const pngGlob = import.meta.glob('@/assets/cards/*', { eager: true });
   const cards: any[] = addImages(pngGlob, null);
 
   cards.sort(sortASC);
-
 /*
   console.log('sorted cards');
   console.log(cards);
 */
-
   return cards;
 }
 
 
 export const getIcons = () => {
 
-  const pngGlob = import.meta.glob('@/assets/icons/*.png', { eager: true });
+  const pngGlob = import.meta.glob('@/assets/icons/*', { eager: true });
   const icons: string[] = addImages(pngGlob, null);
 
   icons.sort(sortASC);
