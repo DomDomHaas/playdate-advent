@@ -1,18 +1,23 @@
 <script setup lang="ts">
 
-import PlaydatePage from "@/components/playdatePage.vue";
-import GameView from "@/components/gameView.vue";
+// import PlaydatePage from "@/components/playdatePage.vue";
+// import TheNavBar from "@/components/TheNavBar.vue";
 import {BUTTON_A, BUTTON_B} from "@/interaction";
+import { Row, Col } from 'ant-design-vue';
 
 import CommunityView from "@/components/communityView.vue";
 import WelcomeView from "@/components/welcomeView.vue";
+import PlaydatePageGrid from "@/components/playdatePageGrid.vue";
+
 import {useCalendarStore} from "@/stores/calendarStore";
 import {useGalleryStore} from "@/stores/galleryStore";
 import {usePlaydateStore} from "@/stores/pdStore";
+import {storeToRefs} from "pinia";
 
 const playdateStore = usePlaydateStore();
 const calendarStore = useCalendarStore();
 const galleryStore = useGalleryStore();
+const { themeDark } = storeToRefs(playdateStore);
 
 const catchPad = (upOrDown: number, leftOrRight: number) => {
   if (playdateStore.showCalendar) {
@@ -52,6 +57,56 @@ const catchButton = (buttonName: string) => {
 
 <template>
 
+<!--
+  <Row class="navBar">
+    <Col span="24">
+      <TheNavBar />
+    </Col>
+  </Row>
+-->
+
+  <Row :gutter="[8, 8]"
+        class="mainContent">
+
+    <Col :xs="{ order: 2, span: 24 }"
+         :sm="{ order: 1, span: 7 }">
+
+      <Row align="top">
+        <Col :span="24"
+             justify="middle"
+              class="welcomeTitle">
+          <div style="color: #FFC900;">play</div>
+          <div style="position: relative; left: 5px; color: #FFB200;">date</div>
+          <div style="position: relative; left: 12px; " :class="themeDark ? 'pdTitleColor' : 'pdTitleColor'">advent</div>
+        </Col>
+
+        <Col :span="24">
+          <welcome-view ></welcome-view>
+
+        </Col>
+        <!-- useBreakpoints? to move the community-view
+         here for the sm breakpoint? -->
+
+      </Row>
+    </Col>
+
+    <Col :xs="{ order: 1, span: 24 }"
+         :sm="{ order: 2, span: 10 }">
+<!--
+    <Col flex="560px" >
+-->
+      <PlaydatePageGrid @dPadClick="catchPad"
+                        @buttonClick="catchButton" />
+    </Col>
+
+    <Col :xs="{ order: 3, span: 24 }"
+         :sm="{ order: 3, span: 7 }">
+      <community-view ></community-view>
+    </Col>
+
+  </Row>
+
+<!--
   <div class="pageGrid">
     <div class="left">
       <welcome-view />
@@ -64,7 +119,7 @@ const catchButton = (buttonName: string) => {
       </div>
 
       <div class="game">
-        <!-- loads content from calendarStore -->
+        &lt;!&ndash; loads content from calendarStore &ndash;&gt;
         <GameView />
       </div>
     </div>
@@ -73,6 +128,7 @@ const catchButton = (buttonName: string) => {
       <community-view />
     </div>
   </div>
+-->
 
 </template>
 
@@ -96,9 +152,57 @@ const catchButton = (buttonName: string) => {
     width: 560px;
   }
 
+  .appCard {
+    background-color: indianred;
+  }
+
+  .appCardText {
+    font-size: 1.1rem;
+  }
+
+  .white-text {
+    color: white;
+  }
+
+  .black-text {
+    color: black;
+  }
+
+  .pdTitleColor {
+    color: #11AC8E;
+  }
+
+  .pdTitleColorInverted {
+    color: #7353D2;
+  }
+
+  .pdCover {
+    background-color: #11AC8E;
+  }
+
+  .pdCoverInverted {
+    background-color: #7353D2;
+  }
 </style>
 
 <style scoped>
+
+  .welcomeTitle {
+    font-size: 5rem;
+    line-height: 0.7em;
+  }
+
+  .mainContent {
+    height: 100%;
+    width: 100%;
+    background-color: #214646;
+  }
+
+  .navBar {
+    /*
+    background-color: indianred;
+    */
+  }
 
   .pageGrid {
     display: grid;

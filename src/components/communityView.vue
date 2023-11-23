@@ -1,8 +1,8 @@
 <script setup lang="ts">
-  import { Switch } from 'ant-design-vue';
-
-  import {storeToRefs} from "pinia";
+  import {Row, Col, Card, Switch} from 'ant-design-vue';
+  import {AccountBookOutlined, BulbFilled, BulbOutlined} from '@ant-design/icons-vue'
   import {usePlaydateStore} from "@/stores/pdStore";
+  import {storeToRefs} from "pinia";
 
   const pdStore = usePlaydateStore();
   const { themeDark } = storeToRefs(pdStore);
@@ -10,21 +10,58 @@
   const changeTheme = (checked: boolean) => {
     pdStore.changeThemeDark(checked);
   }
-
 </script>
 
 <template>
-  <div>
-    <Switch :checked="themeDark"
-            @click="changeTheme"
-    >
+  <Row :gutter="[8, 20]">
 
-    </Switch>
+    <Col class="white-text"
+          :span="24">
 
-    <h3>Right Side</h3>
-    Community links, discord etc.
-    Credits
-  </div>
+      <Row justify="end">
+        <Col :span="18">Community Links</Col>
+        <Col :span="6">
+          <Switch :checked="themeDark"
+                  @click="changeTheme"
+          >
+            <template #checkedChildren><BulbFilled/></template>
+            <template #unCheckedChildren><BulbOutlined/></template>
+          </Switch>
+        </Col>
+      </Row>
+
+    </Col>
+
+    <Col :span="24">
+      <Card title="Playdate Devstaurant"
+            class="appCard" >
+        <a-icon>
+          <AccountBookOutlined />
+        </a-icon>
+        Join the Discord
+      </Card>
+    </Col>
+
+    <Col :span="24">
+      <Card title="Playdate Squad"
+            class="appCard" >
+        <a-icon>
+          <AccountBookOutlined />
+        </a-icon>
+        Join the Discord
+      </Card>
+    </Col>
+
+    <Col :span="24">
+      <Card title="Hello PlayDate Podcast"
+            class="appCard" >
+        <a-icon>
+          <AccountBookOutlined />
+        </a-icon>
+        Join the Discord
+      </Card>
+    </Col>
+  </Row>
 </template>
 
 <style scoped>

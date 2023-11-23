@@ -5,13 +5,23 @@
 </script>
 
 <template>
-  <Card title="Welcome">
+  <Card title="Welcome"
+        class="appCard" >
 
-    Use the Arrows to navigate the days in the calendar.
+    <Row>
+      <Col :span="24">
+        Use the Arrows to navigate the days in the calendar.
+      </Col>
 
-    A: Open a gift
-    B: When looking at a gift, return to the calendar.
-    
+      <Col :span="24">
+        A: Open a gift
+      </Col>
+
+      <Col :span="24">
+        B: When looking at a gift, return to the calendar.
+      </Col>
+    </Row>
+
   </Card>
 </template>
 

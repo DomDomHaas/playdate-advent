@@ -1,12 +1,25 @@
 <script setup lang="ts">
-  import { Card } from 'ant-design-vue';
+  import { Card, BadgeRibbon, Row, Col } from 'ant-design-vue';
+
   import {useCalendarStore} from "@/stores/calendarStore";
   import {computed} from "vue";
+  import {usePlaydateStore} from "@/stores/pdStore";
+  import {storeToRefs} from "pinia";
 
   const calendarStore = useCalendarStore();
+  const playdateStore = usePlaydateStore();
+  const { themeDark } = storeToRefs(playdateStore);
 
   const adventGame = computed(() => {
     return calendarStore.selectedGame;
+  })
+
+  const discountText = computed(() => {
+    if (adventGame.value?.Discount?.toLowerCase() !== 'free') {
+      return `- ${adventGame.value?.Discount}`
+    }
+
+    return adventGame.value?.Discount;
   })
 
   const cardTitle = computed(() => {
@@ -20,52 +33,100 @@
 </script>
 
 <template>
+  <BadgeRibbon :text="discountText"
+                color="gold">
+
   <Card :title="cardTitle"
-        :bordered="true">
+        :bordered="true"
+        class="gameView"
+        :class="themeDark ? 'pdCoverInverted' : 'pdCover'"  >
 
-    <div v-if="calendarStore.currentDayUnlocked">
+    <Row v-if="calendarStore.currentDayUnlocked"
+         :gutter="[0, 10]">
 
-      <div v-if="!adventGame.Iframe">
+      <Col :span="24"
+           class="appCardText gameViewContent">
+        Advent Gift # {{ adventGame.Day }} is provided by {{ adventGame.Dev }}
+      </Col>
+
+      <Col v-if="!adventGame.Iframe"
+           class="gameViewContent"
+           :span="24">
+        <a v-if="adventGame.Url"
+           :href="adventGame.Url" target="_blank" >{{adventGame.Url}}</a>
+      </Col>
+
+      <Col v-if="adventGame.Iframe"
+           :span="24"
+           class="iframe"
+           style="border-radius: 25px;"
+           v-html="adventGame.Iframe">
+      </Col>
+
+      <Col v-if="adventGame.CatalogUrl"
+           class="gameViewContent"
+            >
+        {{ adventGame.Name }} on Catalog:
 
         <a v-if="adventGame.Url"
            :href="adventGame.Url" target="_blank" >{{adventGame.Url}}</a>
-      </div>
 
-      <div v-if="adventGame.Iframe"
-           v-html="adventGame.Iframe"
-           style="max-width: 527px;">
-      </div>
-    </div>
-  </Card>
+      </Col>
+    </Row>
+
+    <Row v-if="!calendarStore.currentDayUnlocked"
+         align="center"
+         :gutter="[0, 5]">
+      <Col :span="24"
+            class="appCardText">
+        Advent Gift with secret word "{{ adventGame["Secret words"] }}", can you I guess what it is?
+      </Col>
+    </Row>
 
 <!--
-  <div>
-    <div v-if="!calendarStore.currentDayUnlocked">
-      <h3>Advent Gift of Day {{ adventGame.Day }}</h3>
-
-      {{ adventGame["Secret words"] }}
-
-    </div>
-
-    <div v-if="calendarStore.currentDayUnlocked">
-      <h3>{{ `Advent Game #${adventGame.Day}: ${adventGame.Name}` }}</h3>
-
-
-      <div v-if="!adventGame.Iframe">
-
-        <a v-if="adventGame.Url"
-           :href="adventGame.Url" target="_blank" >{{adventGame.Url}}</a>
-      </div>
-
-      <div v-if="adventGame.Iframe"
-            v-html="adventGame.Iframe"
-            style="max-width: 527px;">
-      </div>
-    </div>
   </div>
 -->
+  </Card>
+  </BadgeRibbon>
+
+
 </template>
 
+<style>
+
+  .gameView .ant-card-head {
+    padding: 10px !important;
+  }
+
+  .gameView .ant-card-body {
+    padding: 15px 4px !important;
+  }
+
+  .iframe > iframe {
+    border-radius: 15px;
+  }
+
+</style>
+
 <style scoped>
+  .gameView {
+    /*
+    width: 520px;
+    height: 541px;
+    */
+    margin: 10px 0;
+    border-radius: 25px !important;
+    min-height: 280px;
+    background-color: white;
+  }
+
+  .gameViewContent {
+    padding: 0 10px;
+  }
+
+  .gameViewCard {
+    border: white solid 1px;
+    padding: 5px;
+  }
 
 </style>

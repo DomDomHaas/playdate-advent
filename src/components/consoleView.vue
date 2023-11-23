@@ -51,6 +51,7 @@
     <div class="dPadOverlay">
       <Button :id="DPAD_T"
               class="dPadButton"
+              style="top: 4px; left: 3px;"
               @keyup.up="dPadClick"
               @click="dPadClick" >
         <i :id="DPAD_T"
@@ -59,7 +60,7 @@
 
       <Button :id="DPAD_L"
                class="dPadButton"
-               style="top: 48px; left: -98px;"
+               style="top: 50px; left: -95px;"
                @keyup.left="dPadClick"
                @click="dPadClick" >
         <i :id="DPAD_L"
@@ -68,7 +69,7 @@
 
       <Button :id="DPAD_R"
                class="dPadButton"
-               style="top: 48px; left: -55px;"
+               style="top: 50px; left: -50px;"
                @keyup.right="dPadClick"
                @click="dPadClick" >
         <i :id="DPAD_R"
@@ -160,9 +161,9 @@
 <style scoped>
 
   .console {
-    position: absolute;
+    position: relative;
     height: 100%;
-    z-index: 2;
+    z-index: 10;
   }
 
   .buttonOverlay,

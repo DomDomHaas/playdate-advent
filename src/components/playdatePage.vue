@@ -80,4 +80,6 @@ const catchButton = (buttonName: string) => {
     height: 241px;
     width: 404px;
   }
+
+
 </style>
