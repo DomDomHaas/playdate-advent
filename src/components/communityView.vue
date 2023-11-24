@@ -38,7 +38,7 @@
         <a-icon>
           <AccountBookOutlined />
         </a-icon>
-        Join the Discord
+        Join the Discord <a href="https://discord.gg/bMB9yZTf" target="_blank" >https://discord.gg/bMB9yZTf</a>
       </Card>
     </Col>
 
@@ -61,6 +61,17 @@
         Join the Discord
       </Card>
     </Col>
+
+    <Col :span="24">
+      <Card title="Hello PlayDate Podcast"
+            class="appCard" >
+        <a-icon>
+          <AccountBookOutlined />
+        </a-icon>
+        <a href="https://itch.io/games/tag-playdate" target="_blank" >All Playdate games on Itch.io</a>
+      </Card>
+    </Col>
+
   </Row>
 </template>
 

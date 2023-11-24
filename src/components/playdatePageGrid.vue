@@ -4,24 +4,26 @@ import pgBg from "@/assets/pdBackground.png";
 import CalendarView from "@/components/calendarView.vue";
 import ConsoleView from "@/components/consoleView.vue";
 import GalleryView from "@/components/galleryView.vue";
-import { Row, Col } from 'ant-design-vue';
+import GameView from "@/components/gameView.vue";
 
+import { Row, Col } from 'ant-design-vue';
+import { Grid } from 'ant-design-vue';
 import {useCalendarStore} from "@/stores/calendarStore";
 import {usePlaydateStore} from "@/stores/pdStore";
 import {useRoute} from "vue-router";
-import {watch} from "vue";
+import {watch, computed} from "vue";
 import {storeToRefs} from "pinia";
-
-const emit = defineEmits<{
-  dPadClick: [upOrDown: number, leftOrRight: number] // named tuple syntax
-  buttonClick: [buttonName: string]
-}>()
 
 const calendarStore = useCalendarStore();
 const { openedDays } = storeToRefs(calendarStore);
 const { setCalendarIndex } = calendarStore;
 const playdateStore = usePlaydateStore();
 const { themeDark } = storeToRefs(playdateStore);
+
+/*
+const useBreakpoint = Grid.useBreakpoint;
+const screens = useBreakpoint();
+*/
 
 const route = useRoute();
 
@@ -32,6 +34,11 @@ watch<string, boolean>((): any => route.params.day,
   }
 )
 
+/*
+const isXs = computed(() => screens.value.includes('xs'));
+const isSm = computed(() => screens.value.includes('sm'));
+const isMd = computed(() => screens.value.includes('md'));
+*/
 
 const catchPad = (upOrDown: number, leftOrRight: number) => {
   emit('dPadClick', upOrDown, leftOrRight);
@@ -40,6 +47,12 @@ const catchPad = (upOrDown: number, leftOrRight: number) => {
 const catchButton = (buttonName: string) => {
   emit('buttonClick', buttonName);
 }
+
+const emit = defineEmits<{
+  dPadClick: [upOrDown: number, leftOrRight: number] // named tuple syntax
+  buttonClick: [buttonName: string]
+}>()
+
 </script>
 
 <template>

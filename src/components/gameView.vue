@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import gameGift from '@/assets/gameGift.png';
   import { Card, BadgeRibbon, Row, Col } from 'ant-design-vue';
 
   import {useCalendarStore} from "@/stores/calendarStore";
@@ -81,6 +82,12 @@
             class="appCardText">
         Advent Gift with secret word "{{ adventGame["Secret words"] }}", can you I guess what it is?
       </Col>
+
+      <Col :span="24"
+           class="gameGift">
+        <img :src="gameGift" alt="game present image">
+      </Col>
+
     </Row>
 
 <!--
@@ -93,6 +100,11 @@
 </template>
 
 <style>
+
+  .gameGift > img {
+    border-radius: 15px;
+    width: 100%
+  }
 
   .gameView .ant-card-head {
     padding: 10px !important;

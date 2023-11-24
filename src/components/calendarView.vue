@@ -52,7 +52,7 @@
 
       <div :style="index % 2 === 0 ? 'top: -3px;': 'top: 30px;'"
            class="dayBadge">
-        <span style="position: relative; top: 3px;">{{ index }}</span>
+        <span style="position: relative; top: 2px;">{{ index }}</span>
       </div>
 
       <div class="cellImg">

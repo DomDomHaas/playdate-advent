@@ -23,5 +23,9 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
-  base: '/playdate-advent/', // '/',
+  // base: '/playdate-advent/',
+  base: './',
+  build: {
+    sourcemap: true,
+  },
 })
