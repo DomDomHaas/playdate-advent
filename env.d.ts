@@ -9,6 +9,7 @@ export type adventGame = {
   "Date confirmed": string,
   "Sale confirmed": string,
   Url: string,
+  DevUrl: string,
   CatalogUrl: string,
   Iframe: string,
 }

@@ -25,7 +25,8 @@
 
   const cardTitle = computed(() => {
     if (calendarStore.currentDayUnlocked) {
-      return `Advent Game #${adventGame.value.Day}: ${adventGame.value.Name}`;
+      // return `Advent Game #${adventGame.value.Day}: ${adventGame.value.Name}`;
+      return `${adventGame.value.Name}`;
     }
 
     return `Advent Gift of Day ${adventGame.value.Day}`;
@@ -47,6 +48,9 @@
 
       <Col :span="24"
            class="appCardText gameViewContent">
+<!--
+        Advent Gift # {{ adventGame.Day }} is provided by {{ adventGame.DevUrl ? `<a href="${adventGame.DevUrl}}"` : adventGame.Dev }}
+-->
         Advent Gift # {{ adventGame.Day }} is provided by {{ adventGame.Dev }}
       </Col>
 
@@ -62,6 +66,14 @@
            class="iframe"
            style="border-radius: 25px;"
            v-html="adventGame.Iframe">
+      </Col>
+
+      <Col v-if="adventGame.DevUrl"
+           class="gameViewContent"
+      >
+        All game from {{ adventGame.Dev }} on itch.io:
+
+        <a :href="adventGame.DevUrl" target="_blank" >{{adventGame.DevUrl}}</a>
       </Col>
 
       <Col v-if="adventGame.CatalogUrl"
