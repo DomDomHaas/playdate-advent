@@ -1,5 +1,7 @@
 /// <reference types="vite/client" />
 
+import type {playdateState} from "@/stores/pdStore";
+
 export type adventGame = {
   Day: string,
   Name: string,
@@ -10,8 +12,8 @@ export type adventGame = {
   "Sale confirmed": string,
   Url: string,
   DevUrl: string,
-  CatalogUrl: string,
   Iframe: string,
+  Notes: string,
 }
 
 export type consistent = {

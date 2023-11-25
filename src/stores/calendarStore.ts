@@ -127,7 +127,6 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
       "Date confirmed": '',
       "Sale confirmed": '',
       Url: '',
-      CatalogUrl: '',
       Iframe: '',
     };
   });

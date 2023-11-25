@@ -76,15 +76,6 @@
         <a :href="adventGame.DevUrl" target="_blank" >{{adventGame.DevUrl}}</a>
       </Col>
 
-      <Col v-if="adventGame.CatalogUrl"
-           class="gameViewContent"
-            >
-        {{ adventGame.Name }} on Catalog:
-
-        <a v-if="adventGame.Url"
-           :href="adventGame.Url" target="_blank" >{{adventGame.Url}}</a>
-
-      </Col>
     </Row>
 
     <Row v-if="!calendarStore.currentDayUnlocked"
