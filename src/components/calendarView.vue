@@ -109,10 +109,6 @@
 /*    background-color: rgb(128, 128, 128);*/
   }
 
-  .cellOpened > .cellImg{
-    filter: invert(0%) !important;
-  }
-
   .cellOpened > .cellImg {
     transform: scale(0.95);
     padding: 8px 5px 0 6px;
