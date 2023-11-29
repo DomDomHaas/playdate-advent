@@ -190,29 +190,4 @@ const getFileNumber = (filePath: string) => {
   return Number.parseInt(numberStr, 10);
 }
 
-export const getCards = () => {
 
-  const pngGlob = import.meta.glob('@/assets/cards/*', { eager: true });
-  const cards: any[] = addImages(pngGlob, null);
-
-  cards.sort(sortASC);
-
-  console.log('sorted cards');
-  console.log(cards);
-
-  return cards;
-}
-
-
-export const getIcons = () => {
-
-  const pngGlob = import.meta.glob('@/assets/icons/*', { eager: true });
-  const icons: string[] = addImages(pngGlob, null);
-
-  icons.sort(sortASC);
-
-  console.log('sorted icons');
-  console.log(icons);
-
-  return icons;
-}

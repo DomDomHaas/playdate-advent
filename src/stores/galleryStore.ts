@@ -1,7 +1,8 @@
 import {ref, computed, type Ref, type UnwrapRef, type ComputedRef} from 'vue'
 
 import { defineStore } from 'pinia'
-import {getCards, getScreenshots} from "./imageFactory";
+import {getScreenshots} from "./imageFactory";
+import {getCards} from "@/stores/cardFactory";
 import {useCalendarStore} from "./calendarStore";
 
 export const GALLERY_STORE: string = 'GALLERY_STORE';

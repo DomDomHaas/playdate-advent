@@ -1,5 +1,6 @@
 <script setup lang="ts">
-  import {getGiftIndecies, getGifts, getIcons} from "@/stores/imageFactory";
+  import {getGiftIndecies, getGifts} from "@/stores/imageFactory";
+  import {getIcons} from '@/stores/iconFactory';
   import {storeToRefs} from "pinia";
   import {usePlaydateStore} from "@/stores/pdStore";
 
