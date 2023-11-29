@@ -5,7 +5,8 @@ import {getScreenshots} from "./imageFactory";
 import {getCards} from "@/stores/cardFactory";
 import {useCalendarStore} from "./calendarStore";
 
-export const GALLERY_STORE: string = 'GALLERY_STORE';
+const suffix = import.meta.env.VITE_LOCAL_STORAGE_SUFFIX
+export const GALLERY_STORE: string = `GALLERY_STORE_${suffix}`;
 
 
 export const useGalleryStore = defineStore('galleryStore', () => {

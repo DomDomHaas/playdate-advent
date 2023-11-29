@@ -20,8 +20,8 @@ const currentTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 console.log(`your local timezone: ${currentTimeZone}`)
 const PSTTimeZone: string = 'America/Los_Angeles';
 
-
-export const PD_STORE: string = 'PD_STORE';
+const suffix = import.meta.env.VITE_LOCAL_STORAGE_SUFFIX
+export const PD_STORE: string = `PD_STORE_${suffix}`;
 
 export const usePlaydateStore = defineStore(PD_STORE, () => {
 

@@ -7,7 +7,8 @@ import type {adventGame, consistent} from "../../env";
 import {defineStore, storeToRefs} from 'pinia'
 import {usePlaydateStore} from "@/stores/pdStore";
 
-export const CALENDAR_STORE: string = 'CALENDAR_STORE';
+const suffix = import.meta.env.VITE_LOCAL_STORAGE_SUFFIX
+export const CALENDAR_STORE: string = `CALENDAR_STORE_${suffix}`;
 
 // testing
 const calendarStartDate = '2023-10-25';
