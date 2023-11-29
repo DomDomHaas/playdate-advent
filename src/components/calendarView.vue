@@ -3,6 +3,10 @@
   import {getIcons} from '@/stores/iconFactory';
   import {storeToRefs} from "pinia";
   import {usePlaydateStore} from "@/stores/pdStore";
+  import {computed} from "vue";
+  import type {Ref} from "vue";
+  import type {ScreenMap} from "ant-design-vue/es/_util/responsiveObserve";
+  import useBreakpoint from "ant-design-vue/es/_util/hooks/useBreakpoint";
 
   const {
     selection,
@@ -23,6 +27,8 @@
   const icons = getIcons();
   const giftIndecies = getGiftIndecies(daysAmount, giftImages.length - 1);
 
+  const breaks: Ref<ScreenMap> = useBreakpoint();
+  const xsAndSmLayout = computed(() => (breaks.value.xs || breaks.value.sm) && !breaks.value.md)
 
   function cellImage(index: number) {
     let diffIndex = index - 1;
@@ -32,6 +38,13 @@
     }
 
     return giftImages[giftIndecies[diffIndex]]
+  }
+
+  function getBadeStyle(index: number) {
+    if (xsAndSmLayout) {
+      return index % 2 === 0 ? 'top: 0;': 'top: 20px;'
+    }
+    return index % 2 === 0 ? 'top: -3px;': 'top: 30px;'
   }
 </script>
 
@@ -47,11 +60,11 @@
           'cellOpened': openedDays.includes(index),
           'cellClosed': !openedDays.includes(index),
           'cellSelected': selection === index,
-          'cellInverted': themeDark,
+          'cellInverted': !themeDark,
           }"
          >
 
-      <div :style="index % 2 === 0 ? 'top: -3px;': 'top: 30px;'"
+      <div :style="getBadeStyle(index)"
            class="dayBadge">
         <span style="position: relative; top: 2px;">{{ index }}</span>
       </div>
@@ -72,20 +85,6 @@
 </template>
 
 <style scoped>
-  .calenderGrid {
-    position: absolute;
-    top: 0;
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    /*
-    gap: 5px;
-    */
-    width: 400px;
-    height: 238px;
-    padding: 36px 0 0 36px;
-    z-index: 1;
-  }
 
   .calenderCell {
     display: flex;
@@ -131,7 +130,25 @@
   .cellSelected > .dayBadge {
     filter: invert(100%);
     transform: scale(1.1) !important;
+    transition: 0.3s all;
   }
+
+  @media (max-width: 560px) {
+    .calenderCell {
+      margin: 0;
+      padding: 0;
+    }
+
+    .calenderCell > .cellImg {
+      transform: scale(0.65);
+    }
+
+    .cellSelected > .cellImg,
+    .cellSelected > .dayBadge {
+      transform: scale(0.85) !important;
+    }
+  }
+
 
   .cellSelected.cellInverted > .cellImg,
   .cellSelected.cellInverted > .dayBadge {
@@ -174,6 +191,20 @@
   .waitMsg.waitOut > div {
     padding: 20px;
     height: 100%;
+  }
+
+  @media (max-width: 560px) {
+    .waitMsg {
+      margin: 20px 0 0 20px;
+    }
+
+    .waitMsg > div {
+      font-size: 1.3rem;
+    }
+
+    .waitMsg.waitOut > div {
+      padding: 10px;
+    }
   }
 
 </style>

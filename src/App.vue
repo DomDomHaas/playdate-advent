@@ -7,14 +7,17 @@ import {useGalleryStore} from "@/stores/galleryStore";
 import {usePlaydateStore} from "@/stores/pdStore";
 import {storeToRefs} from "pinia";
 import type {Ref, UnwrapRef} from 'vue'
-import {nextTick, onMounted, ref} from "vue";
-import {BulbFilled, BulbOutlined} from "@ant-design/icons-vue";
+import {computed, nextTick, onMounted, ref} from "vue";
+
 import useBreakpoint from "ant-design-vue/es/_util/hooks/useBreakpoint";
 import type {ScreenMap} from "ant-design-vue/es/_util/responsiveObserve";
 
 import CommunityView from "@/components/communityView.vue";
 import WelcomeView from "@/components/welcomeView.vue";
 import PlaydatePageGrid from "@/components/playdatePageGrid.vue";
+import PdTitle from "@/components/pdTitle.vue";
+import LightSwitch from "@/components/lightSwitch.vue";
+import PdTime from "@/components/pdTime.vue";
 
 const playdateStore = usePlaydateStore();
 const calendarStore = useCalendarStore();
@@ -23,17 +26,6 @@ const { themeDark } = storeToRefs(playdateStore);
 
 const breaks: Ref<ScreenMap> = useBreakpoint();
 
-let isMounted: Ref<UnwrapRef<boolean>> = ref(false);
-
-onMounted(() => {
-  nextTick(() => {
-    isMounted.value = true;
-  });
-})
-
-const changeTheme = (checked: boolean) => {
-  playdateStore.changeThemeDark(checked);
-}
 
 const catchPad = (upOrDown: number, leftOrRight: number) => {
   if (playdateStore.showCalendar) {
@@ -69,88 +61,172 @@ const catchButton = (buttonName: string) => {
   }
 }
 
+const xsAndSmLayout = computed(() => calendarStore.isCalendarReady && (breaks.value.xs || breaks.value.sm) && !breaks.value.md)
+const mdLayout = computed(() => calendarStore.isCalendarReady && (breaks.value.md || breaks.value.lg) && !breaks.value.xl)
+const lgLayout = computed(() => calendarStore.isCalendarReady && breaks.value.xl)
+
 </script>
 
 <template>
 
-<!--
-  <Row class="navBar">
-    <Col span="24">
-      <TheNavBar />
+<main>
+
+  <Row v-if="!calendarStore.isCalendarReady"
+        :gutter="[16, 16]"
+        style="height: 100vh;">
+    <Col :span="8"
+         class="welcomeTitle">
+      <pdTitle :theme-dark="themeDark" />
+    </Col>
+
+    <Col :span="8"
+         style="line-height: 0.8em; text-align: center;"
+         class="welcomeTitle">
+
+      <div class="playdateYellowBright" >
+        {{ 'Coming' }}
+
+      </div>
+      <div class="playdateYellowDark" >
+        {{ '1st Dec' }}
+      </div>
+    </Col>
+
+    <Col :span="8"
+         class="welcomeTitle">
+      <pd-time :themeDark="themeDark"/>
     </Col>
   </Row>
+
+
+  <Row v-if="xsAndSmLayout"
+       :gutter="[8, 8]"
+       class="mainContentXs"
+       id="mainRow">
+
+    <Col :span="24"
+         class="welcomeTitle">
+      <pdTitle :theme-dark="themeDark" />
+    </Col>
+
+<!--
+    <Col>
+      <Button >Go To Calendar</Button>
+    </Col>
 -->
 
-  <Row :gutter="[8, 8]"
-        class="mainContent">
+    <Col :span="24"
+         id="infoCol">
+      <welcome-view />
+    </Col>
 
-    <Col :xs="{ order: 2, span: 24 }"
-         :sm="{ order: 1, span: 7 }">
+    <Col :span="24"
+         id="playdateCol">
+      <PlaydatePageGrid @dPadClick="catchPad"
+                        @buttonClick="catchButton" />
+    </Col>
+
+    <Col :span="24" >
+      <LightSwitch />
+    </Col>
+
+    <Col :span="24"
+         id="communityCol">
+      <community-view />
+    </Col>
+  </Row>
+
+  <Row v-if="mdLayout"
+        :gutter="[8, 8]"
+        class="mainContentSm"
+        id="mainRow">
+
+    <Col :span="8"
+         id="infoCol">
 
       <Row :gutter="[15, 20]">
         <Col :span="24"
-              id="xs-switch">
+             class="welcomeTitle">
+          <pdTitle :theme-dark="themeDark" />
+        </Col>
+
+        <Col :span="24">
+          <LightSwitch />
 
         </Col>
+
+        <Col :span="24" >
+          <welcome-view />
+        </Col>
+
         <Col :span="24"
-             justify="middle"
+             id="communityCol">
+          <community-view />
+        </Col>
+      </Row>
+    </Col>
+
+    <Col :span="16"
+         id="playdateCol">
+      <PlaydatePageGrid @dPadClick="catchPad"
+                        @buttonClick="catchButton" />
+    </Col>
+
+
+  </Row>
+
+  <Row v-if="lgLayout"
+        :gutter="[16, 16]"
+        class="mainContent"
+        id="mainRow">
+
+    <Col :span="7"
+          id="infoCol">
+
+      <Row :gutter="[15, 20]">
+
+        <Col :span="24"
               class="welcomeTitle">
-          <div style="color: #FFC900;">play</div>
-          <div style="position: relative; left: 3px; top: 5px; color: #FFB200;">date</div>
-          <div style="position: relative; left: 14px; top: -5px; " :class="themeDark ? 'pdTitleColor' : 'pdTitleColor'">advent</div>
+          <pdTitle :theme-dark="themeDark" />
         </Col>
 
         <Col :span="24">
           <welcome-view ></welcome-view>
         </Col>
-        <!-- useBreakpoints? to move the community-view
-         here for the sm breakpoint? -->
 
-        <Col :span="24"
-             id="xs-community">
-
+        <Col :span="24" >
+          <LightSwitch />
         </Col>
 
       </Row>
     </Col>
 
-    <Col :xs="{ order: 1, span: 24 }"
-         :sm="{ order: 2, span: 10 }">
-<!--
-    <Col flex="560px" >
--->
+    <Col :span="10"
+          id="playdateCol">
+
       <PlaydatePageGrid @dPadClick="catchPad"
                         @buttonClick="catchButton" />
+
     </Col>
 
-    <Col :xs="{ order: 3, span: 24 }"
-         :sm="{ order: 3, span: 7 }">
-      <Row>
-        <Col :span="24"
-             id="sm-switch" >
-          <Teleport :to="themeDark ? '#xs-switch' : '#sm-switch'"
-                    :disabled="!isMounted">
-            <Switch :checked="themeDark"
-                    class="white-text"
-                    @click="changeTheme"
-            >
-              <template #checkedChildren><BulbFilled/></template>
-              <template #unCheckedChildren><BulbOutlined/></template>
-            </Switch>
-          </Teleport>
-        </Col>
+    <Col :span="7"
+          id="communityCol">
 
+      <Row :gutter="[16, 16]" >
         <Col :span="24"
-             id="sm-community" >
-          <Teleport :to="themeDark ? '#xs-community' : '#sm-community'"
-                    :disabled="!isMounted">
-            <community-view ></community-view>
-          </Teleport>
+             class="welcomeTitle">
+          <pd-time :themeDark="themeDark"/>
+        </Col>
+        <Col :span="24" >
+          <community-view ></community-view>
         </Col>
       </Row>
     </Col>
 
   </Row>
+
+</main>
+
 
 </template>
 
@@ -165,17 +241,27 @@ const catchButton = (buttonName: string) => {
     font-family: 'Libre Franklin', sans-serif;
   }
 
-  .playdateFrame {
-    /*
-    height: 489px;
-    width: 527px;
-    */
-    height: 541px;
-    width: 560px;
-  }
-
   .appCard {
     background-color: indianred;
+  }
+
+  @media (max-width: 768px) {
+    .appCard {
+      width: 550px;
+      max-width: 100%;
+    }
+  }
+
+  .playdateYellowBright {
+    color: #FFC900;
+  }
+
+  .playdateYellowDark {
+    color: #FFB200;
+  }
+
+  .appCard a {
+    color: #FFC900;
   }
 
   .appCardText {
@@ -209,17 +295,34 @@ const catchButton = (buttonName: string) => {
 
 <style scoped>
 
+  main {
+    padding: 10px;
+    background-color: #214646;
+  }
+
+  @media (max-width: 560px) {
+    main {
+      padding: 5px;
+    }
+  }
+
   .welcomeTitle {
     font-size: 5rem;
     line-height: 0.7em;
-    padding: 20px !important;
+    padding: 10px 20px !important;
+    height: 200px;
   }
 
   .mainContent {
     height: 100%;
     width: 100%;
+  }
+  
+  /*
+  .mainContentXs, .mainContentSm, .mainContent {
     background-color: #214646;
   }
+  */
 
   .navBar {
     /*

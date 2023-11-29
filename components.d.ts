@@ -7,18 +7,20 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    ABadgeRibbon: typeof import('ant-design-vue/es')['BadgeRibbon']
-    ACard: typeof import('ant-design-vue/es')['Card']
     CalendarView: typeof import('./src/components/calendarView.vue')['default']
     CommunityView: typeof import('./src/components/communityView.vue')['default']
     ConsoleView: typeof import('./src/components/consoleView.vue')['default']
     GalleryView: typeof import('./src/components/galleryView.vue')['default']
     GameView: typeof import('./src/components/gameView.vue')['default']
+    LightSwitch: typeof import('./src/components/lightSwitch.vue')['default']
+    PdTime: typeof import('./src/components/pdTime.vue')['default']
+    PdTitle: typeof import('./src/components/pdTitle.vue')['default']
     PlaydatePage: typeof import('./src/components/playdatePage.vue')['default']
     PlaydatePageGrid: typeof import('./src/components/playdatePageGrid.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TheNavBar: typeof import('./src/components/TheNavBar.vue')['default']
+    Time: typeof import('./src/components/time.vue')['default']
     WelcomeView: typeof import('./src/components/welcomeView.vue')['default']
   }
 }

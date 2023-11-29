@@ -2,6 +2,10 @@
   import playdateConsole from '@/assets/playdate.png';
   import {BUTTON_A, BUTTON_B, DPAD_L, DPAD_R, DPAD_B, DPAD_T} from "@/interaction";
   import { Button } from 'ant-design-vue';
+  import {computed} from "vue";
+  import type {Ref} from "vue";
+  import type {ScreenMap} from "ant-design-vue/es/_util/responsiveObserve";
+  import useBreakpoint from "ant-design-vue/es/_util/hooks/useBreakpoint";
 
 //  const emit = defineEmits(['dPadClick', 'buttonClick']);
 
@@ -34,6 +38,9 @@
     emit('dPadClick', upOrDown, leftOrRight);
   }
 
+  const breaks: Ref<ScreenMap> = useBreakpoint();
+  const xsAndSmLayout = computed(() => (breaks.value.xs || breaks.value.sm) && !breaks.value.md)
+
 </script>
 
 <template>
@@ -44,14 +51,12 @@
          :src="playdateConsole"
          alt="playdate frame"/>
 
-<!--
-    <slot style="height: 100%"></slot>
--->
+    <Time :style="`${ xsAndSmLayout ? 'position: absolute; top: 225px; left: 20px;' : 'position: absolute; top: 497px; left: 70px;'}`"/>
 
     <div class="dPadOverlay">
       <Button :id="DPAD_T"
               class="dPadButton"
-              style="top: 4px; left: 3px;"
+              :style="`${ xsAndSmLayout ? 'top: -95px; left: -30px;' : 'top: 4px; left: 3px;'}`"
               @keyup.up="dPadClick"
               @click="dPadClick" >
         <i :id="DPAD_T"
@@ -60,7 +65,7 @@
 
       <Button :id="DPAD_L"
                class="dPadButton"
-               style="top: 50px; left: -95px;"
+               :style="`${ xsAndSmLayout ? 'top: -55px; left: -120px;' : 'top: 50px; left: -95px;'}`"
                @keyup.left="dPadClick"
                @click="dPadClick" >
         <i :id="DPAD_L"
@@ -69,7 +74,7 @@
 
       <Button :id="DPAD_R"
                class="dPadButton"
-               style="top: 50px; left: -50px;"
+               :style="`${ xsAndSmLayout ? 'top: -55px; left: -90px;' : 'top: 50px; left: -50px;'}`"
                @keyup.right="dPadClick"
                @click="dPadClick" >
         <i :id="DPAD_R"
@@ -78,7 +83,7 @@
 
       <Button :id="DPAD_B"
                class="dPadButton"
-               style="top: 95px; left: -155px;"
+               :style="`${ xsAndSmLayout ? 'top: -15px; left: -180px;' : 'top: 100px; left: -150px;'}`"
                @keyup.down="dPadClick"
                @click="dPadClick" >
         <i :id="DPAD_B"
@@ -95,65 +100,11 @@
 
       <Button :id="BUTTON_A"
                class="pdButton btnA"
-               style="position: relative; left: 53px"
+               style="position: relative; left: 45px"
                @click="buttonClick">
       </Button>
     </div>
 
-<!--
-    <div class="dPadOverlay">
-      <div :id="DPAD_T"
-           class="dPadButton"
-           @keyup.up="dPadClick"
-           @click.prevent="dPadClick">
-        <i :id="DPAD_T"
-           @click.stop="dPadClick"
-           class="material-icons">keyboard_arrow_up</i>
-      </div>
-      <div :id="DPAD_L"
-           class="dPadButton"
-           style="top: 48px; left: -98px;"
-           @keyup.left="dPadClick"
-           @click.prevent="dPadClick">
-        <i :id="DPAD_L"
-           @click.stop="dPadClick"
-           class="material-icons">keyboard_arrow_left</i>
-      </div>
-      <div :id="DPAD_R"
-           class="dPadButton"
-           style="top: 48px; left: -55px;"
-           @keyup.right="dPadClick"
-           @click.prevent="dPadClick">
-        <i :id="DPAD_R"
-           @click.stop="dPadClick"
-           class="material-icons">keyboard_arrow_right</i>
-      </div>
-      <div :id="DPAD_B"
-           class="dPadButton"
-           style="top: 95px; left: -155px;"
-           @keyup.down="dPadClick"
-           @click.prevent="dPadClick">
-        <i :id="DPAD_B"
-           @click.stop="dPadClick"
-           class="material-icons">keyboard_arrow_down</i>
-      </div>
-    </div>
--->
-
-<!--
-    <div class="buttonOverlay">
-      <div :id="BUTTON_B"
-           class="pdButton"
-           @click="buttonClick">
-      </div>
-
-      <div :id="BUTTON_A"
-           class="pdButton btnA"
-           style="position: relative; left: 53px"
-           @click="buttonClick">
-      </div>
-    </div>
--->
 
   </div>
 </template>
@@ -178,7 +129,7 @@
     left: 63px;
     */
     top: 333px;
-    left: 81px;
+    left: 78px;
   }
 
   .buttonOverlay {
@@ -186,6 +137,17 @@
     left: 272px;*/
     top: 350px;
     left: 279px;
+  }
+
+  @media (max-width: 560px) {
+    .buttonOverlay {
+      top: 255px;
+      left: 198px;
+    }
+
+    .btnA {
+      left: 15px !important;
+    }
   }
 
   /*
@@ -201,8 +163,8 @@
   }
   */
 
+  /*
   @media (max-width: 1024px) {
-/*
     .dPadOverlay {
       top: 300px;
       left: 60px;
@@ -212,12 +174,12 @@
       top: 314px;
       left: 263px;
     }
-    */
 
     .btnA {
-      left: 46px !important;
+      left: 46px;
     }
   }
+  */
 
   .pdButton,
   .dPadButton {

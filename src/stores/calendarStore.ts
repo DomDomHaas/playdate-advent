@@ -68,6 +68,15 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
     return isUnlockable(currentDayMonthYear.value, consistent.value.calendarIndex);
   });
 
+  const isCalendarReady = computed(() => {
+    const playdateStore = usePlaydateStore();
+    const { currentDayMonthYear } = storeToRefs(playdateStore);
+
+    const startDay = calendarStartDate.substring(8, 10);
+    const dayNumber = Number.parseInt(startDay, 10);
+    return isUnlockable(currentDayMonthYear.value, dayNumber);
+  })
+
   const calendarIndex = computed(() => consistent.value.calendarIndex);
   const openedDays = computed(() => consistent.value.openedDays);
 
@@ -152,6 +161,7 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
       Url: '',
       DevUrl: '',
       Iframe: '',
+      IframeMobile: '',
       Notes: '',
     };
   });
@@ -179,7 +189,7 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
   return {
     calendarIndex, openedDays, dayIsOpening,
     setCalendarIndex, updateCalendarIndex,
-    openDay, triggerWaitMessage,
+    openDay, triggerWaitMessage, isCalendarReady,
     currentDayUnlocked, isCurrentDayUnlockable,
     showWaitMessage, selectedGame, daysAmount,
   }

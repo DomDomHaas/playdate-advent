@@ -49,6 +49,10 @@ export const usePlaydateStore = defineStore(PD_STORE, () => {
     return moment.tz(localDateTime.value, PSTTimeZone).format('h:mm:ss a - DD. MMM');
   });
 
+  const currentTime: ComputedRef<string> = computed(() => {
+    return moment.tz(localDateTime.value, PSTTimeZone).format('h:mm:ss a');
+  });
+
   const currentDayMonth: ComputedRef<string> = computed(() => {
     return moment.tz(localDateTime.value, PSTTimeZone).format('DD. MMM');
   });
@@ -72,7 +76,7 @@ export const usePlaydateStore = defineStore(PD_STORE, () => {
 
   return {
     state, themeDark,
-    currentDateTime, currentDayMonth, currentDayMonthYear,
+    currentDateTime, currentDayMonth, currentDayMonthYear, currentTime,
     changeThemeDark, changeToGallery, changeToCalendar,
     showGallery, showCalendar,
   }

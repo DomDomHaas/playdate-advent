@@ -7,10 +7,16 @@
   import {computed} from "vue";
   import {usePlaydateStore} from "@/stores/pdStore";
   import {storeToRefs} from "pinia";
+  import type {Ref} from "vue";
+  import type {ScreenMap} from "ant-design-vue/es/_util/responsiveObserve";
+  import useBreakpoint from "ant-design-vue/es/_util/hooks/useBreakpoint";
 
   const calendarStore = useCalendarStore();
   const playdateStore = usePlaydateStore();
   const { themeDark } = storeToRefs(playdateStore);
+
+  const breaks: Ref<ScreenMap> = useBreakpoint();
+  const xsAndSmLayout = computed(() => (breaks.value.xs || breaks.value.sm) && !breaks.value.md)
 
   const adventGame = computed(() => {
     return calendarStore.selectedGame;
@@ -39,20 +45,49 @@
   <BadgeRibbon :text="discountText"
                 color="gold">
 
-  <Card :title="cardTitle"
+  <Card :title="`Advent Gift # ${adventGame.Day} is presented by ${adventGame.Dev}`"
         :bordered="true"
         class="gameView"
         :class="themeDark ? 'pdCoverInverted' : 'pdCover'"  >
 
-    <Row v-if="calendarStore.currentDayUnlocked"
-         :gutter="[0, 10]">
+    <Row v-if="xsAndSmLayout && calendarStore.currentDayUnlocked"
+         :gutter="[0, 5]">
+      <Col v-if="adventGame.Notes"
+           class="gameViewContent"
+           v-html="adventGame.Notes" >
+      </Col >
 
-      <Col :span="24"
+      <Col v-if="!adventGame.Iframe"
+           class="gameViewContent"
+           :span="24">
+        <a v-if="adventGame.Url"
+           :href="adventGame.Url" target="_blank" >{{adventGame.Url}}</a>
+      </Col>
+
+      <Col v-if="adventGame.IframeMobile"
+           :span="24"
+           class="iframe"
+           style="text-align: center;"
+           v-html="adventGame.IframeMobile">
+      </Col>
+
+      <Col v-if="!adventGame.IframeMobile && adventGame.Iframe"
+           :span="24"
+           class="iframe"
+           v-html="adventGame.Iframe">
+      </Col>
+    </Row>
+
+    <Row v-if="!xsAndSmLayout && calendarStore.currentDayUnlocked"
+         :gutter="[0, 5]">
+
+      <Col v-if="!adventGame.Iframe"
+           :span="24"
            class="appCardText gameViewContent">
 <!--
-        Advent Gift # {{ adventGame.Day }} is provided by {{ adventGame.DevUrl ? `<a href="${adventGame.DevUrl}}"` : adventGame.Dev }}
+        Advent Gift # {{ adventGame.Day }} is presented by {{ adventGame.Dev }}
 -->
-        Advent Gift # {{ adventGame.Day }} is provided by {{ adventGame.Dev }}
+        {{ cardTitle }}
       </Col>
 
       <Col v-if="adventGame.Notes"
@@ -76,6 +111,7 @@
 
       <Col v-if="adventGame.DevUrl"
            class="gameViewContent"
+           style="padding-bottom: 5px;"
       >
         All games from {{ adventGame.Dev }} on itch.io:
 
@@ -85,10 +121,10 @@
     </Row>
 
     <Row v-if="!calendarStore.currentDayUnlocked"
-         align="middle"
-         :gutter="[0, 10]">
+         :gutter="[10, 10]">
+
       <Col :span="24"
-            class="appCardText">
+            class="appCardText gameViewContent">
         Advent Gift with secret word "{{ adventGame["Secret words"] }}", what could it be?
       </Col>
 
@@ -135,6 +171,7 @@
   }
 
   .iframe > iframe {
+    padding: 10px 0;
     border-radius: 15px;
   }
 

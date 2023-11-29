@@ -53,14 +53,6 @@
 </template>
 
 <style scoped>
-  .gallery {
-    position: absolute;
-    top: 0;
-    width: 400px;
-    height: 238px;
-    padding: 36px 0 0 34px;
-    z-index: 1;
-  }
 
   .galleryImage {
     /*
