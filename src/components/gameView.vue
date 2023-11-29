@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import gameGift from '@/assets/gameGift.png';
+  import gameGiftUnwrap from '@/assets/gameGiftUnwrap.gif';
   import { Card, BadgeRibbon, Row, Col } from 'ant-design-vue';
 
   import {useCalendarStore} from "@/stores/calendarStore";
@@ -16,20 +17,20 @@
   })
 
   const discountText = computed(() => {
-    if (adventGame.value?.Discount?.toLowerCase() !== 'free') {
-      return `- ${adventGame.value?.Discount}`
+    if (adventGame?.value?.Discount?.toLowerCase() !== 'free') {
+      return `- ${adventGame?.value?.Discount}`
     }
 
-    return adventGame.value?.Discount;
+    return adventGame?.value?.Discount;
   })
 
   const cardTitle = computed(() => {
     if (calendarStore.currentDayUnlocked) {
       // return `Advent Game #${adventGame.value.Day}: ${adventGame.value.Name}`;
-      return `${adventGame.value.Name}`;
+      return `${adventGame?.value?.Name}`;
     }
 
-    return `Advent Gift of Day ${adventGame.value.Day}`;
+    return `Advent Gift of Day ${adventGame?.value.Day}`;
   })
 
 </script>
@@ -54,6 +55,11 @@
         Advent Gift # {{ adventGame.Day }} is provided by {{ adventGame.Dev }}
       </Col>
 
+      <Col v-if="adventGame.Notes"
+           class="gameViewContent"
+           v-html="adventGame.Notes" >
+      </Col >
+
       <Col v-if="!adventGame.Iframe"
            class="gameViewContent"
            :span="24">
@@ -71,7 +77,7 @@
       <Col v-if="adventGame.DevUrl"
            class="gameViewContent"
       >
-        All game from {{ adventGame.Dev }} on itch.io:
+        All games from {{ adventGame.Dev }} on itch.io:
 
         <a :href="adventGame.DevUrl" target="_blank" >{{adventGame.DevUrl}}</a>
       </Col>
@@ -79,16 +85,19 @@
     </Row>
 
     <Row v-if="!calendarStore.currentDayUnlocked"
-         align="center"
-         :gutter="[0, 5]">
+         align="middle"
+         :gutter="[0, 10]">
       <Col :span="24"
             class="appCardText">
-        Advent Gift with secret word "{{ adventGame["Secret words"] }}", can you I guess what it is?
+        Advent Gift with secret word "{{ adventGame["Secret words"] }}", what could it be?
       </Col>
 
       <Col :span="24"
            class="gameGift">
-        <img :src="gameGift" alt="game present image">
+
+        <img v-if="calendarStore.dayIsOpening" :src="gameGiftUnwrap" alt="game unwrapping present gif">
+
+        <img v-if="!calendarStore.dayIsOpening" :src="gameGift" alt="game present image">
       </Col>
 
     </Row>
@@ -104,9 +113,17 @@
 
 <style>
 
+  .gameGift {
+    /*
+    width: 400px;
+    */
+    height: 175px;
+    text-align: center;
+  }
+
   .gameGift > img {
     border-radius: 15px;
-    width: 100%
+    height: 100%;
   }
 
   .gameView .ant-card-head {
@@ -129,6 +146,7 @@
     width: 520px;
     height: 541px;
     */
+    height: 350px;
     margin: 10px 0;
     border-radius: 25px !important;
     min-height: 280px;

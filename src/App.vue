@@ -1,23 +1,39 @@
 <script setup lang="ts">
-
-// import PlaydatePage from "@/components/playdatePage.vue";
-// import TheNavBar from "@/components/TheNavBar.vue";
 import {BUTTON_A, BUTTON_B} from "@/interaction";
-import { Row, Col } from 'ant-design-vue';
-
-import CommunityView from "@/components/communityView.vue";
-import WelcomeView from "@/components/welcomeView.vue";
-import PlaydatePageGrid from "@/components/playdatePageGrid.vue";
+import {Row, Col, Switch} from 'ant-design-vue';
 
 import {useCalendarStore} from "@/stores/calendarStore";
 import {useGalleryStore} from "@/stores/galleryStore";
 import {usePlaydateStore} from "@/stores/pdStore";
 import {storeToRefs} from "pinia";
+import type {Ref, UnwrapRef} from 'vue'
+import {nextTick, onMounted, ref} from "vue";
+import {BulbFilled, BulbOutlined} from "@ant-design/icons-vue";
+import useBreakpoint from "ant-design-vue/es/_util/hooks/useBreakpoint";
+import type {ScreenMap} from "ant-design-vue/es/_util/responsiveObserve";
+
+import CommunityView from "@/components/communityView.vue";
+import WelcomeView from "@/components/welcomeView.vue";
+import PlaydatePageGrid from "@/components/playdatePageGrid.vue";
 
 const playdateStore = usePlaydateStore();
 const calendarStore = useCalendarStore();
 const galleryStore = useGalleryStore();
 const { themeDark } = storeToRefs(playdateStore);
+
+const breaks: Ref<ScreenMap> = useBreakpoint();
+
+let isMounted: Ref<UnwrapRef<boolean>> = ref(false);
+
+onMounted(() => {
+  nextTick(() => {
+    isMounted.value = true;
+  });
+})
+
+const changeTheme = (checked: boolean) => {
+  playdateStore.changeThemeDark(checked);
+}
 
 const catchPad = (upOrDown: number, leftOrRight: number) => {
   if (playdateStore.showCalendar) {
@@ -71,21 +87,29 @@ const catchButton = (buttonName: string) => {
     <Col :xs="{ order: 2, span: 24 }"
          :sm="{ order: 1, span: 7 }">
 
-      <Row align="top">
+      <Row :gutter="[15, 20]">
+        <Col :span="24"
+              id="xs-switch">
+
+        </Col>
         <Col :span="24"
              justify="middle"
               class="welcomeTitle">
           <div style="color: #FFC900;">play</div>
-          <div style="position: relative; left: 5px; color: #FFB200;">date</div>
-          <div style="position: relative; left: 12px; " :class="themeDark ? 'pdTitleColor' : 'pdTitleColor'">advent</div>
+          <div style="position: relative; left: 3px; top: 5px; color: #FFB200;">date</div>
+          <div style="position: relative; left: 14px; top: -5px; " :class="themeDark ? 'pdTitleColor' : 'pdTitleColor'">advent</div>
         </Col>
 
         <Col :span="24">
           <welcome-view ></welcome-view>
-
         </Col>
         <!-- useBreakpoints? to move the community-view
          here for the sm breakpoint? -->
+
+        <Col :span="24"
+             id="xs-community">
+
+        </Col>
 
       </Row>
     </Col>
@@ -101,34 +125,32 @@ const catchButton = (buttonName: string) => {
 
     <Col :xs="{ order: 3, span: 24 }"
          :sm="{ order: 3, span: 7 }">
-      <community-view ></community-view>
+      <Row>
+        <Col :span="24"
+             id="sm-switch" >
+          <Teleport :to="themeDark ? '#xs-switch' : '#sm-switch'"
+                    :disabled="!isMounted">
+            <Switch :checked="themeDark"
+                    class="white-text"
+                    @click="changeTheme"
+            >
+              <template #checkedChildren><BulbFilled/></template>
+              <template #unCheckedChildren><BulbOutlined/></template>
+            </Switch>
+          </Teleport>
+        </Col>
+
+        <Col :span="24"
+             id="sm-community" >
+          <Teleport :to="themeDark ? '#xs-community' : '#sm-community'"
+                    :disabled="!isMounted">
+            <community-view ></community-view>
+          </Teleport>
+        </Col>
+      </Row>
     </Col>
 
   </Row>
-
-<!--
-  <div class="pageGrid">
-    <div class="left">
-      <welcome-view />
-    </div>
-
-    <div class="middle">
-      <div class="playdate">
-        <PlaydatePage @dPadClick="catchPad"
-                      @buttonClick="catchButton" />
-      </div>
-
-      <div class="game">
-        &lt;!&ndash; loads content from calendarStore &ndash;&gt;
-        <GameView />
-      </div>
-    </div>
-
-    <div class="right">
-      <community-view />
-    </div>
-  </div>
--->
 
 </template>
 
@@ -190,6 +212,7 @@ const catchButton = (buttonName: string) => {
   .welcomeTitle {
     font-size: 5rem;
     line-height: 0.7em;
+    padding: 20px !important;
   }
 
   .mainContent {

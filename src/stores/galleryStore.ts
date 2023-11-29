@@ -45,11 +45,16 @@ export const useGalleryStore = defineStore('galleryStore', () => {
     console.log(sIndex.value)
   }
 
+  const resetGalleryIndex = () => {
+    sIndex.value = 0
+  }
+
   return {
     galleryIndex,
     screenshotAmount,
     currentScreenshots,
     updateGalleryIndex,
+    resetGalleryIndex,
   }
 })
 

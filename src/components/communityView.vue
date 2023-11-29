@@ -1,78 +1,43 @@
 <script setup lang="ts">
   import {Row, Col, Card, Switch} from 'ant-design-vue';
-  import {AccountBookOutlined, BulbFilled, BulbOutlined} from '@ant-design/icons-vue'
-  import {usePlaydateStore} from "@/stores/pdStore";
-  import {storeToRefs} from "pinia";
 
-  const pdStore = usePlaydateStore();
-  const { themeDark } = storeToRefs(pdStore);
+  const communityLinks = [
+    {
+      title: 'Playdate Devstaurant',
+      text: 'Join the Discord',
+      url: 'https://discord.gg/bMB9yZTf',
+    },
+    {
+      url: 'https://xanialasagna.storenvy.com/products/36635764-uncrank-d-magazine-digital',
+    },
+    {
+      title: 'All Playdate Games on Itch.io',
+      text: '',
+      url: 'https://itch.io/games/tag-playdate',
+    }
+  ];
 
-  const changeTheme = (checked: boolean) => {
-    pdStore.changeThemeDark(checked);
-  }
 </script>
 
 <template>
-  <Row :gutter="[8, 20]">
-
-    <Col class="white-text"
-          :span="24">
-
-      <Row justify="end">
-        <Col :span="18">Community Links</Col>
-        <Col :span="6">
-          <Switch :checked="themeDark"
-                  @click="changeTheme"
-          >
-            <template #checkedChildren><BulbFilled/></template>
-            <template #unCheckedChildren><BulbOutlined/></template>
-          </Switch>
-        </Col>
-      </Row>
-
-    </Col>
+<!--
+  <Row :gutter="[8, 20]" >
 
     <Col :span="24">
-      <Card title="Playdate Devstaurant"
+-->
+      <Card title="Join the Playdate Communities"
             class="appCard" >
-        <a-icon>
-          <AccountBookOutlined />
-        </a-icon>
-        Join the Discord <a href="https://discord.gg/bMB9yZTf" target="_blank" >https://discord.gg/bMB9yZTf</a>
+        <Row :gutter="[5, 10]">
+          <Col v-for="(communityObj, index) in communityLinks"
+              :span="24">
+            {{ communityObj.title }}: <a :href="communityObj.url" target="_blank" >{{ communityObj.text }}</a>
+          </Col>
+        </Row>
       </Card>
+<!--
     </Col>
-
-    <Col :span="24">
-      <Card title="Playdate Squad"
-            class="appCard" >
-        <a-icon>
-          <AccountBookOutlined />
-        </a-icon>
-        Join the Discord
-      </Card>
-    </Col>
-
-    <Col :span="24">
-      <Card title="Hello PlayDate Podcast"
-            class="appCard" >
-        <a-icon>
-          <AccountBookOutlined />
-        </a-icon>
-        Join the Discord
-      </Card>
-    </Col>
-
-    <Col :span="24">
-      <Card title="Hello PlayDate Podcast"
-            class="appCard" >
-        <a-icon>
-          <AccountBookOutlined />
-        </a-icon>
-        <a href="https://itch.io/games/tag-playdate" target="_blank" >All Playdate games on Itch.io</a>
-      </Card>
-    </Col>
-
   </Row>
+-->
 </template>
 
 <style scoped>

@@ -123,6 +123,8 @@ export const getScreenshots = () => {
   addImages(screenshots, gifGlob, pngGlob);
 */
 
+  console.log('screenshots');
+  console.log(screenshots);
   return screenshots;
 }
 
@@ -142,33 +144,6 @@ export function randomInt(min: number, max: number) {
   return r;
 }
 
-export const getGiftIndecies = (ammount: number, max: number) => {
-  const indecies = [];
-
-  for (let i = 0; i < ammount; i++) {
-    const randomIndex = randomInt(0, max);
-    indecies.push(randomIndex);
-  }
-
-  return indecies;
-}
-
-export const getGifts = () => {
-
-  const pngGlob = import.meta.glob('@/assets/calendar/*.png', { eager: true });
-  const gifts: any[] = addImages(pngGlob, null);
-
-  return gifts;
-}
-
-const getFileNumber = (filePath: string) => {
-  const splits = filePath.split('/');
-  const fileName = splits[splits.length - 1];
-  const numberStr = fileName.split('.')[0];
-
-  return Number.parseInt(numberStr, 10);
-}
-
 const sortASC = (a: string , b: string) => {
   const aNumber = getFileNumber(a);
   const bNumber = getFileNumber(b);
@@ -183,16 +158,48 @@ const sortDESC = (a: string , b: string) => {
   return aNumber < bNumber ? 1 : -1;
 }
 
+export const getGiftIndecies = (amount: number, max: number) => {
+  const indecies = [];
+
+  for (let i = 0; i < amount; i++) {
+    const randomIndex = randomInt(0, max);
+    indecies.push(randomIndex);
+  }
+
+  return indecies;
+}
+
+export const getGifts = () => {
+
+  const pngGlob = import.meta.glob('@/assets/calendar/*.png', { eager: true });
+  const gifts: any[] = addImages(pngGlob, null);
+
+  gifts.sort(sortASC);
+  console.log('gifts');
+  console.log(gifts);
+
+  return gifts;
+}
+
+const getFileNumber = (filePath: string) => {
+  const splits = filePath.split('=');
+  const fileNameWitHash = splits[splits.length - 1];
+  const numberStr = fileNameWitHash.split('-')[0];
+  // const numberStr = fileName.split('.')[0];
+
+  return Number.parseInt(numberStr, 10);
+}
+
 export const getCards = () => {
 
   const pngGlob = import.meta.glob('@/assets/cards/*', { eager: true });
   const cards: any[] = addImages(pngGlob, null);
 
   cards.sort(sortASC);
-/*
+
   console.log('sorted cards');
   console.log(cards);
-*/
+
   return cards;
 }
 
@@ -204,10 +211,8 @@ export const getIcons = () => {
 
   icons.sort(sortASC);
 
-/*
   console.log('sorted icons');
   console.log(icons);
-*/
 
   return icons;
 }

@@ -1,24 +1,21 @@
-import {computed, type ComputedRef, ref} from 'vue'
+import {computed, ref } from 'vue'
+import type { ComputedRef, Ref, UnwrapRef} from 'vue'
 import { useStorage } from '@vueuse/core'
 import type {RemovableRef} from "@vueuse/core";
 
 import type {adventGame, consistent} from "../../env";
-import {defineStore} from 'pinia'
+import {defineStore, storeToRefs} from 'pinia'
+import {usePlaydateStore} from "@/stores/pdStore";
 
 export const CALENDAR_STORE: string = 'CALENDAR_STORE';
 
 // testing
-const calendarStartDate = '2023-11-01';
+const calendarStartDate = '2023-10-25';
 
 // const calendarStartDate = '2023-12-01';
+const unwrapAnimationTime = 3100;
 
-export const isUnlockable = (day: number): boolean => {
-
-  const now = new Date();
-  const nowString = now.toISOString().substring(0, 10); // `${now.getDay()}-${now.getMonth()}-${now.getFullYear()}`;
-/*
-  console.log(nowString)
-*/
+export const isUnlockable = (nowString: string, day: number): boolean => {
 
   if(nowString < calendarStartDate) {
     return false;
@@ -30,22 +27,32 @@ export const isUnlockable = (day: number): boolean => {
   return day <= nowDayNumber
 }
 
+// logic for beta / prod storage names
+
 export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
+
+
+  const daysAmount: number = 24;
+  const dayIsOpening: Ref<UnwrapRef<boolean>> = ref(false);
 
   const consistent: RemovableRef<consistent> = useStorage(CALENDAR_STORE,
     {
       calendarIndex: 1,
       openedDays: [],
     }, localStorage,
-    { mergeDefaults: true },
-/*
+    // { mergeDefaults: true },
     {
-      mergeDefaults: (storageValue, defaults) => deepMerge(defaults, storageValue)
+      mergeDefaults: ((storageValue: consistent, defaults: consistent) => {
+        // todo logic for 2023 & 2024, etc.
+        const calendarIndex = storageValue.calendarIndex < 0 ? defaults.calendarIndex : storageValue.calendarIndex
+        return {
+          calendarIndex: calendarIndex > daysAmount ? daysAmount : calendarIndex,
+          openedDays: storageValue.openedDays ? storageValue.openedDays : defaults.openedDays,
+        } as consistent;
+      }),
     },
-*/
   );
 
-  const daysAmount: number = 24;
   let showWait = ref<boolean>(false);
   let gameList = ref<object[]>([]);
 
@@ -54,7 +61,10 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
   });
 
   const isCurrentDayUnlockable = computed(() => {
-    return isUnlockable(consistent.value.calendarIndex);
+    const playdateStore = usePlaydateStore();
+    const { currentDayMonthYear } = storeToRefs(playdateStore);
+
+    return isUnlockable(currentDayMonthYear.value, consistent.value.calendarIndex);
   });
 
   const calendarIndex = computed(() => consistent.value.calendarIndex);
@@ -71,8 +81,8 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
     console.log('upOrDown ' + upOrDown);
     console.log('leftOrRight ' + leftOrRight);
 */
-    const currentIndex : number = consistent.value.calendarIndex
-    let newIndex : number = currentIndex;
+
+    let newIndex : number = consistent.value.calendarIndex;
 
     if (upOrDown !== 0) {
       newIndex += upOrDown * 6;
@@ -83,13 +93,13 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
 
     if (newIndex <= 0) {
       if (newIndex < 0) {
-        newIndex = daysAmount + currentIndex;
+        newIndex = daysAmount + newIndex;
       } else {
         newIndex = daysAmount;
       }
     } else if (newIndex > daysAmount) {
       if (newIndex > daysAmount + 1) {
-        newIndex = currentIndex - daysAmount;
+        newIndex = newIndex - daysAmount;
       } else {
         newIndex = 1;
       }
@@ -97,14 +107,25 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
 
     setCalendarIndex(newIndex);
 /*
-    console.log('consistent.value.calendarIndex')
-    console.log(consistent.value.calendarIndex)
+    console.log('calendarIndex ' + consistent.value.calendarIndex)
 */
   }
 
   const openDay = (day: number) => {
-    if (!consistent.value.openedDays.includes(day)) {
-      consistent.value.openedDays.push(day);
+
+    if (!consistent.value.openedDays.includes(day)
+        && !dayIsOpening.value) {
+      dayIsOpening.value = true;
+
+      setTimeout(() => {
+        // open with a delay for the animation to play
+        if (!consistent.value.openedDays.includes(day)) {
+          consistent.value.openedDays.push(day);
+          dayIsOpening.value = false;
+        }
+
+      }, unwrapAnimationTime);
+
       return true;
     }
 
@@ -112,6 +133,7 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
   }
 
   const selectedGame: ComputedRef<adventGame> = computed(() => {
+
     if (currentDayUnlocked && gameList.value.length > 0) {
       const indexDiff = consistent.value.calendarIndex - 1
       // console.log(gameList.value[indexDiff])
@@ -127,7 +149,9 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
       "Date confirmed": '',
       "Sale confirmed": '',
       Url: '',
+      DevUrl: '',
       Iframe: '',
+      Notes: '',
     };
   });
 
@@ -152,7 +176,7 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
   }
 
   return {
-    calendarIndex, openedDays,
+    calendarIndex, openedDays, dayIsOpening,
     setCalendarIndex, updateCalendarIndex,
     openDay, triggerWaitMessage,
     currentDayUnlocked, isCurrentDayUnlockable,

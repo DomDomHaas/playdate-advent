@@ -6,6 +6,7 @@
   import { Carousel } from 'ant-design-vue';
   import { type CarouselRef } from 'ant-design-vue/es/carousel';
   import {ref, watch} from "vue";
+  import gameGiftUnwrap from "@/assets/gameGiftUnwrap.gif";
 
   const galleryCarousel = ref<CarouselRef>(null)
 
@@ -32,7 +33,12 @@
   <div id="galleryView"
        class="gallery">
 
-    <Carousel ref="galleryCarousel" >
+    <img v-if="calendarStore.dayIsOpening"
+         class="gameGiftUnwrap"
+         :src="gameGiftUnwrap" alt="game unwrapping present gif">
+
+    <Carousel v-show="!calendarStore.dayIsOpening"
+              ref="galleryCarousel" >
 
       <div v-for="(screenNumber, index) in galleryStore.screenshotAmount">
 
@@ -64,5 +70,9 @@
     width: 100%;
   }
 
+  .gameGiftUnwrap {
+    width: 100%;
+    height: 100%;
+  }
 
 </style>
