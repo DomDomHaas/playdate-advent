@@ -104,6 +104,11 @@ const version = import.meta.env.VITE_VERSION
          class="welcomeTitle">
       <pd-time :themeDark="themeDark"/>
     </Col>
+
+    <Col :xs="{ span: 24 }"
+         :md="{ span: 8 }">
+      version: {{ version }}
+    </Col>
   </Row>
 
 
@@ -332,7 +337,7 @@ const version = import.meta.env.VITE_VERSION
     /*
     background-color: #214646;
     */
-    background-color: #214646;
+    background-color: #285252;
   }
 
   @media (max-width: 560px) {
