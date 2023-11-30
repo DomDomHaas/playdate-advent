@@ -54,7 +54,7 @@
     <div class="dPadOverlay">
       <Button :id="DPAD_T"
               class="dPadButton"
-              :style="`${ xsAndSmLayout ? 'top: -95px; left: -30px;' : 'top: 4px; left: 3px;'}`"
+              :style="`${ xsAndSmLayout ? 'top: -102px; left: -29px;' : 'top: 4px; left: 3px;'}`"
               @keyup.up="dPadClick"
               @click="dPadClick" >
         <i :id="DPAD_T"
@@ -63,7 +63,7 @@
 
       <Button :id="DPAD_L"
                class="dPadButton"
-               :style="`${ xsAndSmLayout ? 'top: -55px; left: -120px;' : 'top: 50px; left: -95px;'}`"
+               :style="`${ xsAndSmLayout ? 'top: -64px; left: -118px;' : 'top: 50px; left: -95px;'}`"
                @keyup.left="dPadClick"
                @click="dPadClick" >
         <i :id="DPAD_L"
@@ -72,7 +72,7 @@
 
       <Button :id="DPAD_R"
                class="dPadButton"
-               :style="`${ xsAndSmLayout ? 'top: -55px; left: -90px;' : 'top: 50px; left: -50px;'}`"
+               :style="`${ xsAndSmLayout ? 'top: -64px; left: -92px;' : 'top: 50px; left: -50px;'}`"
                @keyup.right="dPadClick"
                @click="dPadClick" >
         <i :id="DPAD_R"
@@ -81,7 +81,7 @@
 
       <Button :id="DPAD_B"
                class="dPadButton"
-               :style="`${ xsAndSmLayout ? 'top: -15px; left: -180px;' : 'top: 100px; left: -150px;'}`"
+               :style="`${ xsAndSmLayout ? 'top: -26px; left: -180px;' : 'top: 100px; left: -150px;'}`"
                @keyup.down="dPadClick"
                @click="dPadClick" >
         <i :id="DPAD_B"
@@ -139,12 +139,12 @@
 
   @media (max-width: 560px) {
     .buttonOverlay {
-      top: 255px;
-      left: 198px;
+      top: 243px;
+      left: 192px;
     }
 
     .btnA {
-      left: 15px !important;
+      left: 14px !important;
     }
   }
 
@@ -196,13 +196,23 @@
     */
   }
 
-  /*
-  .dPadButton > .material-icons {
-    position: relative;
-    top: 12px;
-    left: 12px;
+  @media (max-width: 560px) {
+    .dPadButton,
+    .pdButton {
+/*      width: 50px;
+      height: 50px;*/
+      background-color: rgb(128, 128, 128, 0.1);
+    }
+
   }
-  */
+
+    /*
+    .dPadButton > .material-icons {
+      position: relative;
+      top: 12px;
+      left: 12px;
+    }
+    */
 
   .dPadButton > .material-icons {
     position: relative;

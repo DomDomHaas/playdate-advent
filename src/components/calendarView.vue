@@ -110,7 +110,7 @@
   }
 
   .cellOpened > .cellImg {
-    transform: scale(0.95);
+    transform: scale(1.4);
     padding: 8px 5px 0 6px;
 /*    background-color: white;*/
   }
@@ -120,16 +120,19 @@
     border-radius: 50%;
     background-color: floralwhite;
     height: 25px;
-    min-width: 25px;
+    width: 25px;
     font-size: 1rem;
     text-align: center;
     z-index: 1;
   }
 
+  .cellSelected .cellImg {
+    transform: scale(1.6) !important;
+  }
+
   .cellSelected > .cellImg,
   .cellSelected > .dayBadge {
     filter: invert(100%);
-    transform: scale(1.1) !important;
     transition: 0.3s all;
   }
 
@@ -140,12 +143,28 @@
     }
 
     .calenderCell > .cellImg {
-      transform: scale(0.65);
+      transform: scale(0.95);
     }
 
     .cellSelected > .cellImg,
     .cellSelected > .dayBadge {
-      transform: scale(0.85) !important;
+      transform: scale(1.1) !important;
+    }
+
+    .cellOpened > .cellImg {
+      padding: 0;
+    }
+
+    .dayBadge {
+      /*
+      height: 20px;
+      width: 20px;
+      font-size: 0.8rem;
+      */
+      height: 15px;
+      width: 15px;
+      font-size: 0.6rem;
+      left: 30px;
     }
   }
 

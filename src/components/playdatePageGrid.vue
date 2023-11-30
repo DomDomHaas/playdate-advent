@@ -119,7 +119,7 @@ const emit = defineEmits<{
     */
     width: 400px;
     height: 238px;
-    padding: 36px 0 0 36px;
+    padding: 36px 0 0 30px;
     z-index: 1;
   }
 
@@ -161,6 +161,7 @@ const emit = defineEmits<{
     padding: 0 10px;
     border-radius: 25px;
     width: 530px;
+    margin: auto;
   }
 
   /*
@@ -169,12 +170,20 @@ const emit = defineEmits<{
       width: 100%;
     }
   }
+
+
+  @media (max-width: 400px) {
+    .playdateFrame {
+      width: 365px;
+      height: 352px;
+    }
+  }
   */
 
   @media (max-width: 560px) {
     .playdateFrame {
-      width: 100%;
-      height: 100%;
+      width: 400px;
+      height: 386px;
     }
 
     .coverWrap {
@@ -186,30 +195,28 @@ const emit = defineEmits<{
       /*
       width: 75%;
       */
-      width: 300px;
-      /*
-      height: 190px;
-      */
-      height: 195px;
+      width: 295px;
+      height: 180px;
     }
 
     .calenderGrid {
-      width: 300px;
-      height: 180px;
-      padding: 20px 0 0 16px !important;
+      /*
+      width: 270px;
+      */
+      width: 285px;
+      height: 175px;
+      padding: 24px 0 0 24px !important;
     }
 
-    .gallery {
-      padding: 25px 0 0 22px !important
+    .gallery,
+    .pdBackground {
+      padding: 21px 0 0 21px !important;
     }
 
     .playdateInCover {
       padding: 0 !important;
     }
 
-    .pdBackground {
-      padding: 25px 0 0 22px !important;
-    }
   }
 
 </style>

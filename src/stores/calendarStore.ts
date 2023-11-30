@@ -11,9 +11,10 @@ const suffix = import.meta.env.VITE_LOCAL_STORAGE_SUFFIX
 export const CALENDAR_STORE: string = `CALENDAR_STORE_${suffix}`;
 
 // testing
-const calendarStartDate = '2023-10-25';
+// const calendarStartDate = '2023-11-01';
 
-// const calendarStartDate = '2023-12-01';
+const startDate: string = import.meta.env.VITE_START_DATE
+const calendarStartDate = startDate || '2023-12-01';
 const unwrapAnimationTime = 3100;
 
 export const isUnlockable = (nowString: string, day: number): boolean => {

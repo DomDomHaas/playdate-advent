@@ -26,7 +26,7 @@
       </Col>
 
       <Col :span="24">
-        Use the Arrows to navigate the days in the calendar.
+        Use the Arrows keys of the playdate to navigate the calendar.
       </Col>
 
       <Col :span="24">

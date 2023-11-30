@@ -65,11 +65,15 @@ const xsAndSmLayout = computed(() => (breaks.value.xs || breaks.value.sm) && !br
 const mdLayout = computed(() => (breaks.value.md || breaks.value.lg) && !breaks.value.xl)
 const lgLayout = computed(() => breaks.value.xl)
 
+const xxlAndUpLayout = computed(() => breaks.value.xxl)
+
+const version = import.meta.env.VITE_VERSION
+
 </script>
 
 <template>
 
-<main>
+<main :style="xxlAndUpLayout ? 'height: 100%;' : '' ">
 
   <Row v-if="!calendarStore.isCalendarReady"
         :gutter="[16, 16]"
@@ -144,6 +148,11 @@ const lgLayout = computed(() => breaks.value.xl)
          id="communityCol">
       <community-view />
     </Col>
+
+    <Col :span="24">
+      version: {{ version }}
+    </Col>
+
   </Row>
 
   <Row v-if="calendarStore.isCalendarReady && mdLayout"
@@ -173,6 +182,11 @@ const lgLayout = computed(() => breaks.value.xl)
              id="communityCol">
           <community-view />
         </Col>
+
+        <Col :span="24">
+          version: {{ version }}
+        </Col>
+
       </Row>
     </Col>
 
@@ -200,14 +214,17 @@ const lgLayout = computed(() => breaks.value.xl)
           <pdTitle :theme-dark="themeDark" />
         </Col>
 
-        <Col :span="24">
-          <welcome-view ></welcome-view>
-        </Col>
-
         <Col :span="24" >
           <LightSwitch />
         </Col>
 
+        <Col :span="24">
+          <welcome-view ></welcome-view>
+        </Col>
+
+        <Col :span="24">
+          version: {{ version }}
+        </Col>
       </Row>
     </Col>
 
@@ -222,7 +239,7 @@ const lgLayout = computed(() => breaks.value.xl)
     <Col :span="7"
           id="communityCol">
 
-      <Row :gutter="[16, 16]" >
+      <Row :gutter="[16, 60]" >
 
         <Col :span="24"
              class="welcomeTitle">
@@ -254,7 +271,10 @@ const lgLayout = computed(() => breaks.value.xl)
   }
 
   .appCard {
-    background-color: indianred;
+    background-color: #d76565;
+    /*
+    background-color: #CD5C5C;
+    */
   }
 
   @media (max-width: 768px) {
@@ -309,6 +329,9 @@ const lgLayout = computed(() => breaks.value.xl)
 
   main {
     padding: 10px;
+    /*
+    background-color: #214646;
+    */
     background-color: #214646;
   }
 

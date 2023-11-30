@@ -31,7 +31,7 @@ export default ({mode}) => {
     },
     define: {
       'process.env': loadEnv(mode, process.cwd()),
-      // 'import.meta.env.VITE_VERSION': JSON.stringify(version),
+      'import.meta.env.VITE_VERSION': JSON.stringify(version),
     },
     base: './',
     build: {

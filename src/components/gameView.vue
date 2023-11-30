@@ -131,9 +131,18 @@
       <Col :span="24"
            class="gameGift">
 
-        <img v-if="calendarStore.dayIsOpening" :src="gameGiftUnwrap" alt="game unwrapping present gif">
+        <img v-if="calendarStore.dayIsOpening"
+             :src="gameGiftUnwrap"
+             alt="game unwrapping present gif">
 
-        <img v-if="!calendarStore.dayIsOpening" :src="gameGift" alt="game present image">
+        <div v-if="!calendarStore.dayIsOpening" >
+
+          <img :src="gameGift" alt="game present image">
+
+          <div :class="`${ Number.parseInt(adventGame.Day, 10) > 9 ? 'giftNumberOverlay doubleDigit' : 'giftNumberOverlay'}` ">
+            {{ adventGame.Day }}
+          </div>
+        </div>
       </Col>
 
     </Row>
@@ -157,9 +166,10 @@
     text-align: center;
   }
 
-  .gameGift > img {
+  .gameGift img {
     border-radius: 15px;
     height: 100%;
+    max-width: 100%;
   }
 
   .gameView .ant-card-head {
@@ -187,7 +197,7 @@
     margin: 10px 0;
     border-radius: 25px !important;
     min-height: 280px;
-    background-color: white;
+    background-color: #efefef;
   }
 
   .gameViewContent {
@@ -197,6 +207,30 @@
   .gameViewCard {
     border: white solid 1px;
     padding: 5px;
+  }
+
+  .giftNumberOverlay {
+    position: absolute;
+    top: 60px;
+    left: 245px;
+    font-size: 5rem;
+    line-height: 0.7em;
+    color: #efefef;
+  }
+
+  .doubleDigit {
+    left: 220px;
+  }
+
+  @media (max-width: 560px) {
+    .giftNumberOverlay {
+      top: 46px;
+      left: 150px;
+    }
+
+    .doubleDigit {
+      left: 127px;
+    }
   }
 
 </style>
