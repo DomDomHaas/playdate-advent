@@ -118,13 +118,9 @@ export const getScreenshots = () => {
   screenshots.push([...addImages(gifGlob, pngGlob)]);
 
 /*
-  gifGlob = import.meta.glob('@/assets/25/!*.gif', { eager: true });
-  pngGlob = import.meta.glob('@/assets/25/!*.png', { eager: true });
-  addImages(screenshots, gifGlob, pngGlob);
-*/
-
   console.log('screenshots');
   console.log(screenshots);
+*/
   return screenshots;
 }
 
@@ -175,8 +171,10 @@ export const getGifts = () => {
   const gifts: any[] = addImages(pngGlob, null);
 
   gifts.sort(sortASC);
+/*
   console.log('gifts');
   console.log(gifts);
+*/
 
   return gifts;
 }

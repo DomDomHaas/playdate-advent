@@ -170,7 +170,9 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
      const gsheetUrl = 'https://opensheet.elk.sh/1pPornYJbWkLL_V7ZQoxwWrs8_EVv0GAV0OrRcCA1xRc/Calendar%202023';
      const response = await fetch(gsheetUrl);
      gameList.value = await response.json();
+/*
      console.log(gameList.value);
+*/
    }
 
   fetchGameInfos();

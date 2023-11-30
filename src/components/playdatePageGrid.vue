@@ -157,10 +157,28 @@ const emit = defineEmits<{
     width: 408px;
   }
 
+  .coverWrap {
+    padding: 0 10px;
+    border-radius: 25px;
+    width: 530px;
+  }
+
+  /*
+  @media (max-width: 530px) {
+    .coverWrap {
+      width: 100%;
+    }
+  }
+  */
+
   @media (max-width: 560px) {
     .playdateFrame {
       width: 100%;
       height: 100%;
+    }
+
+    .coverWrap {
+      width: 95%;
     }
 
     .gallery,
@@ -184,9 +202,7 @@ const emit = defineEmits<{
     .gallery {
       padding: 25px 0 0 22px !important
     }
-  }
 
-  @media (max-width: 560px) {
     .playdateInCover {
       padding: 0 !important;
     }
@@ -200,17 +216,15 @@ const emit = defineEmits<{
 
 <style scoped>
 
-  .coverWrap {
-    padding: 0 10px;
-    border-radius: 25px;
-    width: 530px;
-  }
 
-  @media (max-width: 530px) {
+  /*
+  @media (max-height: 920px) {
     .coverWrap {
-      width: 100%;
+      background-color: black;
     }
   }
+  */
+
 
   /*
   @media (max-width: 1024px) {

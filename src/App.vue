@@ -61,9 +61,9 @@ const catchButton = (buttonName: string) => {
   }
 }
 
-const xsAndSmLayout = computed(() => calendarStore.isCalendarReady && (breaks.value.xs || breaks.value.sm) && !breaks.value.md)
-const mdLayout = computed(() => calendarStore.isCalendarReady && (breaks.value.md || breaks.value.lg) && !breaks.value.xl)
-const lgLayout = computed(() => calendarStore.isCalendarReady && breaks.value.xl)
+const xsAndSmLayout = computed(() => (breaks.value.xs || breaks.value.sm) && !breaks.value.md)
+const mdLayout = computed(() => (breaks.value.md || breaks.value.lg) && !breaks.value.xl)
+const lgLayout = computed(() => breaks.value.xl)
 
 </script>
 
@@ -74,12 +74,15 @@ const lgLayout = computed(() => calendarStore.isCalendarReady && breaks.value.xl
   <Row v-if="!calendarStore.isCalendarReady"
         :gutter="[16, 16]"
         style="height: 100vh;">
-    <Col :span="8"
+
+    <Col :xs="{ span: 24 }"
+         :md="{ span: 8 }"
          class="welcomeTitle">
       <pdTitle :theme-dark="themeDark" />
     </Col>
 
-    <Col :span="8"
+    <Col :xs="{ span: 24 }"
+         :md="{ span: 8 }"
          style="line-height: 0.8em; text-align: center;"
          class="welcomeTitle">
 
@@ -92,15 +95,16 @@ const lgLayout = computed(() => calendarStore.isCalendarReady && breaks.value.xl
       </div>
     </Col>
 
-    <Col :span="8"
+    <Col :xs="{ span: 24 }"
+         :md="{ span: 8 }"
          class="welcomeTitle">
       <pd-time :themeDark="themeDark"/>
     </Col>
   </Row>
 
 
-  <Row v-if="xsAndSmLayout"
-       :gutter="[8, 8]"
+  <Row v-if="calendarStore.isCalendarReady && xsAndSmLayout"
+       :gutter="[8, 24]"
        class="mainContentXs"
        id="mainRow">
 
@@ -121,6 +125,12 @@ const lgLayout = computed(() => calendarStore.isCalendarReady && breaks.value.xl
     </Col>
 
     <Col :span="24"
+          style="padding: 0 10px;"
+          class="white-text">
+      <Time />
+    </Col>
+
+    <Col :span="24"
          id="playdateCol">
       <PlaydatePageGrid @dPadClick="catchPad"
                         @buttonClick="catchButton" />
@@ -136,7 +146,7 @@ const lgLayout = computed(() => calendarStore.isCalendarReady && breaks.value.xl
     </Col>
   </Row>
 
-  <Row v-if="mdLayout"
+  <Row v-if="calendarStore.isCalendarReady && mdLayout"
         :gutter="[8, 8]"
         class="mainContentSm"
         id="mainRow">
@@ -175,7 +185,7 @@ const lgLayout = computed(() => calendarStore.isCalendarReady && breaks.value.xl
 
   </Row>
 
-  <Row v-if="lgLayout"
+  <Row v-if="calendarStore.isCalendarReady && lgLayout"
         :gutter="[16, 16]"
         class="mainContent"
         id="mainRow">
@@ -213,10 +223,12 @@ const lgLayout = computed(() => calendarStore.isCalendarReady && breaks.value.xl
           id="communityCol">
 
       <Row :gutter="[16, 16]" >
+
         <Col :span="24"
              class="welcomeTitle">
           <pd-time :themeDark="themeDark"/>
         </Col>
+
         <Col :span="24" >
           <community-view ></community-view>
         </Col>

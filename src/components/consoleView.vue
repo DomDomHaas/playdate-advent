@@ -51,8 +51,6 @@
          :src="playdateConsole"
          alt="playdate frame"/>
 
-    <Time :style="`${ xsAndSmLayout ? 'position: absolute; top: 225px; left: 20px;' : 'position: absolute; top: 497px; left: 70px;'}`"/>
-
     <div class="dPadOverlay">
       <Button :id="DPAD_T"
               class="dPadButton"
