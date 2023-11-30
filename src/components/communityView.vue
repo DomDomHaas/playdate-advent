@@ -38,13 +38,18 @@
       url: 'https://sdk.play.date/',
     },
     {
+      title: 'You are learning Lua?',
+      text: 'Check out this book',
+      url: 'https://squidgod.itch.io/lua-for-game-development',
+    },
+    {
       title: 'Playdate Squad',
       text: 'Join the Discord to get help with coding',
       url: 'https://discord.gg/4ZBEMZF9',
     },
     {
       title: 'Solo Game Dev? You can do it!',
-      text: 'Even all by yourself, learn how!',
+      text: 'Even all by yourself, learn how with this book!',
       url: 'https://valadria.itch.io/how-to-make-a-video-game-all-by-yourself',
     },
   ];
