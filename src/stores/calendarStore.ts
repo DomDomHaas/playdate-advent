@@ -10,24 +10,10 @@ import {usePlaydateStore} from "@/stores/pdStore";
 const suffix = import.meta.env.VITE_LOCAL_STORAGE_SUFFIX
 export const CALENDAR_STORE: string = `CALENDAR_STORE_${suffix}`;
 
-// testing
-// const calendarStartDate = '2023-11-01';
-
 const startDate: string = import.meta.env.VITE_START_DATE
 const calendarStartDate = startDate || '2023-12-01';
 const unwrapAnimationTime = 3100;
 
-export const isUnlockable = (nowString: string, day: number): boolean => {
-
-  if(nowString < calendarStartDate) {
-    return false;
-  }
-
-  const nowDay = nowString.substring(8, 10)
-  const nowDayNumber = Number.parseInt(nowDay, 10); // - 10
-
-  return day <= nowDayNumber
-}
 
 // logic for beta / prod storage names
 
@@ -62,20 +48,42 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
     return consistent.value.openedDays.includes(consistent.value.calendarIndex);
   });
 
+  const isUnlockable = (nowString: string, day: number, currentMonth: string): boolean => {
+
+    if(nowString < calendarStartDate) {
+      return false;
+    }
+
+    const currentMonthNr = Number.parseInt(currentMonth, 10);
+    const startMonthNr = Number.parseInt(calendarStartDate.substring(5, 7), 10);
+
+    if (currentMonthNr < startMonthNr) {
+      return false;
+    } else if (currentMonthNr > startMonthNr) {
+      return true;
+    }
+
+    const nowDay = nowString.substring(8, 10)
+    const nowDayNumber = Number.parseInt(nowDay, 10); // - 10
+
+    return day <= nowDayNumber
+  }
+
   const isCurrentDayUnlockable = computed(() => {
     const playdateStore = usePlaydateStore();
-    const { currentDayMonthYear } = storeToRefs(playdateStore);
+    const { currentDayMonthYear, currentMonth } = storeToRefs(playdateStore);
 
-    return isUnlockable(currentDayMonthYear.value, consistent.value.calendarIndex);
+    return isUnlockable(currentDayMonthYear.value,
+      consistent.value.calendarIndex, currentMonth.value);
   });
 
   const isCalendarReady = computed(() => {
     const playdateStore = usePlaydateStore();
-    const { currentDayMonthYear } = storeToRefs(playdateStore);
+    const { currentDayMonthYear, currentMonth } = storeToRefs(playdateStore);
 
     const startDay = calendarStartDate.substring(8, 10);
     const dayNumber = Number.parseInt(startDay, 10);
-    return isUnlockable(currentDayMonthYear.value, dayNumber);
+    return isUnlockable(currentDayMonthYear.value, dayNumber, currentMonth.value);
   })
 
   const calendarIndex = computed(() => consistent.value.calendarIndex);

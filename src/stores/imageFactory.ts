@@ -13,6 +13,9 @@ const addImages = (gifGlob: any, pngGlob: any|null) => {
   }
 
   array = [...gifUrls, ...pngUrls];
+
+  array.sort(sortASC);
+
   return array;
 };
 

@@ -79,7 +79,7 @@
 
     <div class="waitMsg"
         :class="showWaitMessage ? 'waitOut' : ''">
-      <div>Wait for it, it's not time yet!</div>
+      <div>Wait for the {{ selection }}th, it's not time yet!</div>
     </div>
   </div>
 </template>
