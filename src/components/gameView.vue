@@ -23,6 +23,10 @@
   })
 
   const discountText = computed(() => {
+    if (!calendarStore.currentDayUnlocked) {
+      return ''
+    }
+
     if (adventGame?.value?.Discount?.toLowerCase() !== 'free') {
       return `- ${adventGame?.value?.Discount}`
     }
@@ -33,7 +37,7 @@
   const cardTitle = computed(() => {
     if (calendarStore.currentDayUnlocked) {
       // return `Advent Game #${adventGame.value.Day}: ${adventGame.value.Name}`;
-      return `${adventGame?.value?.Name}`;
+      return `Advent Gift # ${adventGame.value.Day} is presented by ${adventGame.value.Dev}`;
     }
 
     return `Advent Gift of Day ${adventGame?.value.Day}`;
@@ -43,15 +47,17 @@
 
 <template>
   <BadgeRibbon :text="discountText"
+               :class="!discountText ? 'hiddenRibbon' : ''"
                 color="gold">
 
-  <Card :title="`Advent Gift # ${adventGame.Day} is presented by ${adventGame.Dev}`"
+  <Card :title="cardTitle"
         :bordered="true"
         class="gameView"
         :class="themeDark ? 'pdCoverInverted' : 'pdCover'"  >
 
     <Row v-if="xsAndSmLayout && calendarStore.currentDayUnlocked"
          :gutter="[0, 5]">
+
       <Col v-if="adventGame.Notes"
            class="gameViewContent"
            v-html="adventGame.Notes" >
@@ -76,24 +82,31 @@
            class="iframe"
            v-html="adventGame.Iframe">
       </Col>
+
+      <Col v-if="adventGame.DevUrl"
+           class="gameViewContent"
+           style="padding-bottom: 5px;"
+      >
+        All games from {{ adventGame.Dev }} on itch.io:
+
+        <a :href="adventGame.DevUrl" target="_blank" >{{adventGame.DevUrl}}</a>
+      </Col>
+
     </Row>
 
     <Row v-if="!xsAndSmLayout && calendarStore.currentDayUnlocked"
          :gutter="[0, 5]">
 
-      <Col v-if="!adventGame.Iframe"
-           :span="24"
-           class="appCardText gameViewContent">
-<!--
-        Advent Gift # {{ adventGame.Day }} is presented by {{ adventGame.Dev }}
--->
-        {{ cardTitle }}
-      </Col>
-
       <Col v-if="adventGame.Notes"
            class="gameViewContent"
            v-html="adventGame.Notes" >
       </Col >
+
+      <Col v-if="!adventGame.Iframe"
+           :span="24"
+           class="appCardText gameViewContent">
+        {{ adventGame.Name }}
+      </Col>
 
       <Col v-if="!adventGame.Iframe"
            class="gameViewContent"
@@ -157,6 +170,10 @@
 </template>
 
 <style>
+
+  .hiddenRibbon {
+    display: none;
+  }
 
   .gameGift {
     /*
