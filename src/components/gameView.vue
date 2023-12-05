@@ -78,6 +78,12 @@
            v-html="adventGame.Iframe">
       </Col>
 
+      <Col v-if="adventGame.Catalog"
+           class="gameViewContent" >
+        Get it on Catalog:
+        <a :href="adventGame.Catalog" target="_blank" >{{adventGame.Catalog}}</a>
+      </Col >
+
       <Col v-if="adventGame.DevUrl"
            class="gameViewContent"
            style="padding-bottom: 5px;"
@@ -116,6 +122,12 @@
            style="border-radius: 25px;"
            v-html="adventGame.Iframe">
       </Col>
+
+      <Col v-if="adventGame.Catalog"
+           class="gameViewContent" >
+        Get it on Catalog:
+        <a :href="adventGame.Catalog" target="_blank" >{{adventGame.Catalog}}</a>
+      </Col >
 
       <Col v-if="adventGame.DevUrl"
            class="gameViewContent"
@@ -194,7 +206,7 @@
   }
 
   .gameView .ant-card-body {
-    padding: 15px 4px !important;
+    padding: 0 4px !important;
   }
 
   .iframe > iframe {
@@ -240,6 +252,10 @@
   }
 
   @media (max-width: 560px) {
+    .gameView {
+      height: 380px;
+    }
+
     .giftNumberOverlay {
       top: 46px;
       left: 150px;

@@ -15,6 +15,7 @@ export type adventGame = {
   Iframe: string,
   IframeMobile: string,
   Notes: string,
+  Catalog: string,
 }
 
 export type consistent = {

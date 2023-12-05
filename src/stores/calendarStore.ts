@@ -172,6 +172,7 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
       Iframe: '',
       IframeMobile: '',
       Notes: '',
+      Catalog: '',
     };
   });
 
