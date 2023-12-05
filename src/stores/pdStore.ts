@@ -8,13 +8,15 @@ import {useStorage} from "@vueuse/core";
 import {useGalleryStore} from "@/stores/galleryStore";
 import type {RemovableRef} from "@vueuse/core";
 
-import type {consitentPdData} from "../../env";
+import type {config, consitentPdData} from "../../env";
 
 export enum playdateState {
   CALENDAR = 1,
   GALLERY,
 }
 
+const configName = import.meta.env.VITE_CONFIG_NAME; // || 'beta.json';
+const appVersion = import.meta.env.VITE_VERSION;
 
 const currentTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 console.log(`your local timezone: ${currentTimeZone}`)
@@ -39,6 +41,7 @@ export const usePlaydateStore = defineStore(PD_STORE, () => {
     consistent.value.themeDark = value;
   }
 
+  let config: Ref<UnwrapRef<config>> = ref({ version: '1.0.0'});
   let localDateTime: Ref<UnwrapRef<string>> = ref(moment().format());
 
   setInterval(() => {
@@ -77,6 +80,20 @@ export const usePlaydateStore = defineStore(PD_STORE, () => {
   const state : ComputedRef<playdateState> = computed(() => consistent.value.state);
   const themeDark : ComputedRef<boolean> = computed(() => consistent.value.themeDark);
 
+  const isVersionOutdated: ComputedRef<boolean> = computed(() => {
+    return config.value.version > appVersion;
+  });
+
+  const fetchConfig = async () => {
+    const configUrl = `/${configName}`;
+    const response = await fetch(configUrl);
+    config.value = await response.json();
+    console.log(config.value);
+  }
+
+  setInterval(() => {
+    fetchConfig();
+  }, 5000)
 
   return {
     state, themeDark,
@@ -84,5 +101,6 @@ export const usePlaydateStore = defineStore(PD_STORE, () => {
     currentDayMonthYear, currentTime,
     changeThemeDark, changeToGallery, changeToCalendar,
     showGallery, showCalendar,
+    config, isVersionOutdated,
   }
 });

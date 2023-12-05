@@ -58,11 +58,6 @@
     <Row v-if="xsAndSmLayout && calendarStore.currentDayUnlocked"
          :gutter="[0, 5]">
 
-      <Col v-if="adventGame.Notes"
-           class="gameViewContent"
-           v-html="adventGame.Notes" >
-      </Col >
-
       <Col v-if="!adventGame.Iframe"
            class="gameViewContent"
            :span="24">
@@ -92,15 +87,15 @@
         <a :href="adventGame.DevUrl" target="_blank" >{{adventGame.DevUrl}}</a>
       </Col>
 
-    </Row>
-
-    <Row v-if="!xsAndSmLayout && calendarStore.currentDayUnlocked"
-         :gutter="[0, 5]">
-
       <Col v-if="adventGame.Notes"
            class="gameViewContent"
            v-html="adventGame.Notes" >
       </Col >
+
+    </Row>
+
+    <Row v-if="!xsAndSmLayout && calendarStore.currentDayUnlocked"
+         :gutter="[0, 5]">
 
       <Col v-if="!adventGame.Iframe"
            :span="24"
@@ -130,6 +125,11 @@
 
         <a :href="adventGame.DevUrl" target="_blank" >{{adventGame.DevUrl}}</a>
       </Col>
+
+      <Col v-if="adventGame.Notes"
+           class="gameViewContent"
+           v-html="adventGame.Notes" >
+      </Col >
 
     </Row>
 

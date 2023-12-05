@@ -26,3 +26,7 @@ export type consitentPdData = {
   state: playdateState,
   themeDark: boolean,
 }
+
+export type config = {
+  version: string,
+}
