@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import {BUTTON_A, BUTTON_B} from "@/interaction";
-import {Row, Col, Switch} from 'ant-design-vue';
+import {Row, Col} from 'ant-design-vue';
 
 import {useCalendarStore} from "@/stores/calendarStore";
 import {useGalleryStore} from "@/stores/galleryStore";
 import {usePlaydateStore} from "@/stores/pdStore";
 import {storeToRefs} from "pinia";
-import type {Ref, UnwrapRef} from 'vue'
-import {computed, nextTick, onMounted, ref} from "vue";
+import type {Ref} from 'vue'
+import {computed} from "vue";
 
 import useBreakpoint from "ant-design-vue/es/_util/hooks/useBreakpoint";
 import type {ScreenMap} from "ant-design-vue/es/_util/responsiveObserve";
@@ -15,7 +15,7 @@ import type {ScreenMap} from "ant-design-vue/es/_util/responsiveObserve";
 import CommunityView from "@/components/communityView.vue";
 import WelcomeView from "@/components/welcomeView.vue";
 import PlaydatePageGrid from "@/components/playdatePageGrid.vue";
-import PdTitle from "@/components/pdTitle.vue";
+import calendarBG from "@/assets/calendarBGTexture.png";
 import LightSwitch from "@/components/lightSwitch.vue";
 import PdTime from "@/components/pdTime.vue";
 
@@ -74,6 +74,15 @@ const version = import.meta.env.VITE_VERSION
 <template>
 
 <main :style="xxlAndUpLayout ? 'height: 100%;' : '' ">
+
+  <div v-if="lgLayout"
+       class="calendarBG"
+       :style="`background: url(${calendarBG});`"
+  >
+<!--
+    <img :src="calendarBG" alt="background" />
+-->
+  </div>
 
   <Row v-if="!calendarStore.isCalendarReady"
         :gutter="[16, 16]"
@@ -338,6 +347,21 @@ const version = import.meta.env.VITE_VERSION
     background-color: #214646;
     */
     background-color: #285252;
+  }
+
+  .calendarBG {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.35;
+    width: 100%;
+    height: 100%;
+  }
+
+  .calendarBG > img {
+    overflow: hidden;
+    max-width: 100%;
+    max-height: 100%;
   }
 
   @media (max-width: 560px) {
