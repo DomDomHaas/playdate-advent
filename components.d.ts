@@ -10,6 +10,7 @@ declare module 'vue' {
     CalendarView: typeof import('./src/components/calendarView.vue')['default']
     CommunityView: typeof import('./src/components/communityView.vue')['default']
     ConsoleView: typeof import('./src/components/consoleView.vue')['default']
+    CreditsView: typeof import('./src/components/creditsView.vue')['default']
     GalleryView: typeof import('./src/components/galleryView.vue')['default']
     GameView: typeof import('./src/components/gameView.vue')['default']
     LightSwitch: typeof import('./src/components/lightSwitch.vue')['default']

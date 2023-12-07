@@ -6,8 +6,11 @@
   import type {Ref} from "vue";
   import type {ScreenMap} from "ant-design-vue/es/_util/responsiveObserve";
   import useBreakpoint from "ant-design-vue/es/_util/hooks/useBreakpoint";
+  import {usePlaydateStore} from "@/stores/pdStore";
+  import {storeToRefs} from "pinia";
 
-//  const emit = defineEmits(['dPadClick', 'buttonClick']);
+  const pdStore = usePlaydateStore();
+  const { themeDark } = storeToRefs(pdStore);
 
   const emit = defineEmits<{
     dPadClick: [upOrDown: number, leftOrRight: number] // named tuple syntax
@@ -54,7 +57,8 @@
     <div class="dPadOverlay">
       <Button :id="DPAD_T"
               class="dPadButton"
-              :style="`${ xsAndSmLayout ? 'top: -102px; left: -29px;' : 'top: 4px; left: 3px;'}`"
+              :class="themeDark ? 'pdCover' : 'pdCoverInverted'"
+              :style="`${ xsAndSmLayout ? 'top: -102px; left: -29px;' : 'top: 0; left: 3px;'}`"
               @keyup.up="dPadClick"
               @click="dPadClick" >
         <i :id="DPAD_T"
@@ -63,6 +67,7 @@
 
       <Button :id="DPAD_L"
                class="dPadButton"
+               :class="themeDark ? 'pdCover' : 'pdCoverInverted'"
                :style="`${ xsAndSmLayout ? 'top: -64px; left: -118px;' : 'top: 50px; left: -95px;'}`"
                @keyup.left="dPadClick"
                @click="dPadClick" >
@@ -72,7 +77,8 @@
 
       <Button :id="DPAD_R"
                class="dPadButton"
-               :style="`${ xsAndSmLayout ? 'top: -64px; left: -92px;' : 'top: 50px; left: -50px;'}`"
+               :class="themeDark ? 'pdCover' : 'pdCoverInverted'"
+               :style="`${ xsAndSmLayout ? 'top: -64px; left: -92px;' : 'top: 50px; left: -46px;'}`"
                @keyup.right="dPadClick"
                @click="dPadClick" >
         <i :id="DPAD_R"
@@ -81,7 +87,8 @@
 
       <Button :id="DPAD_B"
                class="dPadButton"
-               :style="`${ xsAndSmLayout ? 'top: -26px; left: -180px;' : 'top: 100px; left: -150px;'}`"
+               :class="themeDark ? 'pdCover' : 'pdCoverInverted'"
+               :style="`${ xsAndSmLayout ? 'top: -26px; left: -180px;' : 'top: 100px; left: -148px;'}`"
                @keyup.down="dPadClick"
                @click="dPadClick" >
         <i :id="DPAD_B"
@@ -93,12 +100,13 @@
     <div class="buttonOverlay">
       <Button :id="BUTTON_B"
                class="pdButton"
+               :class="themeDark ? 'pdCover' : 'pdCoverInverted'"
                @click="buttonClick">
       </Button>
 
       <Button :id="BUTTON_A"
                class="pdButton btnA"
-               style="position: relative; left: 45px"
+               :class="themeDark ? 'pdCover' : 'pdCoverInverted'"
                @click="buttonClick">
       </Button>
     </div>
@@ -122,85 +130,67 @@
   }
 
   .dPadOverlay {
-    /*
-    top: 312px;
-    left: 63px;
-    */
     top: 333px;
     left: 78px;
   }
 
   .buttonOverlay {
-/*    top: 325px;
-    left: 272px;*/
-    top: 350px;
-    left: 279px;
+    top: 347px;
+    left: 275px;
+  }
+
+  .btnA {
+    position: relative;
+    left: 33px;
   }
 
   @media (max-width: 560px) {
     .buttonOverlay {
-      top: 243px;
-      left: 192px;
+      top: 247px;
+      left: 196px;
     }
 
     .btnA {
-      left: 14px !important;
+      left: 24px !important;
     }
   }
 
-  /*
-  @media (max-width: 1024px) {
-    .pageGrid {
-      grid-template-columns: 1fr;
-      grid-template-rows: 2fr auto;
-      grid-template-areas:
-        "middle"
-        "left"
-        "right";
-    }
-  }
-  */
-
-  /*
-  @media (max-width: 1024px) {
-    .dPadOverlay {
-      top: 300px;
-      left: 60px;
-    }
-
-    .buttonOverlay {
-      top: 314px;
-      left: 263px;
-    }
-
-    .btnA {
-      left: 46px;
-    }
-  }
-  */
 
   .pdButton,
   .dPadButton {
-    border: solid 1px transparent;
+    border: solid 1px;
     border-radius: 50%;
     cursor: pointer;
     position: relative;
-    background-color: transparent;
   }
 
   .dPadButton {
     width: 50px;
     height: 50px;
-    /*
-    background-color: transparent;
-    */
   }
 
+  .pdButton {
+    width: 70px;
+    height: 70px;
+  }
+
+
   @media (max-width: 560px) {
+
+    .pdButton {
+      width: 50px;
+      height: 50px;
+    }
+
+    /*
+    .dPadButton {
+      width: 40px;
+      height: 40px;
+    }
+    */
+
     .dPadButton,
     .pdButton {
-/*      width: 50px;
-      height: 50px;*/
       background-color: rgb(128, 128, 128, 0.1);
     }
 
@@ -216,13 +206,9 @@
 
   .dPadButton > .material-icons {
     position: relative;
-    top: 0;
+    top: 1px;
     left: -2px;
   }
 
-  .pdButton {
-    width: 60px;
-    height: 60px;
-  }
 
 </style>

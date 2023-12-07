@@ -18,6 +18,8 @@ import PlaydatePageGrid from "@/components/playdatePageGrid.vue";
 import calendarBG from "@/assets/calendarBGTexture.png";
 import LightSwitch from "@/components/lightSwitch.vue";
 import PdTime from "@/components/pdTime.vue";
+import PdTitle from "@/components/pdTitle.vue";
+import CreditsView from "@/components/creditsView.vue";
 
 const playdateStore = usePlaydateStore();
 const calendarStore = useCalendarStore();
@@ -91,7 +93,7 @@ const version = import.meta.env.VITE_VERSION
     <Col :xs="{ span: 24 }"
          :md="{ span: 8 }"
          class="welcomeTitle">
-      <pdTitle :theme-dark="themeDark" />
+      <PdTitle :theme-dark="themeDark" />
     </Col>
 
     <Col :xs="{ span: 24 }"
@@ -128,7 +130,7 @@ const version = import.meta.env.VITE_VERSION
 
     <Col :span="24"
          class="welcomeTitle">
-      <pdTitle :theme-dark="themeDark" />
+      <PdTitle :theme-dark="themeDark" />
     </Col>
 
 <!--
@@ -163,6 +165,10 @@ const version = import.meta.env.VITE_VERSION
       <community-view />
     </Col>
 
+    <Col :span="24" >
+      <credits-view />
+    </Col>
+
     <Col :span="24">
       version: {{ version }}
     </Col>
@@ -174,13 +180,13 @@ const version = import.meta.env.VITE_VERSION
         class="mainContentSm"
         id="mainRow">
 
-    <Col :span="8"
+    <Col :span="10"
          id="infoCol">
 
       <Row :gutter="[15, 20]">
         <Col :span="24"
              class="welcomeTitle">
-          <pdTitle :theme-dark="themeDark" />
+          <PdTitle :theme-dark="themeDark" />
         </Col>
 
         <Col :span="24">
@@ -204,10 +210,21 @@ const version = import.meta.env.VITE_VERSION
       </Row>
     </Col>
 
-    <Col :span="16"
+    <Col :span="14"
          id="playdateCol">
-      <PlaydatePageGrid @dPadClick="catchPad"
-                        @buttonClick="catchButton" />
+
+      <Row :gutter="[0, 20]">
+        <Col :span="24" >
+          <PlaydatePageGrid @dPadClick="catchPad"
+                            @buttonClick="catchButton" />
+        </Col>
+
+        <Col :span="24">
+          <credits-view style="width: 530px; margin: auto"/>
+        </Col>
+      </Row>
+
+
     </Col>
 
 
@@ -225,7 +242,7 @@ const version = import.meta.env.VITE_VERSION
 
         <Col :span="24"
               class="welcomeTitle">
-          <pdTitle :theme-dark="themeDark" />
+          <PdTitle :theme-dark="themeDark" />
         </Col>
 
         <Col :span="24" >
@@ -253,7 +270,7 @@ const version = import.meta.env.VITE_VERSION
     <Col :span="7"
           id="communityCol">
 
-      <Row :gutter="[16, 60]" >
+      <Row :gutter="[24, 24]" >
 
         <Col :span="24"
              class="welcomeTitle">
@@ -261,7 +278,11 @@ const version = import.meta.env.VITE_VERSION
         </Col>
 
         <Col :span="24" >
-          <community-view ></community-view>
+          <community-view />
+        </Col>
+
+        <Col :span="24" >
+          <credits-view />
         </Col>
       </Row>
     </Col>
@@ -289,6 +310,15 @@ const version = import.meta.env.VITE_VERSION
     /*
     background-color: #CD5C5C;
     */
+  }
+
+  .appCard .ant-card-head {
+    padding: 0 12px;
+    font-size: 1.2em;
+  }
+
+  .appCard .ant-card-body {
+    padding: 12px;
   }
 
   @media (max-width: 768px) {
@@ -334,9 +364,22 @@ const version = import.meta.env.VITE_VERSION
     background-color: #11AC8E;
   }
 
+  .dPadButton.pdCover,
+  .pdButton.pdCover {
+    border-color: rgba(17, 172, 142, 0.75);
+    background-color: rgba(17, 172, 142, 0.1);
+  }
+
   .pdCoverInverted {
     background-color: #7353D2;
   }
+
+  .dPadButton.pdCoverInverted,
+  .pdButton.pdCoverInverted {
+    border-color: rgba(115, 83, 210, 0.75);
+    background-color: rgba(115, 83, 210, 0.15);
+  }
+
 </style>
 
 <style scoped>

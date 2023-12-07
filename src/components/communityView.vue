@@ -3,14 +3,24 @@
 
   const communityLinks = [
     {
-      title: 'Hello Playdate Podcast',
-      text: 'Join the Discord',
+      title: 'Hello, Playdate!',
+      text: "Enjoy the Podcast and everything around the playdate",
       url: 'https://discord.gg/yg4wu7q6',
     },
     {
       title: 'Playdate Devstaurant',
-      text: 'Join the Discord',
+      text: 'Join the birth place of the Advent Calendar',
       url: 'https://discord.gg/bMB9yZTf',
+    },
+    {
+      title: 'Tiny Yellow Machine',
+      text: 'Checkout the Playdate Directs',
+      url: 'https://www.youtube.com/@TinyYellowMachine/featured',
+    },
+    {
+      title: 'Playdate Squad Discord',
+      text: 'Meet loads of game devs, some from Panic',
+      url: 'https://discord.gg/4ZBEMZF9',
     },
     {
       title: 'Uncrank\'d',
@@ -18,38 +28,28 @@
       url: 'https://xanialasagna.storenvy.com/products/36635764-uncrank-d-magazine-digital',
     },
     {
-      title: 'All Playdate Games on Itch.io',
-      text: 'Itch playdate games',
+      title: 'All ',
+      text: 'Playdate Games on Itch.io',
       url: 'https://itch.io/games/tag-playdate',
     },
     {
-      title: 'Tiny Yellow Machine',
-      text: 'Join the Discord',
-      url: 'https://discord.gg/WPtaQPzg',
-    },
-    {
-      title: 'You can create Playdate Games!',
-      text: 'Start Now without coding!',
+      title: 'You too can create Playdate Games!',
+      text: 'Start without coding!',
       url: 'https://play.date/pulp',
     },
     {
-      title: 'You can create Playdate Games!',
-      text: 'You can code? Start here!',
+      title: 'You too can create Playdate Games!',
+      text: 'With coding!',
       url: 'https://sdk.play.date/',
     },
     {
       title: 'You are learning Lua?',
-      text: 'Check out this book',
+      text: 'Here is a book for you!',
       url: 'https://squidgod.itch.io/lua-for-game-development',
     },
     {
-      title: 'Playdate Squad',
-      text: 'Join the Discord to get help with coding',
-      url: 'https://discord.gg/4ZBEMZF9',
-    },
-    {
-      title: 'Solo Game Dev? You can do it!',
-      text: 'Even all by yourself, learn how with this book!',
+      title: 'Solo Game Dev? You can do it all by yourself',
+      text: ' learn how with this book!',
       url: 'https://valadria.itch.io/how-to-make-a-video-game-all-by-yourself',
     },
   ];
@@ -64,12 +64,18 @@
 -->
       <Card title="Playdate Communities"
             class="appCard" >
+        <div v-for="(communityObj, index) in communityLinks" >
+          {{ communityObj.title }} <a :href="communityObj.url" target="_blank" >{{ communityObj.text }}</a>
+        </div>
+
+<!--
         <Row :gutter="[5, 10]">
           <Col v-for="(communityObj, index) in communityLinks"
               :span="24">
             {{ communityObj.title }}: <a :href="communityObj.url" target="_blank" >{{ communityObj.text }}</a>
           </Col>
         </Row>
+-->
       </Card>
 <!--
     </Col>

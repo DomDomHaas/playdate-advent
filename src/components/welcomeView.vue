@@ -7,22 +7,22 @@
 </script>
 
 <template>
-  <Card :title="'Welcome to the Playdate Advent Calender'"
+  <Card title="Welcome to the Playdate Advent Calender!"
         class="appCard" >
 
     <Row style="padding-bottom: 16px;">
       <Col :span="24" >
-        {{ "It's that time of the year... not just getting ready for the holidays but counting down to the big day with a daily Playdate surprise. No shaking is allowed, but there will be tons of unwrapping, and I'm sure there will be cranking." }}
+        {{ "It's that time of the year... not just getting ready for the holidays but counting down to the big day with a daily Playdate surprise. No shaking is allowed, but there will be tons of unwrapping, and I'm sure there will be cranking!" }}
         <br />
-        {{ 'Are you ready?' }}
+        {{ 'Enjoy cozy advent days with playdate games!' }}
         <br />
         {{ '#PlaydateAdventCalendar' }}
       </Col>
     </Row>
 
     <Row>
-      <Col :span="24" style="font-size: 1.1em;">
-        How to?
+      <Col :span="24" style="font-size: 1.2em;">
+        <strong>How to use the calendar?</strong>
       </Col>
 
       <Col :span="24">
