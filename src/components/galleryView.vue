@@ -8,7 +8,7 @@
   import {ref, watch} from "vue";
   import gameGiftUnwrap from "@/assets/gameGiftUnwrap.gif";
 
-  const galleryCarousel = ref<CarouselRef>(null)
+  const galleryCarousel = ref<CarouselRef>()
 
   const calendarStore = useCalendarStore();
   const galleryStore = useGalleryStore();
@@ -21,11 +21,11 @@
 
   watch(galleryIndex,
     (newValue, oldValue) => {
-      galleryCarousel.value.goTo(newValue);
+      //@ts-ignore
+      galleryCarousel.value?.goTo(newValue);
     },
     { deep: true }
   )
-
 
 </script>
 

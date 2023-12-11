@@ -4,15 +4,17 @@
   import { Card, BadgeRibbon, Row, Col } from 'ant-design-vue';
 
   import {useCalendarStore} from "@/stores/calendarStore";
-  import {computed} from "vue";
+  import {computed, onMounted, ref, watch} from "vue";
   import {usePlaydateStore} from "@/stores/pdStore";
   import {storeToRefs} from "pinia";
   import type {Ref} from "vue";
   import type {ScreenMap} from "ant-design-vue/es/_util/responsiveObserve";
   import useBreakpoint from "ant-design-vue/es/_util/hooks/useBreakpoint";
+  import tada from "@/assets/tada.mp3";
 
   const calendarStore = useCalendarStore();
   const playdateStore = usePlaydateStore();
+  const { dayIsOpening } = storeToRefs(calendarStore);
   const { themeDark } = storeToRefs(playdateStore);
 
   const breaks: Ref<ScreenMap> = useBreakpoint();
@@ -43,6 +45,12 @@
     return `Advent Gift of Day ${adventGame?.value.Day}`;
   })
 
+  const sfx = ref<HTMLAudioElement>();
+
+  watch(dayIsOpening, () => {
+    sfx.value?.play();
+  });
+
 </script>
 
 <template>
@@ -54,6 +62,12 @@
         :bordered="true"
         class="gameView"
         :class="themeDark ? 'pdCoverInverted' : 'pdCover'"  >
+
+    <audio id="sfx"
+           ref="sfx"
+           hidden="true" >
+      <source :src="tada" type="audio/mpeg">
+    </audio>
 
     <Row v-if="xsAndSmLayout && calendarStore.currentDayUnlocked"
          :gutter="[0, 5]">
@@ -162,7 +176,7 @@
 
         <div v-if="!calendarStore.dayIsOpening" >
 
-          <img :src="gameGift" alt="game present image">
+          <img :src="gameGift" alt="game present image" />
 
           <div :class="`${ Number.parseInt(adventGame.Day, 10) > 9 ? 'giftNumberOverlay doubleDigit' : 'giftNumberOverlay'}` ">
             {{ adventGame.Day }}
