@@ -19,16 +19,16 @@
     },
     {
       title: 'Playdate Squad Discord',
-      text: 'Meet loads of game devs, some from Panic',
+      text: 'Meet gamers and game devs, some even from Panic',
       url: 'https://discord.gg/4ZBEMZF9',
     },
     {
-      title: 'Uncrank\'d',
-      text: 'Checkout the Playdate community Magazine',
+      title: 'Checkout the Community Magazine',
+      text: 'Uncrank\'d',
       url: 'https://xanialasagna.storenvy.com/products/36635764-uncrank-d-magazine-digital',
     },
     {
-      title: 'All ',
+      title: 'Have a look at all ',
       text: 'Playdate Games on Itch.io',
       url: 'https://itch.io/games/tag-playdate',
     },
@@ -52,6 +52,11 @@
       text: ' learn how with this book!',
       url: 'https://valadria.itch.io/how-to-make-a-video-game-all-by-yourself',
     },
+    {
+      title: 'What are Playdate Devs Tweeting?',
+      text: 'Follow this list on Twitter',
+      url: 'https://twitter.com/i/lists/1609957861307580416',
+    }
   ];
 
 </script>
