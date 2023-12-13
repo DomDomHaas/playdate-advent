@@ -88,7 +88,9 @@ export const usePlaydateStore = defineStore(PD_STORE, () => {
     const configUrl = `/${configName}?nocache=${new Date().getTime()}`;
     const response = await fetch(configUrl);
     config.value = await response.json();
+/*
     console.log(config.value);
+*/
   }
 
   setInterval(() => {

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {BUTTON_A, BUTTON_B} from "@/interaction";
-import {Row, Col} from 'ant-design-vue';
+import {Row, Col, Popconfirm} from 'ant-design-vue';
 
 import {useCalendarStore} from "@/stores/calendarStore";
 import {useGalleryStore} from "@/stores/galleryStore";
@@ -71,6 +71,10 @@ const xxlAndUpLayout = computed(() => breaks.value.xxl)
 
 const version = import.meta.env.VITE_VERSION
 
+function reloadApp() {
+  window.location.reload();
+}
+
 </script>
 
 <template>
@@ -86,6 +90,8 @@ const version = import.meta.env.VITE_VERSION
 -->
   </div>
 
+
+
   <Row v-if="!calendarStore.isCalendarReady"
         :gutter="[16, 16]"
         style="height: 100vh;">
@@ -93,7 +99,7 @@ const version = import.meta.env.VITE_VERSION
     <Col :xs="{ span: 24 }"
          :md="{ span: 8 }"
          class="welcomeTitle">
-      <PdTitle :theme-dark="themeDark" />
+        <PdTitle :theme-dark="themeDark" />
     </Col>
 
     <Col :xs="{ span: 24 }"
@@ -152,8 +158,15 @@ const version = import.meta.env.VITE_VERSION
 
     <Col :span="24"
          id="playdateCol">
-      <PlaydatePageGrid @dPadClick="catchPad"
-                        @buttonClick="catchButton" />
+      <Popconfirm :open="playdateStore.isVersionOutdated"
+                  title="New Calendar version available, please reload!"
+                  ok-text="Reload"
+                  placement="top"
+                  @confirm="reloadApp"
+      >
+        <PlaydatePageGrid @dPadClick="catchPad"
+                          @buttonClick="catchButton" />
+      </Popconfirm>
     </Col>
 
     <Col :span="24" >
@@ -190,8 +203,14 @@ const version = import.meta.env.VITE_VERSION
         </Col>
 
         <Col :span="24">
-          <LightSwitch />
-
+          <Popconfirm :open="playdateStore.isVersionOutdated"
+                      title="New Calendar version available, please reload!"
+                      ok-text="Reload"
+                      placement="bottom"
+                      @confirm="reloadApp"
+          >
+            <LightSwitch />
+          </Popconfirm>
         </Col>
 
         <Col :span="24" >
@@ -246,7 +265,14 @@ const version = import.meta.env.VITE_VERSION
         </Col>
 
         <Col :span="24" >
-          <LightSwitch />
+          <Popconfirm :open="playdateStore.isVersionOutdated"
+                      title="New Calendar version available, please reload!"
+                      ok-text="Reload"
+                      placement="bottom"
+                      @confirm="reloadApp"
+          >
+            <LightSwitch />
+          </Popconfirm>
         </Col>
 
         <Col :span="24">
@@ -508,6 +534,12 @@ const version = import.meta.env.VITE_VERSION
   .game {
     grid-area: game;
     background-color: floralwhite;
+  }
+
+  .reloadPopup {
+    position: fixed;
+    top: 10px;
+    left: 10px;
   }
 
 </style>
