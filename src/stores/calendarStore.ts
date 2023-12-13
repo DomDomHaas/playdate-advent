@@ -6,6 +6,7 @@ import type {RemovableRef} from "@vueuse/core";
 import type {adventGame, consistent} from "../../env";
 import {defineStore, storeToRefs} from 'pinia'
 import {usePlaydateStore} from "@/stores/pdStore";
+import router from "@/router";
 
 const suffix = import.meta.env.VITE_LOCAL_STORAGE_SUFFIX
 export const CALENDAR_STORE: string = `CALENDAR_STORE_${suffix}`;
@@ -91,8 +92,11 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
 
   const showWaitMessage = computed(() => showWait.value)
 
-  const setCalendarIndex = (newIndex: number) => {
+  const setCalendarIndex = (newIndex: number, updateRoute: boolean = false) => {
     consistent.value.calendarIndex = newIndex;
+    if (updateRoute) {
+      router.push({ name: 'home', params: { day: newIndex }});
+    }
   };
 
   const updateCalendarIndex = (upOrDown: number, leftOrRight: number) => {
@@ -124,7 +128,7 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
       }
     }
 
-    setCalendarIndex(newIndex);
+    setCalendarIndex(newIndex, true);
 /*
     console.log('calendarIndex ' + consistent.value.calendarIndex)
 */

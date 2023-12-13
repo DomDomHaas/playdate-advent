@@ -26,7 +26,7 @@ const route = useRoute();
 watch<string, boolean>((): any => route.params.day,
   async (newDay, oldDay) => {
     const newDayNumber: number = Number.parseInt(newDay, 10);
-    setCalendarIndex(newDayNumber);
+    setCalendarIndex(newDayNumber, false);
   }
 )
 
