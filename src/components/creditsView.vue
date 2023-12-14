@@ -43,11 +43,11 @@
       </Col>
 
       <Col>
-        Are you enjoying the Advent Calendar and want to support us?
+        Do you enjoy the Advent Calendar and want to support us?
         <br />
-        A way to do that: <strong>Buy our Games via itch!</strong>
+        A way to do that: Buy our Games via itch!
         <br />
-        Also share the Advent Calendar! Let others enjoy daily playdate surprises!
+        And share the Advent Calendar, let others enjoy daily playdate surprises!
       </Col>
     </Row>
   </Card>
