@@ -26,15 +26,15 @@
       </Col>
 
       <Col :span="24">
-        Use the Arrows keys of the playdate to navigate the calendar.
+        Use the arrow-keys of the playdate to navigate the calendar.
       </Col>
 
       <Col :span="24">
-        A: Open a gift
+        A: Open a present, <br /> then use arrow-keys to look at the screenshots
       </Col>
 
       <Col :span="24">
-        B: When looking at a gift, return to the calendar.
+        B: When looking at a present, return to the calendar.
       </Col>
 
     </Row>
