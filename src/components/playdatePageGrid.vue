@@ -11,14 +11,17 @@ import { Grid } from 'ant-design-vue';
 import {useCalendarStore} from "@/stores/calendarStore";
 import {usePlaydateStore} from "@/stores/pdStore";
 import {useRoute} from "vue-router";
-import {watch, computed} from "vue";
+import {watch, computed, type Ref} from "vue";
 import {storeToRefs} from "pinia";
+import type {ScreenMap} from "ant-design-vue/es/_util/responsiveObserve";
+import useBreakpoint from "ant-design-vue/es/_util/hooks/useBreakpoint";
 
 const calendarStore = useCalendarStore();
 const { openedDays } = storeToRefs(calendarStore);
 const { setCalendarIndex } = calendarStore;
 const playdateStore = usePlaydateStore();
 const { themeDark } = storeToRefs(playdateStore);
+const breaks: Ref<ScreenMap> = useBreakpoint();
 
 const route = useRoute();
 
@@ -47,6 +50,9 @@ const isPlaydateRotated = computed(() => {
   return calendarStore.currentDayRotated && playdateStore.showGallery
 })
 
+const xsLayout = computed(() => breaks.value.xs && !breaks.value.sm)
+
+
 </script>
 
 <template>
@@ -68,6 +74,7 @@ const isPlaydateRotated = computed(() => {
       </Col>
 
       <Col span="24"
+           :flex="xsLayout ? '400px' : ''"
             id="middle"
            class="playdateInCover"
       >
@@ -191,6 +198,16 @@ const isPlaydateRotated = computed(() => {
       height: 386px;
     }
 
+    .console {
+      width: 400px;
+      height: 386px;
+    }
+
+    .playdateInCover {
+      padding: 0 !important;
+      width: 400px !important;
+    }
+
     .coverWrap {
       width: 95%;
     }
@@ -218,9 +235,6 @@ const isPlaydateRotated = computed(() => {
       padding: 21px 0 0 21px !important;
     }
 
-    .playdateInCover {
-      padding: 0 !important;
-    }
 
   }
 
@@ -257,6 +271,15 @@ const isPlaydateRotated = computed(() => {
     height: 410px !important;
     width: 245px !important;
     padding: 45px 0 0 264px !important;
+  }
+
+  @media (max-width: 560px) {
+
+    .rotatedBg {
+      height: 290px !important;
+      width: 178px !important;
+      padding: 16px 0 0 196px !important;
+    }
   }
 
 </style>

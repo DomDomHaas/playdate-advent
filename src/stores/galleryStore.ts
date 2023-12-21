@@ -24,7 +24,7 @@ export const useGalleryStore = defineStore('galleryStore', () => {
 
   const currentScreenshots : ComputedRef<any[]> = computed(() => {
     const indexDiff = calendarStore.calendarIndex - 1;
-    
+
     if (indexDiff >= 0) {
       return [screenshotsCards.value[indexDiff], ...screenshots.value[indexDiff]];
     }
@@ -43,7 +43,11 @@ export const useGalleryStore = defineStore('galleryStore', () => {
     }
 
     if (upOrDown !== 0) {
-      sIndex.value += upOrDown;
+      if (calendarStore.currentDayRotated) {
+        sIndex.value -= upOrDown;
+      } else {
+        sIndex.value += upOrDown;
+      }
     }
 
     if (sIndex.value < 0) {
