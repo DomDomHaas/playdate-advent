@@ -39,7 +39,7 @@ const catchPad = (upOrDown: number, leftOrRight: number) => {
   }
 
   if (playdateStore.showGallery) {
-    galleryStore.updateGalleryIndex(leftOrRight);
+    galleryStore.updateGalleryIndex(upOrDown, leftOrRight);
 /*
     console.log('screenshotIndex')
     console.log(galleryStore.screenshotIndex)

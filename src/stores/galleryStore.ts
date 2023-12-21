@@ -24,17 +24,26 @@ export const useGalleryStore = defineStore('galleryStore', () => {
 
   const currentScreenshots : ComputedRef<any[]> = computed(() => {
     const indexDiff = calendarStore.calendarIndex - 1;
-    return [screenshotsCards.value[indexDiff], ...screenshots.value[indexDiff]];
+    
+    if (indexDiff >= 0) {
+      return [screenshotsCards.value[indexDiff], ...screenshots.value[indexDiff]];
+    }
+
+    return [];
   });
 
   const screenshotAmount : ComputedRef<number> = computed(() => currentScreenshots.value.length);
 
-  const updateGalleryIndex = (leftOrRight: number) => {
+  const updateGalleryIndex = (upOrDown: number, leftOrRight: number) => {
 
     // const screenshotAmount = currentScreenshots.value.length;
 
     if (leftOrRight !== 0) {
       sIndex.value += leftOrRight;
+    }
+
+    if (upOrDown !== 0) {
+      sIndex.value += upOrDown;
     }
 
     if (sIndex.value < 0) {

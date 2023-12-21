@@ -8,9 +8,11 @@
   import useBreakpoint from "ant-design-vue/es/_util/hooks/useBreakpoint";
   import {usePlaydateStore} from "@/stores/pdStore";
   import {storeToRefs} from "pinia";
+  import {useCalendarStore} from "@/stores/calendarStore";
 
-  const pdStore = usePlaydateStore();
-  const { themeDark } = storeToRefs(pdStore);
+  const calendarStore = useCalendarStore();
+  const playdateStore = usePlaydateStore();
+  const { themeDark } = storeToRefs(playdateStore);
 
   const emit = defineEmits<{
     dPadClick: [upOrDown: number, leftOrRight: number] // named tuple syntax
@@ -44,11 +46,16 @@
   const breaks: Ref<ScreenMap> = useBreakpoint();
   const xsAndSmLayout = computed(() => (breaks.value.xs || breaks.value.sm) && !breaks.value.md)
 
+  const isPlaydateRotated = computed(() => {
+    return calendarStore.currentDayRotated && playdateStore.showGallery
+  })
+  
 </script>
 
 <template>
   <div id="consoleView"
-       class="console" >
+       class="console"
+        :class="isPlaydateRotated ? 'rotatedConsole' : ''">
 
     <img class="playdateFrame"
          :src="playdateConsole"
@@ -121,6 +128,7 @@
     position: relative;
     height: 100%;
     z-index: 10;
+    transition: 0.3s all;
   }
 
   .buttonOverlay,
@@ -210,5 +218,7 @@
     left: -2px;
   }
 
-
+  .rotatedConsole {
+    transform: rotate(90deg);
+  }
 </style>

@@ -43,6 +43,10 @@ const emit = defineEmits<{
   buttonClick: [buttonName: string]
 }>()
 
+const isPlaydateRotated = computed(() => {
+  return calendarStore.currentDayRotated && playdateStore.showGallery
+})
+
 </script>
 
 <template>
@@ -86,6 +90,7 @@ const emit = defineEmits<{
         </GalleryView>
 
         <img class="pdBackground"
+             :class="isPlaydateRotated ? 'rotatedBg' : ''"
              :src="pgBg"
              alt="background playdate screen" />
 
@@ -248,5 +253,10 @@ const emit = defineEmits<{
   }
 
 
+  .rotatedBg {
+    height: 410px !important;
+    width: 245px !important;
+    padding: 45px 0 0 264px !important;
+  }
 
 </style>

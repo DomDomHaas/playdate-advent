@@ -33,7 +33,11 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
     {
       mergeDefaults: ((storageValue: consistent, defaults: consistent) => {
         // todo logic for 2023 & 2024, etc.
-        const calendarIndex = storageValue.calendarIndex < 0 ? defaults.calendarIndex : storageValue.calendarIndex
+        let calendarIndex = defaults.calendarIndex;
+        if (storageValue.calendarIndex && storageValue.calendarIndex >= 0) {
+          calendarIndex = storageValue.calendarIndex
+        }
+
         return {
           calendarIndex: calendarIndex > daysAmount ? daysAmount : calendarIndex,
           openedDays: storageValue.openedDays ? storageValue.openedDays : defaults.openedDays,
@@ -202,8 +206,16 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
    }
   }
 
+  const rotatedDays = [22];
+
+  const currentDayRotated = computed(() => {
+
+    const dayNumber = calendarIndex.value;
+    return rotatedDays.includes(dayNumber)
+  })
+
   return {
-    calendarIndex, openedDays, dayIsOpening,
+    calendarIndex, openedDays, dayIsOpening, currentDayRotated,
     setCalendarIndex, updateCalendarIndex,
     openDay, triggerWaitMessage, isCalendarReady,
     currentDayUnlocked, isCurrentDayUnlockable,
