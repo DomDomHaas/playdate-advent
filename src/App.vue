@@ -83,7 +83,7 @@ function reloadApp() {
 
   <div v-if="lgLayout"
        class="calendarBG"
-       :style="`background: url(${calendarBG});`"
+       :style="`background: url(${calendarBG}); repeat: no-repeat;`"
   >
 <!--
     <img :src="calendarBG" alt="background" />
@@ -164,9 +164,9 @@ function reloadApp() {
                   placement="top"
                   @confirm="reloadApp"
       >
-        <PlaydatePageGrid @dPadClick="catchPad"
-                          @buttonClick="catchButton" />
       </Popconfirm>
+      <PlaydatePageGrid @dPadClick="catchPad"
+                        @buttonClick="catchButton" />
     </Col>
 
     <Col :span="24" >
@@ -423,6 +423,10 @@ function reloadApp() {
     top: 0;
     left: 0;
     opacity: 0.35;
+    /*
+    width: 2149px;
+    height: 1355px;
+    */
     width: 100%;
     height: 100%;
   }

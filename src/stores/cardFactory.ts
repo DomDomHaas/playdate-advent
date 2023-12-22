@@ -22,6 +22,7 @@ import card21 from '@/assets/cards/card=21.gif';
 import card22 from '@/assets/cards/card=22.png';
 import card23 from '@/assets/cards/card=23.gif';
 import card24 from '@/assets/cards/card=24.png';
+import card25 from '@/assets/cards/card=25.png';
 
 export const getCards = () => {
 
@@ -30,5 +31,6 @@ export const getCards = () => {
     card7, card8, card9, card10, card11, card12,
     card13, card14, card15, card16, card17, card18,
     card19, card20, card21, card22, card23, card24,
+    card25,
   ];
 }

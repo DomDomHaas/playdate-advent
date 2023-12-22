@@ -128,7 +128,7 @@
     position: relative;
     height: 100%;
     z-index: 10;
-    transition: 0.3s all;
+    transition: 0.2s all;
   }
 
   .buttonOverlay,
@@ -140,6 +140,13 @@
   .dPadOverlay {
     top: 333px;
     left: 78px;
+  }
+
+  @media (min-width: 560px) and (max-width: 768px) {
+    .dPadOverlay {
+      top: 446px;
+      left: 110px;
+    }
   }
 
   .buttonOverlay {

@@ -57,10 +57,12 @@
          :id="`day_${index}`"
          class="calenderCell"
          :class="{
-          'cellOpened': openedDays.includes(index),
-          'cellClosed': !openedDays.includes(index),
-          'cellSelected': selection === index,
-          'cellInverted': !themeDark,
+            'cellOpened': openedDays.includes(index),
+            'cellClosed': !openedDays.includes(index),
+            'cellSelected': selection === index,
+            'cellInverted': !themeDark,
+            'day24' : index === 24,
+            'day25' : index === 25,
           }"
          >
 
@@ -92,7 +94,7 @@
     transform: scale(0.9);
     transition: all 0.3s;
     margin: 0 5px;
-    padding: 5px;
+    padding: 5px 0;
     /*
     border: transparent solid 2px;
     */
@@ -116,7 +118,8 @@
   }
 
   .dayBadge {
-    position: absolute; right: -5px;
+    position: absolute;
+    right: 0;
     border-radius: 50%;
     background-color: floralwhite;
     height: 25px;
@@ -164,7 +167,7 @@
       height: 15px;
       width: 15px;
       font-size: 0.6rem;
-      left: 30px;
+      left: 25px;
     }
   }
 
@@ -212,6 +215,16 @@
     height: 100%;
   }
 
+  .day24 {
+    left: -15px;
+    top: -5px;
+  }
+
+  .day25 {
+    left: 352px;
+    top: -45px;
+  }
+
   @media (max-width: 560px) {
     .waitMsg {
       margin: 20px 0 0 20px;
@@ -223,6 +236,16 @@
 
     .waitMsg.waitOut > div {
       padding: 10px;
+    }
+
+    .day24 {
+      left: -12px;
+      top: -5px;
+    }
+
+    .day25 {
+      left: 250px;
+      top: -32px;
     }
   }
 

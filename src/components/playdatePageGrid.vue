@@ -126,6 +126,7 @@ const xsLayout = computed(() => breaks.value.xs && !breaks.value.sm)
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: repeat(4, 1fr);
+    row-gap: 5px;
     /*
     gap: 5px;
     */

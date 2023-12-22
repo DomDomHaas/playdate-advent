@@ -21,7 +21,7 @@ const unwrapAnimationTime = 3100;
 export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
 
 
-  const daysAmount: number = 24;
+  const daysAmount: number = 25;
   const dayIsOpening: Ref<UnwrapRef<boolean>> = ref(false);
 
   const consistent: RemovableRef<consistent> = useStorage(CALENDAR_STORE,

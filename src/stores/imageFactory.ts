@@ -120,6 +120,10 @@ export const getScreenshots = () => {
   pngGlob = import.meta.glob('@/assets/24/*.png', { eager: true });
   screenshots.push([...addImages(gifGlob, pngGlob)]);
 
+  gifGlob = import.meta.glob('@/assets/25/*.gif', { eager: true });
+  pngGlob = import.meta.glob('@/assets/25/*.png', { eager: true });
+  screenshots.push([...addImages(gifGlob, pngGlob)]);
+
 /*
   console.log('screenshots');
   console.log(screenshots);

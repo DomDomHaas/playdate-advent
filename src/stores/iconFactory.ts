@@ -22,6 +22,7 @@ import icon21 from '@/assets/icons/icon=21.png';
 import icon22 from '@/assets/icons/icon=22.png';
 import icon23 from '@/assets/icons/icon=23.png';
 import icon24 from '@/assets/icons/icon=24.png';
+import icon25 from '@/assets/icons/icon=25.png';
 
 export const getIcons = () => {
 
@@ -30,5 +31,6 @@ export const getIcons = () => {
     icon7, icon8, icon9, icon10, icon11, icon12,
     icon13, icon14, icon15, icon16, icon17, icon18,
     icon19, icon20, icon21, icon22, icon23, icon24,
+    icon25,
   ];
 }
