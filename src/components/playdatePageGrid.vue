@@ -228,6 +228,7 @@ const xsLayout = computed(() => breaks.value.xs && !breaks.value.sm)
       */
       width: 285px;
       height: 175px;
+      row-gap: 0;
       padding: 24px 0 0 24px !important;
     }
 

@@ -143,6 +143,7 @@
     .calenderCell {
       margin: 0;
       padding: 0;
+      max-height: 44px;
     }
 
     .calenderCell > .cellImg {
@@ -217,12 +218,14 @@
 
   .day24 {
     left: -15px;
-    top: -5px;
+    top: -10px;
+    z-index: 2;
   }
 
   .day25 {
     left: 352px;
-    top: -45px;
+    top: -52px;
+    z-index: 1;
   }
 
   @media (max-width: 560px) {
@@ -245,7 +248,10 @@
 
     .day25 {
       left: 250px;
+      /*
       top: -32px;
+      */
+      top: -40px;
     }
   }
 
