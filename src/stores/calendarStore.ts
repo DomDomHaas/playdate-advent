@@ -53,20 +53,26 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
     return consistent.value.openedDays.includes(consistent.value.calendarIndex);
   });
 
-  const isUnlockable = (nowString: string, day: number, currentMonth: string): boolean => {
+  const isUnlockable = (nowString: string, day: number, currentMonth: string, currentYear: string): boolean => {
 
     if(nowString < calendarStartDate) {
+      return false;
+    }
+
+    const currentYearNr = Number.parseInt(currentYear, 10);
+    const startYearNr = Number.parseInt(calendarStartDate.substring(0, 4), 10);
+
+    if (currentYearNr < startYearNr) {
       return false;
     }
 
     const currentMonthNr = Number.parseInt(currentMonth, 10);
     const startMonthNr = Number.parseInt(calendarStartDate.substring(5, 7), 10);
 
-    if (currentMonthNr < startMonthNr) {
+    if (currentYearNr === startYearNr && currentMonthNr < startMonthNr) {
       return false;
-    } else if (currentMonthNr > startMonthNr) {
-      return true;
     }
+
 
     const nowDay = nowString.substring(8, 10)
     const nowDayNumber = Number.parseInt(nowDay, 10); // - 10
@@ -76,19 +82,24 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
 
   const isCurrentDayUnlockable = computed(() => {
     const playdateStore = usePlaydateStore();
-    const { currentDayMonthYear, currentMonth } = storeToRefs(playdateStore);
+    const { currentDayMonthYear, currentMonth, currentYear } = storeToRefs(playdateStore);
 
     return isUnlockable(currentDayMonthYear.value,
-      consistent.value.calendarIndex, currentMonth.value);
+      consistent.value.calendarIndex, currentMonth.value, currentYear.value);
   });
 
   const isCalendarReady = computed(() => {
     const playdateStore = usePlaydateStore();
-    const { currentDayMonthYear, currentMonth } = storeToRefs(playdateStore);
+    const { currentDayMonthYear, currentMonth, currentYear } = storeToRefs(playdateStore);
 
     const startDay = calendarStartDate.substring(8, 10);
     const dayNumber = Number.parseInt(startDay, 10);
-    return isUnlockable(currentDayMonthYear.value, dayNumber, currentMonth.value);
+
+    return isUnlockable(currentDayMonthYear.value, dayNumber, currentMonth.value, currentYear.value);
+  })
+
+  const isCalendarActive = computed(() => {
+    return false;
   })
 
   const calendarIndex = computed(() => consistent.value.calendarIndex);
@@ -220,6 +231,7 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
     openDay, triggerWaitMessage, isCalendarReady,
     currentDayUnlocked, isCurrentDayUnlockable,
     showWaitMessage, selectedGame, daysAmount,
+    isCalendarActive,
   }
 
 });

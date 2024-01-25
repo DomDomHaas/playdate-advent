@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {BUTTON_A, BUTTON_B} from "@/interaction";
-import {Row, Col, Popconfirm} from 'ant-design-vue';
+import {Row, Col, Card} from 'ant-design-vue';
 
 import {useCalendarStore} from "@/stores/calendarStore";
 import {useGalleryStore} from "@/stores/galleryStore";
@@ -20,6 +20,7 @@ import LightSwitch from "@/components/lightSwitch.vue";
 import PdTime from "@/components/pdTime.vue";
 import PdTitle from "@/components/pdTitle.vue";
 import CreditsView from "@/components/creditsView.vue";
+import TheCalendarPage from "@/components/TheCalendarPage.vue";
 
 const playdateStore = usePlaydateStore();
 const calendarStore = useCalendarStore();
@@ -75,19 +76,46 @@ function reloadApp() {
   window.location.reload();
 }
 
+const calendars = ['2023', '2024', '2025', '2026', '2027', '2028'];
+
+const calenderTimeline = computed(() => {
+  const timeline = [];
+
+  const entries = calendars.length * 2 - 1;
+  let calIndex = -1;
+
+  for (let i = 0; i < entries; i++) {
+    const addCalTitle = i % 2 == 0;
+
+    if (addCalTitle) {
+      calIndex = calIndex + 1;
+      timeline[i] = calendars[calIndex];
+    } else {
+      timeline[i] = 'delimiter';
+    }
+  }
+
+  return timeline;
+})
+
+const calendarClick = (event: any) => {
+  console.log(event)
+}
+
 </script>
 
 <template>
 
+<!--
 <main :style="xxlAndUpLayout ? 'height: 100%;' : '' ">
 
   <div v-if="lgLayout"
        class="calendarBG"
        :style="`background: url(${calendarBG}); repeat: no-repeat;`"
   >
-<!--
+&lt;!&ndash;
     <img :src="calendarBG" alt="background" />
--->
+&ndash;&gt;
   </div>
 
 
@@ -139,11 +167,11 @@ function reloadApp() {
       <PdTitle :theme-dark="themeDark" />
     </Col>
 
-<!--
+&lt;!&ndash;
     <Col>
       <Button >Go To Calendar</Button>
     </Col>
--->
+&ndash;&gt;
 
     <Col :span="24"
          id="infoCol">
@@ -316,7 +344,35 @@ function reloadApp() {
   </Row>
 
 </main>
+-->
 
+<!--
+  <TheCalendarPage />
+-->
+
+  <TheCalendarPage v-if="calendarStore.isCalendarActive"/>
+
+  <div>
+    <Row style="align-items: center;"
+        :gutter="[16,8]">
+      <Col v-for="(title, index) in calenderTimeline"
+        :span="title === 'delimiter' ? 2 : 5"
+          >
+        <div v-if="title === 'delimiter'" >
+          <hr>
+        </div>
+        <div v-else
+              style="text-align:center; ">
+          <pd-title :calendar-year="title"
+                    :theme-dark="false"
+                    :show-title="true"
+                    :clickable="true"
+                    @clicked="calendarClick"
+          />
+        </div>
+      </Col>
+    </Row>
+  </div>
 
 </template>
 

@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import gameGift from '@/assets/gameGift.png';
+  // import surprise from '@/assets/surprise-small.gif';
   import gameGiftUnwrap from '@/assets/gameGiftUnwrap.gif';
   import { Card, BadgeRibbon, Row, Col } from 'ant-design-vue';
 
@@ -178,6 +179,9 @@
 
           <img :src="gameGift" alt="game present image" />
 
+<!--
+          <img :src="surprise" alt="surprise box" />
+-->
           <div :class="`${ Number.parseInt(adventGame.Day, 10) > 9 ? 'giftNumberOverlay doubleDigit' : 'giftNumberOverlay'}` ">
             {{ adventGame.Day }}
           </div>
