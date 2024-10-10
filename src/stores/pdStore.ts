@@ -12,7 +12,7 @@ import type {config, consitentPdData} from "../../env";
 
 export enum playdateState {
   CALENDAR = 1,
-  GALLERY,
+  GALLERY = 2,
 }
 
 const configName = import.meta.env.VITE_CONFIG_NAME; // || 'beta.json';
@@ -25,24 +25,44 @@ const PSTTimeZone: string = 'America/Los_Angeles';
 const suffix = import.meta.env.VITE_LOCAL_STORAGE_SUFFIX
 export const PD_STORE: string = `PD_STORE_${suffix}`;
 
+
 export const usePlaydateStore = defineStore(PD_STORE, () => {
 
   const galleryStore = useGalleryStore();
 
-  const consistent : RemovableRef<consitentPdData> = useStorage(PD_STORE,
-    {
-      state: 1,
-      themeDark: false,
-    }, localStorage,
-    { mergeDefaults: true },
-  );
+  let localStorageName: string;
+  let consistent : RemovableRef<consitentPdData>;
+  
+  const initStore = (year: string) => {
+
+    const initYear = year || currentYear.value;
+    localStorageName = `${PD_STORE}_${initYear}`;
+
+    consistent = useStorage(localStorageName,
+      {
+        state: 1,
+        themeDark: false,
+      }, localStorage,
+      { mergeDefaults: true },
+    );
+
+    console.log('PlaydateStore init', localStorageName);
+  }
+
+  // const consistent : RemovableRef<consitentPdData> = useStorage(PD_STORE,
+  //   {
+  //     state: 1,
+  //     themeDark: false,
+  //   }, localStorage,
+  //   { mergeDefaults: true },
+  // );
 
   function changeThemeDark(value: boolean){
     consistent.value.themeDark = value;
   }
 
-  let config: Ref<UnwrapRef<config>> = ref({ version: '1.0.0'});
-  let localDateTime: Ref<UnwrapRef<string>> = ref(moment().format());
+  const config: Ref<UnwrapRef<config>> = ref({ version: '1.0.0'});
+  const localDateTime: Ref<UnwrapRef<string>> = ref(moment().format());
 
   setInterval(() => {
     localDateTime.value = moment().format();
@@ -58,6 +78,10 @@ export const usePlaydateStore = defineStore(PD_STORE, () => {
 
   const currentDayMonth: ComputedRef<string> = computed(() => {
     return moment.tz(localDateTime.value, PSTTimeZone).format('DD. MMM');
+  });
+
+  const currentDayOnly: ComputedRef<string> = computed(() => {
+    return moment.tz(localDateTime.value, PSTTimeZone).format('DD');
   });
 
   const currentMonth: ComputedRef<string> = computed(() => {
@@ -76,13 +100,14 @@ export const usePlaydateStore = defineStore(PD_STORE, () => {
     consistent.value.state = playdateState.GALLERY;
     galleryStore.resetGalleryIndex();
   }
+
   const changeToCalendar = () => consistent.value.state = playdateState.CALENDAR;
 
   const showGallery : ComputedRef<boolean> = computed(() => consistent.value.state === playdateState.GALLERY);
   const showCalendar : ComputedRef<boolean> = computed(() => consistent.value.state === playdateState.CALENDAR);
 
-  const state : ComputedRef<playdateState> = computed(() => consistent.value.state);
-  const themeDark : ComputedRef<boolean> = computed(() => consistent.value.themeDark);
+  const state : ComputedRef<playdateState> = computed(() => consistent.value?.state);
+  const themeDark : ComputedRef<boolean> = computed(() => consistent.value?.themeDark);
 
   const isVersionOutdated: ComputedRef<boolean> = computed(() => {
     return config.value.version > appVersion;
@@ -102,9 +127,10 @@ export const usePlaydateStore = defineStore(PD_STORE, () => {
   }, 5000)
 
   return {
+    initStore,
     state, themeDark,
-    currentDateTime, currentDayMonth, currentMonth,
-    currentDayMonthYear, currentYear, currentTime,
+    currentDateTime, currentDayMonth, currentDayOnly,
+    currentMonth, currentDayMonthYear, currentYear, currentTime,
     changeThemeDark, changeToGallery, changeToCalendar,
     showGallery, showCalendar,
     config, isVersionOutdated,

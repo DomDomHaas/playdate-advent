@@ -2,7 +2,7 @@
 
   <TheCalendarPageLayout>
     <template #title>
-      <PdTitle calendar-year="2023"
+      <PdTitle :calendarYear="calendarYear"
                :show-title="true"
                :clickable="false"
                :themeDark="themeDark" />
@@ -82,24 +82,71 @@
   import CreditsView from "@/components/creditsView.vue";
   import LightSwitch from "@/components/lightSwitch.vue";
   import {useCalendarStore} from "@/stores/calendarStore";
-  import {computed, type Ref} from "vue";
+  import {computed, ref, watch, type Ref} from "vue";
   import type {ScreenMap} from "ant-design-vue/es/_util/responsiveObserve";
   import useBreakpoint from "ant-design-vue/es/_util/hooks/useBreakpoint";
   import {usePlaydateStore} from "@/stores/pdStore";
   import {useGalleryStore} from "@/stores/galleryStore";
   import {storeToRefs} from "pinia";
   import TheCalendarPageLayout from "@/components/TheCalendarPageLayout.vue";
+  import { useRoute } from "vue-router";
+  import {useRouter} from "vue-router";
+
+  const route = useRoute();
+  const router = useRouter();
+  const calendarYear = ref('');
+  calendarYear.value = route.params.year as string;
+  const calendarDay = ref('');
+  calendarDay.value = route.params.day as string;
+
+  const playdateStore = usePlaydateStore();
+  playdateStore.initStore(calendarYear.value);
+  let updateRoute = false;
+  
+  if (!calendarYear.value) {
+    calendarYear.value = playdateStore.currentYear;
+    updateRoute = true;
+  }
+
+  if (!calendarDay.value) {
+    calendarDay.value = playdateStore.currentDayOnly;
+    updateRoute = true;
+  }
+
+  if (updateRoute) {
+    router.push({ params: { year: calendarYear.value, day: calendarDay.value }});
+  }
 
   const calendarStore = useCalendarStore();
-  const playdateStore = usePlaydateStore();
+  calendarStore.initStore(calendarYear.value);
+  const { setCalendarIndex } = calendarStore;
+
+  
+
   const galleryStore = useGalleryStore();
   const { themeDark } = storeToRefs(playdateStore);
-  const version = import.meta.env.VITE_VERSION
+  const version = import.meta.env.VITE_VERSION;
 
   const breaks: Ref<ScreenMap> = useBreakpoint();
   const xsAndSmLayout = computed(() => (breaks.value.xs || breaks.value.sm) && !breaks.value.md)
-  const mdLayout = computed(() => (breaks.value.md || breaks.value.lg) && !breaks.value.xl)
-  const lgLayout = computed(() => breaks.value.xl)
+  // const mdLayout = computed(() => (breaks.value.md || breaks.value.lg) && !breaks.value.xl)
+  // const lgLayout = computed(() => breaks.value.xl)
+
+
+  watch<string, boolean>((): any => route.params.year,
+    async (newYear, oldYear) => {
+      calendarYear.value = newYear;
+      calendarStore.initStore(calendarYear.value);
+    }
+  )
+
+  watch<string, boolean>((): any => route.params.day,
+    async (newDay, oldDay) => {
+      calendarDay.value = newDay;
+      const newDayNumber: number = Number.parseInt(calendarDay.value, 10);
+      setCalendarIndex(newDayNumber, false);
+    }
+  )
 
   const catchPad = (upOrDown: number, leftOrRight: number) => {
     if (playdateStore.showCalendar) {

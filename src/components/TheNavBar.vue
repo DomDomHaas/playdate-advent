@@ -8,6 +8,7 @@
   const { themeDark } = storeToRefs(pdStore);
 
   const changeTheme = (checked: boolean) => {
+    // instead of boolean use CheckedType?
     pdStore.changeThemeDark(checked);
   }
 

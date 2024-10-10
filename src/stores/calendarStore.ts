@@ -12,7 +12,7 @@ const suffix = import.meta.env.VITE_LOCAL_STORAGE_SUFFIX
 export const CALENDAR_STORE: string = `CALENDAR_STORE_${suffix}`;
 
 const startDate: string = import.meta.env.VITE_START_DATE
-const calendarStartDate = startDate || '2023-12-01';
+let calendarStartDate = startDate || '2023-12-01';
 const unwrapAnimationTime = 3100;
 
 
@@ -20,34 +20,49 @@ const unwrapAnimationTime = 3100;
 
 export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
 
-
   const daysAmount: number = 25;
   const dayIsOpening: Ref<UnwrapRef<boolean>> = ref(false);
+  let calenderYear: string;
+  let localStorageName: string;
 
-  const consistent: RemovableRef<consistent> = useStorage(CALENDAR_STORE,
-    {
-      calendarIndex: 1,
-      openedDays: [],
-    }, localStorage,
-    // { mergeDefaults: true },
-    {
-      mergeDefaults: ((storageValue: consistent, defaults: consistent) => {
-        // todo logic for 2023 & 2024, etc.
-        let calendarIndex = defaults.calendarIndex;
-        if (storageValue.calendarIndex && storageValue.calendarIndex >= 0) {
-          calendarIndex = storageValue.calendarIndex
-        }
+  let consistent: RemovableRef<consistent>;
 
-        return {
-          calendarIndex: calendarIndex > daysAmount ? daysAmount : calendarIndex,
-          openedDays: storageValue.openedDays ? storageValue.openedDays : defaults.openedDays,
-        } as consistent;
-      }),
-    },
-  );
+  const initStore = (year: string) => {
+    calenderYear = year;
+    calendarStartDate = `${calenderYear}${calendarStartDate.substring(4, calendarStartDate.length)}`;
+    
+    console.log('calendarStartDate', calendarStartDate);
+    localStorageName = `${CALENDAR_STORE}_${calenderYear}`;
 
-  let showWait = ref<boolean>(false);
-  let gameList = ref<object[]>([]);
+    consistent = useStorage(localStorageName,
+      {
+        calendarIndex: 1,
+        openedDays: [],
+      }, localStorage,
+      // { mergeDefaults: true },
+      {
+        mergeDefaults: ((storageValue: consistent, defaults: consistent) => {
+          // todo logic for 2023 & 2024, etc.
+          let calendarIndex = defaults.calendarIndex;
+  
+          if (storageValue.calendarIndex != undefined && storageValue.calendarIndex >= 0) {
+            calendarIndex = storageValue.calendarIndex
+          }
+  
+          return {
+            calendarIndex: calendarIndex > daysAmount ? daysAmount : calendarIndex,
+            openedDays: storageValue.openedDays ? storageValue.openedDays : defaults.openedDays,
+          } as consistent;
+        }),
+      },
+    );
+
+    console.log('init localStorage ', localStorageName);  
+  }
+
+
+  const showWait = ref<boolean>(false);
+  const gameList = ref<object[]>([]);
 
   const currentDayUnlocked = computed(() => {
     return consistent.value.openedDays.includes(consistent.value.calendarIndex);
@@ -110,7 +125,9 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
   const setCalendarIndex = (newIndex: number, updateRoute: boolean = false) => {
     consistent.value.calendarIndex = newIndex;
     if (updateRoute) {
-      router.push({ name: 'home', params: { day: newIndex }});
+//      router.push({ name: 'calendar', params: { year: calenderYear, day: newIndex }});
+      const dayParam = newIndex.toString();
+      router.push({ params: { year: calenderYear, day: dayParam }});
     }
   };
 
@@ -172,7 +189,7 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
 
   const selectedGame: ComputedRef<adventGame> = computed(() => {
 
-    if (currentDayUnlocked && gameList.value.length > 0) {
+    if (currentDayUnlocked.value && gameList.value.length > 0) {
       const indexDiff = consistent.value.calendarIndex - 1
       // console.log(gameList.value[indexDiff])
       return gameList.value[indexDiff] as adventGame;
@@ -196,9 +213,16 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
   });
 
    const fetchGameInfos = async () => {
-     const gsheetUrl = 'https://opensheet.elk.sh/1pPornYJbWkLL_V7ZQoxwWrs8_EVv0GAV0OrRcCA1xRc/Calendar%202023';
-     const response = await fetch(gsheetUrl);
-     gameList.value = await response.json();
+    const gsheetUrl = 'https://opensheet.elk.sh/1pPornYJbWkLL_V7ZQoxwWrs8_EVv0GAV0OrRcCA1xRc/Calendar%202023';
+
+     try {
+      const response = await fetch(gsheetUrl);
+      gameList.value = await response.json();
+       
+     } catch (error) {
+      console.log(`Error loading ${gsheetUrl}`);
+      console.error(error);
+     }
 /*
      console.log(gameList.value);
 */
@@ -226,6 +250,7 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
   })
 
   return {
+    initStore,
     calendarIndex, openedDays, dayIsOpening, currentDayRotated,
     setCalendarIndex, updateCalendarIndex,
     openDay, triggerWaitMessage, isCalendarReady,

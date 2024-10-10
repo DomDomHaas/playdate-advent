@@ -1,15 +1,39 @@
 import {createRouter, createWebHashHistory } from 'vue-router'
-import playdatePage from "@/components/playdatePage.vue";
+
+import TheCalendarOverview from "@/components/TheCalendarOverview.vue";
+import TheCalendarPage from "@/components/TheCalendarPage.vue";
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [
     {
-      path: '/:day',
-      name: 'home',
-      component: playdatePage,
+      path: '/',
+      name: 'overview',
+      component: TheCalendarOverview,
     },
-  ]
+    {
+      path: '/calender/:year?/:day?',
+      name: 'calender',
+      component: TheCalendarPage,
+    },
+    // {
+    //   path: '/:calender',
+    //   name: 'calender',
+    //   component: TheCalendarPage,
+    //   children: [
+    //     {
+    //       path: '/:calender/:year',
+    //       name: 'calender',
+    //       component: TheCalendarPage,
+    //     },
+    //     {
+    //       path: '/:calender/:year/:day',
+    //       name: 'calender',
+    //       component: TheCalendarPage,
+    //     },
+    //   ],
+    // },
+  ],
 })
 
 export default router
