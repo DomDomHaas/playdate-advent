@@ -1,7 +1,7 @@
 import { addImages } from "./imageUtils";
 
 
-export const getScreenshots = () => {
+export const getScreenshots = () : string[] => {
 
   const screenshots: any[] = [];
   let gifGlob, pngGlob;

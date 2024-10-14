@@ -1,12 +1,12 @@
 <script setup lang="ts">
   import {getGiftIndecies, getGifts} from "@/stores/imageFactory";
-  import {getIcons} from '@/stores/iconFactory2023';
   import {storeToRefs} from "pinia";
   import {usePlaydateStore} from "@/stores/pdStore";
   import {computed} from "vue";
   import type {Ref} from "vue";
   import type {ScreenMap} from "ant-design-vue/es/_util/responsiveObserve";
   import useBreakpoint from "ant-design-vue/es/_util/hooks/useBreakpoint";
+  import { useGalleryStore } from "@/stores/galleryStore";
 
   const {
     selection,
@@ -24,7 +24,8 @@
   const { themeDark } = storeToRefs(pdStore);
 
   const giftImages = getGifts();
-  const icons = getIcons();
+  const galleryStore = useGalleryStore();
+  const { galleryLoading, gameIcons } = storeToRefs(galleryStore);
   const giftIndecies = getGiftIndecies(daysAmount, giftImages.length - 1);
 
   const breaks: Ref<ScreenMap> = useBreakpoint();
@@ -34,7 +35,7 @@
     let diffIndex = index - 1;
 
     if (openedDays.includes(index)) {
-      return icons[diffIndex];
+      return gameIcons.value[diffIndex];
     }
 
     return giftImages[giftIndecies[diffIndex]]
@@ -46,17 +47,25 @@
     }
     return index % 2 === 0 ? 'top: -3px;': 'top: 30px;'
   }
+
+  const calendarItems = computed(() => {
+    if (galleryLoading.value) {
+      return []
+    }
+
+    return daysAmount;
+  })
 </script>
 
 <template>
   <div id="calendarView"
        class="calenderGrid">
 
-    <div v-for="index in daysAmount"
-         :key="`day_${index}`"
-         :id="`day_${index}`"
-         class="calenderCell"
-         :class="{
+    <div v-for="index in calendarItems"
+        :key="`day_${index}`"
+        :id="`day_${index}`"
+        class="calendarCell"
+        :class="{
             'cellOpened': openedDays.includes(index),
             'cellClosed': !openedDays.includes(index),
             'cellSelected': selection === index,
@@ -64,20 +73,21 @@
             'day24' : index === 24,
             'day25' : index === 25,
           }"
-         >
+        >
 
       <div :style="getBadeStyle(index)"
-           class="dayBadge">
+          class="dayBadge">
         <span style="position: relative; top: 2px;">{{ index }}</span>
       </div>
 
       <div class="cellImg">
         <img style="max-width: 100%; max-height: 100%;"
-             :src="cellImage(index)"
-             alt="gift image"/>
+            :src="cellImage(index)"
+            alt="gift image"/>
       </div>
 
     </div>
+
 
     <div class="waitMsg"
         :class="showWaitMessage ? 'waitOut' : ''">
@@ -88,7 +98,7 @@
 
 <style scoped>
 
-  .calenderCell {
+  .calendarCell {
     display: flex;
     position: relative;
     transform: scale(0.9);
@@ -140,13 +150,13 @@
   }
 
   @media (max-width: 560px) {
-    .calenderCell {
+    .calendarCell {
       margin: 0;
       padding: 0;
       max-height: 44px;
     }
 
-    .calenderCell > .cellImg {
+    .calendarCell > .cellImg {
       transform: scale(0.95);
     }
 

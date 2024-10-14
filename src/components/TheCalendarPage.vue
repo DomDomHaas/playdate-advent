@@ -42,6 +42,7 @@
                     @confirm="reloadApp"
         >
         </Popconfirm>
+
         <PlaydatePageGrid @dPadClick="catchPad"
                           @buttonClick="catchButton" />
       </div>
@@ -101,6 +102,7 @@
 
   const playdateStore = usePlaydateStore();
   playdateStore.initStore(calendarYear.value);
+  const { themeDark } = storeToRefs(playdateStore);
   let updateRoute = false;
   
   if (!calendarYear.value) {
@@ -121,10 +123,9 @@
   calendarStore.initStore(calendarYear.value);
   const { setCalendarIndex } = calendarStore;
 
-  
-
   const galleryStore = useGalleryStore();
-  const { themeDark } = storeToRefs(playdateStore);
+  galleryStore.initGallery(calendarYear.value, calendarStore);
+  
   const version = import.meta.env.VITE_VERSION;
 
   const breaks: Ref<ScreenMap> = useBreakpoint();
