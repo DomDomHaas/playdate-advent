@@ -55,6 +55,7 @@
 
     return daysAmount;
   })
+  
 </script>
 
 <template>

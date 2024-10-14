@@ -7,7 +7,6 @@ import GalleryView from "@/components/galleryView.vue";
 import GameView from "@/components/gameView.vue";
 
 import { Row, Col } from 'ant-design-vue';
-import { Grid } from 'ant-design-vue';
 import {useCalendarStore} from "@/stores/calendarStore";
 import {usePlaydateStore} from "@/stores/pdStore";
 import {useRoute} from "vue-router";

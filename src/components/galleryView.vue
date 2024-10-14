@@ -7,14 +7,13 @@
   import { type CarouselRef } from 'ant-design-vue/es/carousel';
   import {computed, ref, watch} from "vue";
   import gameGiftUnwrap from "@/assets/gameGiftUnwrap.gif";
-  import {useRoute} from "vue-router";
   import {usePlaydateStore} from "@/stores/pdStore";
 
   const galleryCarousel = ref<CarouselRef>()
 
   const calendarStore = useCalendarStore();
   const galleryStore = useGalleryStore();
-  const { galleryIndex } = storeToRefs(galleryStore);
+  const { galleryLoading, galleryIndex } = storeToRefs(galleryStore);
   const playdateStore = usePlaydateStore();
 
   const isPlaydateRotated = computed(() => {
@@ -36,6 +35,12 @@
   function getScreenShot(index: number) {
     return galleryStore.currentScreenshots[index] || '';
   }
+
+  const screenshots = computed(() => {
+    // console.log('galleryStore.currentScreenshots', galleryStore.currentScreenshots);
+    return galleryStore.currentScreenshots;
+  })  
+
 </script>
 
 <template>
@@ -47,10 +52,13 @@
          class="gameGiftUnwrap"
          :src="gameGiftUnwrap" alt="game unwrapping present gif">
 
-    <Carousel v-show="!calendarStore.dayIsOpening"
+    <Carousel v-if="!galleryLoading && !calendarStore.dayIsOpening"
               class=""
               ref="galleryCarousel">
-      <div v-for="(screenNumber, index) in galleryStore.screenshotAmount">
+
+      <div v-for="(screenShot, index) in screenshots"
+            :key="`screenshot_${index}`"
+      >
 
         <img class="galleryImage"
               :src="getScreenShot(index)"

@@ -47,7 +47,7 @@ export const useGalleryStore = defineStore(GALLERY_STORE, () => {
   const currentScreenshots : ComputedRef<any[]> = computed(() => {
     const indexDiff = calStore.calendarIndex - 1;
 
-    if (indexDiff >= 0 && screenshots.value?.length > 0) {
+    if (indexDiff >= 0 && !loading.value) {
       return [screenshotsCards.value[indexDiff], ...screenshots.value[indexDiff]];
     }
 
