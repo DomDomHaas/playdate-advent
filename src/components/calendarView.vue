@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import {getGiftIndecies, getGifts} from "@/stores/imageFactory";
-  import {getIcons} from '@/stores/iconFactory';
+  import {getIcons} from '@/stores/iconFactory2023';
   import {storeToRefs} from "pinia";
   import {usePlaydateStore} from "@/stores/pdStore";
   import {computed} from "vue";

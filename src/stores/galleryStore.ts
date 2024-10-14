@@ -2,7 +2,7 @@ import {ref, computed, type Ref, type UnwrapRef, type ComputedRef} from 'vue'
 
 import { defineStore } from 'pinia'
 import {getScreenshots} from "./imageFactory";
-import {getCards} from "@/stores/cardFactory";
+import {getCards} from "@/stores/cardFactory2023";
 import {useCalendarStore} from "./calendarStore";
 
 const suffix = import.meta.env.VITE_LOCAL_STORAGE_SUFFIX
@@ -19,7 +19,7 @@ export const useGalleryStore = defineStore('galleryStore', () => {
   const screenshots: Ref<UnwrapRef<any[]>> = ref(pngAndGifs);
   const screenshotsCards: Ref<UnwrapRef<any[]>> = ref(cards);
 
-  let sIndex = ref<number>(0);
+  const sIndex = ref<number>(0);
   const galleryIndex = computed(() => sIndex.value);
 
   const currentScreenshots : ComputedRef<any[]> = computed(() => {
