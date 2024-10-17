@@ -1,4 +1,4 @@
-import {ref, computed, type Ref, type ComputedRef, nextTick} from 'vue'
+import {ref, computed, type Ref, type ComputedRef} from 'vue'
 
 import { defineStore, type Store } from 'pinia'
 import {getCards, getIcons, getScreenshots} from "./imageFactory";
@@ -11,7 +11,7 @@ export const GALLERY_STORE: string = `GALLERY_STORE_${suffix}`;
 export const useGalleryStore = defineStore(GALLERY_STORE, () => {
 
   // let pngAndGifs: any[];
-  let calStore: Store;
+  let calStore : Store;
   // let screenshots: Ref<UnwrapRef<any[]>>;
   let screenshots: Ref<string[]> = ref([]);
   let icons: Ref<string[]> = ref([]);
@@ -20,31 +20,27 @@ export const useGalleryStore = defineStore(GALLERY_STORE, () => {
 
   const initGallery = async (year: string, calendarStore: Store) => {
     loading.value = true;
-    // console.log('loading', loading.value);
+
     calStore = calendarStore;
 
     const pngAndGifs = await getScreenshots(year) || [];
     screenshots = ref(pngAndGifs);
-    // console.log('screenshots', screenshots.value);
 
     const icns = await getIcons(year) || [];
     icons = ref(icns);
-    // console.log('icons', icons.value);
 
     const cards: string[] = await getCards(year) || [];
     screenshotsCards = ref(cards);
-    // console.log('screenshotsCards', screenshotsCards.value);
 
     loading.value = false;
-    // console.log('loading', loading.value);
   }
-
 
 
   const sIndex = ref<number>(0);
   const galleryIndex : ComputedRef<number> = computed(() => sIndex.value);
 
   const currentScreenshots : ComputedRef<any[]> = computed(() => {
+    // @ts-ignore next-line
     const indexDiff = calStore.calendarIndex - 1;
 
     if (indexDiff >= 0 && !loading.value) {
@@ -65,6 +61,7 @@ export const useGalleryStore = defineStore(GALLERY_STORE, () => {
     }
 
     if (upOrDown !== 0) {
+      // @ts-ignore next-line
       if (calStore.currentDayRotated) {
         sIndex.value -= upOrDown;
       } else {

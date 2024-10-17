@@ -1,9 +1,11 @@
 <script setup lang="ts">
+  // @ts-nocheck
   import {Row, Col, Switch} from 'ant-design-vue';
 
   import {storeToRefs} from "pinia";
   import {usePlaydateStore} from "@/stores/pdStore";
   import { BulbOutlined, BulbFilled } from '@ant-design/icons-vue'
+
   const pdStore = usePlaydateStore();
   const { themeDark } = storeToRefs(pdStore);
 

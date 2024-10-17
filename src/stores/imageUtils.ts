@@ -3,13 +3,15 @@ import seedrandom from 'seedrandom';
 export const addImages = (gifGlob: any, pngGlob: any|null) => {
   let array: string[] = [];
   let entries: [string, object][] = Object.entries(gifGlob);
-  const gifUrls: string[] = entries.map(([key, value]) => value.default);
+  // @ts-ignore next-line
+  const gifUrls: string[] = entries.map(([key, module]) => module.default);
 
   let pngUrls: string[] = [];
 
   if (pngGlob) {
     entries = Object.entries(pngGlob);
-    pngUrls = entries.map(([key, value]) => value.default);
+    // @ts-ignore next-line
+    pngUrls = entries.map(([key, module]) => module.default);
   }
 
   array = [...gifUrls, ...pngUrls];

@@ -1,11 +1,11 @@
 <script setup lang="ts">
+  // @ts-nocheck
   import {BulbFilled, BulbOutlined} from "@ant-design/icons-vue";
   import {Switch} from "ant-design-vue";
   import {usePlaydateStore} from "@/stores/pdStore";
-  import {ref, watch} from "vue";
   import {storeToRefs} from "pinia";
-  const playdateStore = usePlaydateStore();
 
+  const playdateStore = usePlaydateStore();
   const { themeDark } = storeToRefs(playdateStore);
 
 /*
@@ -15,8 +15,8 @@
   })
 */
 
-  function changeTheme(newValue: boolean) {
-    playdateStore.changeThemeDark(newValue);
+  function changeTheme(checked: boolean) {
+    playdateStore.changeThemeDark(checked);
   }
 
 </script>
