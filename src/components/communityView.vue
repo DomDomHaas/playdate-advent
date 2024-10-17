@@ -8,16 +8,31 @@
 
   const communityLinks = [
     {
-      title: 'Hello, Playdate!',
-      text: "Enjoy the Podcast and everything around the playdate",
+      title: "News, reviews and much more on",
+      text: "Hello Playdate Podcast",
       url: 'https://discord.gg/yg4wu7q6',
       icon: discordIcon,
     },
     {
-      title: 'Playdate Devstaurant',
-      text: 'Join the birth place of the Advent Calendar',
+      title: "Checkout the",
+      text: "Uncrank'd Community Magazine",
+      url: 'https://xanialasagna.storenvy.com/products/36635764-uncrank-d-magazine-digital',
+      icon: linkIcon,
+    },
+    {
+      title: 'The birthplace of this calendar',
+      text: "on the Uncrank'd Discord",
       url: 'https://discord.gg/bMB9yZTf',
       icon: discordIcon,
+    },
+    {
+      title: 'Playdate Squad:',
+      text: 'meet gamers and game devs alike',
+      url: 'https://discord.gg/4ZBEMZF9',
+      icon: discordIcon,
+    },
+    {
+      title: 'Looking for more Playdate Games?',
     },
     {
       title: 'Tiny Yellow Machine',
@@ -26,32 +41,23 @@
       icon: video,
     },
     {
-      title: 'Playdate Squad Discord',
-      text: 'Meet gamers and game devs, some even from Panic',
-      url: 'https://discord.gg/4ZBEMZF9',
-      icon: discordIcon,
-    },
-    {
-      title: 'Checkout the Community Magazine',
-      text: 'Uncrank\'d',
-      url: 'https://xanialasagna.storenvy.com/products/36635764-uncrank-d-magazine-digital',
-      icon: linkIcon,
-    },
-    {
       title: 'Have a look at all ',
       text: 'Playdate Games on Itch.io',
       url: 'https://itch.io/games/tag-playdate',
       icon: linkIcon,
     },
     {
-      title: 'You too can create Playdate Games!',
-      text: 'Start without coding!',
+      title: 'Want to create Playdate Games?',
+    },
+    {
+      title: 'Create Playdate Games',
+      text: 'start without coding!',
       url: 'https://play.date/pulp',
       icon: linkIcon,
     },
     {
-      title: 'You too can create Playdate Games!',
-      text: 'With coding!',
+      title: 'Create Playdate Games',
+      text: 'with coding!',
       url: 'https://sdk.play.date/',
       icon: linkIcon,
     },
@@ -62,13 +68,13 @@
       icon: bookmark,
     },
     {
-      title: 'Solo Game Dev? You can do it all by yourself',
-      text: ' learn how with this book!',
+      title: 'Solo Game Dev?',
+      text: 'Learn how to do it all by yourself!',
       url: 'https://valadria.itch.io/how-to-make-a-video-game-all-by-yourself',
       icon: bookmark,
     },
     {
-      title: 'What are Playdate Devs Tweeting?',
+      title: 'Playdate Devs Tweeting',
       text: 'Follow this list on Twitter',
       url: 'https://twitter.com/i/lists/1609957861307580416',
       icon: twitterIcon,
@@ -85,14 +91,24 @@
 -->
       <Card title="Playdate Communities"
             class="appCard" >
-        <div v-for="(communityObj, index) in communityLinks" >
-          {{ communityObj.title }}
-          <br />
-          <img v-if="communityObj.icon"
-               :src="communityObj.icon"
-               alt="icon"
-               style="padding-right: 5px;" />
-          <a :href="communityObj.url" target="_blank" >{{ communityObj.text }}</a>
+        <div v-for="(communityObj, index) in communityLinks"
+              :key="`communities_${index}`"
+              style="padding-bottom: 4px;"
+        >
+
+          <div v-if="!communityObj.text">
+            <strong>{{ communityObj.title }}</strong>
+          </div>
+
+          <div v-if="communityObj.text">
+            {{ communityObj.title }}
+
+            <img v-if="communityObj.icon"
+                :src="communityObj.icon"
+                alt="icon"
+                style="padding-right: 5px;" />
+            <a v-if="communityObj.url" :href="communityObj.url" target="_blank" >{{ communityObj.text }}</a>
+          </div>
         </div>
 
 <!--

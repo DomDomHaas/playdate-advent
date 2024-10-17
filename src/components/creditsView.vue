@@ -4,7 +4,7 @@
   const credits = [
     {
       name: 'Dominik Haas',
-      role: 'Web Development, Conception & Communication',
+      role: 'Web Dev, Conception & Communication',
       itch: 'https://dominik-haas.itch.io',
       social: 'linktr.ee/dominikhaas',
     },
@@ -25,12 +25,16 @@
 </script>
 
 <template>
-  <Card title="The Santa Devs aka. Credits"
-        class="appCard" >
+  <Card title="Credits"
+        class="appCard"
+        >
 
     <Row :gutter="[5, 10]">
       <Col v-for="(credit, index) in credits"
-          :span="24">
+          :key="`credits_${index}`"
+          :span="24"
+          style="font-size: 12px;"          
+          >
         <span>
           <strong>{{ credit.name }}</strong>: {{ credit.role }} <br />
           <a :href="credit.itch" target="_blank" >{{ credit.itch }}</a>
@@ -43,12 +47,19 @@
       </Col>
 
       <Col>
+        Do you enjoy the Advent Calendar?
+        <br />
+        Share the Advent Calendar, let others enjoy daily playdate surprises!
+      </Col>
+
+      <!-- <Col>
         Do you enjoy the Advent Calendar and want to support us?
         <br />
         A way to do that: Buy our Games via itch!
         <br />
         And share the Advent Calendar, let others enjoy daily playdate surprises!
-      </Col>
+      </Col> -->
+      
     </Row>
   </Card>
 </template>

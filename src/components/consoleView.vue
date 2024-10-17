@@ -66,7 +66,7 @@
               class="dPadButton"
               :class="themeDark ? 'pdCover' : 'pdCoverInverted'"
               :style="`${ xsAndSmLayout ? 'top: -102px; left: -29px;' : 'top: 0; left: 3px;'}`"
-              @keyup.up="dPadClick"
+              @keyup.up="dPadClick"              
               @click="dPadClick" >
         <i :id="DPAD_T"
            class="material-icons">keyboard_arrow_up</i>

@@ -12,11 +12,15 @@
 
     <Row style="padding-bottom: 16px;">
       <Col :span="24" >
-        {{ "It's that time of the year... not just getting ready for the holidays but counting down to the big day with a daily Playdate surprise. No shaking is allowed, but there will be tons of unwrapping, and I'm sure there will be cranking!" }}
+        It's that time of the year... not just getting ready for the holidays but counting down to the big day with a daily Playdate surprise.
         <br />
-        {{ 'Enjoy cozy advent days with playdate games!' }}
         <br />
-        {{ '#PlaydateAdventCalendar' }}
+        No shaking is allowed, but there will be tons of unwrapping, and I'm sure there will be cranking!
+        <br />
+        <br />
+        Enjoy cozy advent days with playdate games!
+        <br />
+        #PlaydateAdventCalendar
       </Col>
     </Row>
 
