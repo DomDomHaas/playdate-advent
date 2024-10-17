@@ -31,9 +31,11 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
     calenderYear = year;
     calendarStartDate = `${calenderYear}${calendarStartDate.substring(4, calendarStartDate.length)}`;
     
-    console.log('calendarStartDate', calendarStartDate);
+    // console.log('calendarStartDate', calendarStartDate);
     localStorageName = `${CALENDAR_STORE}_${calenderYear}`;
 
+    fetchGameInfos(year);
+    
     consistent = useStorage(localStorageName,
       {
         calendarIndex: 1,
@@ -57,7 +59,7 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
       },
     );
 
-    console.log('init localStorage ', localStorageName);  
+    // console.log('init localStorage ', localStorageName);
   }
 
 
@@ -212,8 +214,8 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
     };
   });
 
-   const fetchGameInfos = async () => {
-    const gsheetUrl = 'https://opensheet.elk.sh/1pPornYJbWkLL_V7ZQoxwWrs8_EVv0GAV0OrRcCA1xRc/Calendar%202023';
+   const fetchGameInfos = async (year: string) => {
+    const gsheetUrl = `https://opensheet.elk.sh/19o9HSmZBd0ENNoIA7qSMUHKlGgLFpDlpl_JTWaFMhBc/Calendar_${year}`;
 
      try {
       const response = await fetch(gsheetUrl);
@@ -227,8 +229,6 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
      console.log(gameList.value);
 */
    }
-
-  fetchGameInfos();
 
   function triggerWaitMessage() {
 
