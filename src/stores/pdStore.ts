@@ -1,5 +1,4 @@
 import moment from 'moment-timezone'
-import type {Moment} from 'moment-timezone'
 import {computed, ref } from 'vue'
 import type {ComputedRef, Ref, UnwrapRef} from 'vue'
 
@@ -41,12 +40,12 @@ export const usePlaydateStore = defineStore(PD_STORE, () => {
     consistent = useStorage(localStorageName,
       {
         state: 1,
-        themeDark: false,
+        themeDark: true,
       }, localStorage,
       { mergeDefaults: true },
     );
 
-    console.log('PlaydateStore init', localStorageName);
+    // console.log('PlaydateStore init', localStorageName);
   }
 
   // const consistent : RemovableRef<consitentPdData> = useStorage(PD_STORE,
