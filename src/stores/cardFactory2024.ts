@@ -1,6 +1,6 @@
 import card1 from '@/assets/2024/cards/card=1.png';
 import card2 from '@/assets/2024/cards/card=2.png';
-import card3 from '@/assets/2024/cards/card=3.gif';
+import card3 from '@/assets/2024/cards/card=3.png';
 import card4 from '@/assets/2024/cards/card=4.png';
 import card5 from '@/assets/2024/cards/card=5.png';
 import card6 from '@/assets/2024/cards/card=6.png';
@@ -20,7 +20,7 @@ import card19 from '@/assets/2024/cards/card=19.png';
 import card20 from '@/assets/2024/cards/card=20.png';
 import card21 from '@/assets/2024/cards/card=21.gif';
 import card22 from '@/assets/2024/cards/card=22.png';
-import card23 from '@/assets/2024/cards/card=23.gif';
+import card23 from '@/assets/2024/cards/card=23.png';
 import card24 from '@/assets/2024/cards/card=24.png';
 import card25 from '@/assets/2024/cards/card=25.png';
 

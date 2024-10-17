@@ -6,16 +6,16 @@ export const getScreenshots = () : string[] => {
   const screenshots: any[] = [];
   let gifGlob, pngGlob;
 
-  gifGlob = import.meta.glob('@/assets/2023/1/*.gif', { eager: true });
-  pngGlob = import.meta.glob('@/assets/2023/1/*.png', { eager: true });
+  gifGlob = import.meta.glob('@/assets/2024/1/*.gif', { eager: true });
+  pngGlob = import.meta.glob('@/assets/2024/1/*.png', { eager: true });
   screenshots.push([...addImages(gifGlob, pngGlob)]);
 
-  gifGlob = import.meta.glob('@/assets/2023/2/*.gif', { eager: true });
-  pngGlob = import.meta.glob('@/assets/2023/2/*.png', { eager: true });
+  gifGlob = import.meta.glob('@/assets/2024/2/*.gif', { eager: true });
+  pngGlob = import.meta.glob('@/assets/2024/2/*.png', { eager: true });
   screenshots.push([...addImages(gifGlob, pngGlob)]);
 
-  gifGlob = import.meta.glob('@/assets/2023/3/*.gif', { eager: true });
-  pngGlob = import.meta.glob('@/assets/2023/3/*.png', { eager: true });
+  gifGlob = import.meta.glob('@/assets/2024/3/*.gif', { eager: true });
+  pngGlob = import.meta.glob('@/assets/2024/3/*.png', { eager: true });
   screenshots.push([...addImages(gifGlob, pngGlob)]);
 
   gifGlob = import.meta.glob('@/assets/2023/4/*.gif', { eager: true });
@@ -30,8 +30,8 @@ export const getScreenshots = () : string[] => {
   pngGlob = import.meta.glob('@/assets/2023/6/*.png', { eager: true });
   screenshots.push([...addImages(gifGlob, pngGlob)]);
 
-  gifGlob = import.meta.glob('@/assets/2023/7/*.gif', { eager: true });
-  pngGlob = import.meta.glob('@/assets/2023/7/*.png', { eager: true });
+  gifGlob = import.meta.glob('@/assets/2024/7/*.gif', { eager: true });
+  pngGlob = import.meta.glob('@/assets/2024/7/*.png', { eager: true });
   screenshots.push([...addImages(gifGlob, pngGlob)]);
 
   gifGlob = import.meta.glob('@/assets/2023/8/*.gif', { eager: true });
@@ -94,8 +94,8 @@ export const getScreenshots = () : string[] => {
   pngGlob = import.meta.glob('@/assets/2023/22/*.png', { eager: true });
   screenshots.push([...addImages(gifGlob, pngGlob)]);
 
-  gifGlob = import.meta.glob('@/assets/2023/23/*.gif', { eager: true });
-  pngGlob = import.meta.glob('@/assets/2023/23/*.png', { eager: true });
+  gifGlob = import.meta.glob('@/assets/2024/23/*.gif', { eager: true });
+  pngGlob = import.meta.glob('@/assets/2024/23/*.png', { eager: true });
   screenshots.push([...addImages(gifGlob, pngGlob)]);
 
   gifGlob = import.meta.glob('@/assets/2023/24/*.gif', { eager: true });
