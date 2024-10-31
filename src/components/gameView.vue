@@ -61,6 +61,7 @@
 
   <Card :title="cardTitle"
         :bordered="true"
+        id="gameView"
         class="gameView"
         :class="themeDark ? 'pdCoverInverted' : 'pdCover'"  >
 
@@ -74,8 +75,9 @@
          :gutter="[0, 5]">
 
       <Col v-if="!adventGame.Iframe"
-           class="gameViewContent"
-           :span="24">
+          id="gameViewContent"
+          class="gameViewContent"
+          :span="24">
         <a v-if="adventGame.Url"
            :href="adventGame.Url" target="_blank" >{{adventGame.Url}}</a>
       </Col>

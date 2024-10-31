@@ -4,14 +4,14 @@ export const addImages = (gifGlob: any, pngGlob: any|null) => {
   let array: string[] = [];
   let entries: [string, object][] = Object.entries(gifGlob);
   // @ts-ignore next-line
-  const gifUrls: string[] = entries.map(([key, module]) => module.default);
+  const gifUrls: string[] = entries.map(([_key, module]) => module.default);
 
   let pngUrls: string[] = [];
 
   if (pngGlob) {
     entries = Object.entries(pngGlob);
     // @ts-ignore next-line
-    pngUrls = entries.map(([key, module]) => module.default);
+    pngUrls = entries.map(([_key, module]) => module.default);
   }
 
   array = [...gifUrls, ...pngUrls];

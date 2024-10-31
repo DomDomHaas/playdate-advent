@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import {computed, type Prop} from "vue";
+import {computed} from "vue";
 import type {Ref} from "vue";
 
 import type {ScreenMap} from "ant-design-vue/es/_util/responsiveObserve";
@@ -27,14 +27,14 @@ const xsAndSmLayout = computed(() => (breaks.value.xs || breaks.value.sm) && !br
 const style20 = computed(() => {
   let style = 'position: absolute;';
 //  style += xsAndSmLayout.value ? 'left: 170px; top: 0px;' : 'left: 275px; top: -127px;';
-  style += xsAndSmLayout ? 'left: 170px; top: 0px;' : 'left: 275px; top: -127px;';
+  style += xsAndSmLayout.value ? 'left: 170px; top: 0px;' : 'left: 165px; top: 0;';
   return style;
 })
 
 const style2x = computed(() => {
   let style = 'position: absolute;';
 //  style += xsAndSmLayout.value ? 'left: 170px; top: 70px;' : 'left: 275px; top: -127px;';
-  style += xsAndSmLayout ? 'left: 170px; top: 70px;' : 'left: 275px; top: -127px;';
+  style += xsAndSmLayout.value ? 'left: 170px; top: 70px;' : 'left: 165px; top: 70px;';
   return style;
 })
 

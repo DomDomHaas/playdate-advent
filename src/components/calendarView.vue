@@ -42,7 +42,7 @@
   }
 
   function getBadeStyle(index: number) {
-    if (xsAndSmLayout) {
+    if (xsAndSmLayout.value) {
       return index % 2 === 0 ? 'top: 0;': 'top: 20px;'
     }
     return index % 2 === 0 ? 'top: -3px;': 'top: 30px;'

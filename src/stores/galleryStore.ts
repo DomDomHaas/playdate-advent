@@ -87,7 +87,7 @@ export const useGalleryStore = defineStore(GALLERY_STORE, () => {
 
   const gameIcons : ComputedRef<string[]> = computed(() => icons.value);
 
-  const galleryLoading : ComputedRef<Boolean> = computed(() => loading.value);
+  const galleryLoading : ComputedRef<boolean> = computed(() => loading.value);
 
   return {
     initGallery,
