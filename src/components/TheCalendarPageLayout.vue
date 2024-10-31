@@ -1,5 +1,5 @@
 <template>
-  <main :style="xxlAndUpLayout ? 'height: 100%;' : '' ">
+  <div :style="xxlAndUpLayout ? 'height: 100%;' : '' ">
 
     <div v-if="lgLayout"
          class="calendarBG"
@@ -24,15 +24,15 @@
 
       <Col :xs="{ span: 24 }"
            :md="{ span: 8 }"
-           style="line-height: 0.8em; text-align: center;"
+           style="line-height: 0.8em; text-align: center; font-size: 3rem;"
+           id="middleText"
            class="welcomeTitle">
 
         <div class="playdateYellowBright" >
-          {{ 'Coming' }}
-
+          Coming
         </div>
         <div class="playdateYellowDark" >
-          {{ '1st Dec' }}
+          1st Dec
         </div>
       </Col>
 
@@ -203,7 +203,7 @@
 
     </Row>
 
-  </main>
+  </div>
 </template>
 
 <script setup lang="ts">

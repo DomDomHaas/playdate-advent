@@ -69,6 +69,7 @@
     <template #timeDetailed>
       <Time />
     </template>
+    
   </TheCalendarPageLayout>
 </template>
 

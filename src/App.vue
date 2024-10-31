@@ -1,40 +1,32 @@
 <script setup lang="ts">
-import type {Ref} from 'vue'
-import {computed} from "vue";
+import {Layout, LayoutHeader, LayoutContent} from 'ant-design-vue';
 
-
-function reloadApp() {
-  window.location.reload();
-}
+import TheNavBar from './components/TheNavBar.vue';
 
 const calendars = [
-  '2023',
-  '2024',
+    '2023',
+    '2024',
 /*
-  '2025',
-  '2026',
-  '2027',
-  '2028',
+    '2025',
+    '2026',
+    '2027',
+    '2028',
 */
-];
-calendars.reverse();
-
-
-
+  ];
 </script>
 
 <template>
+  <Layout>
+    <LayoutHeader :style="{ position: 'fixed', zIndex: 1, width: '100%' }">
+      <TheNavBar :calendarYears="calendars"/>
+    </LayoutHeader>
 
-  <router-view>
+    <LayoutContent :style="{ position: 'relative', zIndex: 0, top: '64px' }">
+      <router-view>
 
-  </router-view>
-
-<!--
-  <TheCalendarPage v-if="calendarStore.isCalendarReady" />
-
-  <TheCalendarOverview v-if="!calendarStore.isCalendarReady" />
--->
-
+      </router-view>
+    </LayoutContent>
+  </Layout>
 </template>
 
 <style>
@@ -133,6 +125,10 @@ calendars.reverse();
     background-color: #214646;
     */
     background-color: #285252;
+  }
+
+  header {
+    background-color: #214646 !important;
   }
 
   .calendarBG {

@@ -1,45 +1,73 @@
 <script setup lang="ts">
   // @ts-nocheck
-  import {Row, Col, Switch} from 'ant-design-vue';
+  // import {Row, Col, Switch} from 'ant-design-vue';
+  import {Menu, MenuItem} from 'ant-design-vue';
 
-  import {storeToRefs} from "pinia";
-  import {usePlaydateStore} from "@/stores/pdStore";
-  import { BulbOutlined, BulbFilled } from '@ant-design/icons-vue'
+  // import {storeToRefs} from "pinia";
+  // import {usePlaydateStore} from "@/stores/pdStore";
+  // import { BulbOutlined, BulbFilled } from '@ant-design/icons-vue'
+  import {useRouter} from "vue-router";
+  import pacLogo from '@/assets/PAC_logo24_64.png';
+  
+  const {
+    calendarYears,
+  } = defineProps<{
+    calendarYears: Array,
+  }>()
 
-  const pdStore = usePlaydateStore();
-  const { themeDark } = storeToRefs(pdStore);
+  const router = useRouter();
+  // const pdStore = usePlaydateStore();
+  // const { themeDark } = storeToRefs(pdStore);
 
-  const changeTheme = (checked: boolean) => {
-    // instead of boolean use CheckedType?
-    pdStore.changeThemeDark(checked);
+  // const changeTheme = (checked: boolean) => {
+  //   // instead of boolean use CheckedType?
+  //   pdStore.changeThemeDark(checked);
+  // }
+
+  const yearClick = (year) => {
+    router.push(`/calender/${year}`);
   }
 
 </script>
 
 <template>
 
-  <Row justify="space-between">
-    <Col >
-      Logo
-    </Col>
+  <div style="width: 64px; height: 64px;">
+    <img :src="pacLogo" />
+  </div>
 
-    <Col class="pageTitle">
-      Playdate Advent Calendar 2023
-    </Col>
-
-    <Col >
-      <Switch :checked="themeDark"
-              @click="changeTheme"
+  <Menu mode="horizontal"
+    class="navBar"
+    :style="{ position: 'absolute', top: 0, left: '145px' }"
+  >
+    <MenuItem
+      v-for="(year, index) in calendarYears"
+      :key="index"
+      class="navItem"
+      @click="yearClick(year)"
       >
-        <template #checkedChildren><BulbFilled/></template>
-        <template #unCheckedChildren><BulbOutlined/></template>
-      </Switch>
-    </Col>
-  </Row>
+      Advent {{ year }}
+    </MenuItem>
+  </Menu>
+
 </template>
 
 <style scoped>
-  .pageTitle {
-    font-size: 1.5rem;
-  }
+.navBar {
+  background-color: #11AC8E;
+}
+
+.navBarInvert {
+  background-color: #7353D2;
+}
 </style>
+
+<style>
+.navItem:hover::after {
+  border-bottom-color: #FFC900 !important;
+}
+.navItem:hover::after {
+  border-bottom-color: #FFC900 !important;
+}
+</style>
+
