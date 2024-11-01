@@ -9,6 +9,7 @@
   import {usePlaydateStore} from "@/stores/pdStore";
   import {storeToRefs} from "pinia";
   import {useCalendarStore} from "@/stores/calendarStore";
+  import { onKeyStroke } from '@vueuse/core'
 
   const calendarStore = useCalendarStore();
   const playdateStore = usePlaydateStore();
@@ -42,6 +43,30 @@
     // upOrDown: number, leftOrRight: number
     emit('dPadClick', upOrDown, leftOrRight);
   }
+
+  onKeyStroke('ArrowDown', () => {
+    emit('dPadClick', 1, 0);
+  })
+
+  onKeyStroke('ArrowUp', () => {
+    emit('dPadClick', -1, 0);
+  })
+
+  onKeyStroke('ArrowLeft', () => {
+    emit('dPadClick', 0, -1);
+  })
+
+  onKeyStroke('ArrowRight', () => {
+    emit('dPadClick', 0, 1);
+  })
+
+  onKeyStroke('Enter', () => {
+    emit('buttonClick', BUTTON_A);
+  })  
+
+  onKeyStroke('Esc', () => {
+    emit('buttonClick', BUTTON_B);
+  })  
 
   const breaks: Ref<ScreenMap> = useBreakpoint();
   const xsAndSmLayout = computed(() => (breaks.value.xs || breaks.value.sm) && !breaks.value.md)
