@@ -3,6 +3,7 @@ import {Layout, LayoutHeader, LayoutContent} from 'ant-design-vue';
 
 import TheNavBar from './components/TheNavBar.vue';
 
+
 const calendars = [
     '2023',
     '2024',
@@ -13,15 +14,23 @@ const calendars = [
     '2028',
 */
   ];
+
+  calendars.reverse();
+
 </script>
 
 <template>
-  <Layout>
-    <LayoutHeader :style="{ position: 'fixed', zIndex: 1, width: '100%' }">
+  <Layout
+    id="mainLayout"
+    class="mainLayout"
+    >
+    <!-- :class="themeDark ? 'scrollColor' : 'scrollColorInverted'" -->
+
+    <LayoutHeader id="headerLayout" class="headerLayout">
       <TheNavBar :calendarYears="calendars"/>
     </LayoutHeader>
 
-    <LayoutContent :style="{ position: 'relative', zIndex: 0, top: '64px' }">
+    <LayoutContent id="calendarLayout" class="calendarLayout">
       <router-view>
 
       </router-view>
@@ -30,13 +39,33 @@ const calendars = [
 </template>
 
 <style>
+
+  .mainLayout {
+    position: relative;
+  }
+
+  .calendarLayout {
+    position: relative;
+    top: 32px;
+    z-index: 0;
+    height: calc(100vh - 32px);
+    overflow: auto;
+    scrollbar-width: thin;
+    scroll-behavior: smooth;
+  }
+
+  .headerLayout {
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+  }
+
   body {
-    height: 100vh;
+    overflow: hidden;
     margin: 0;
   }
 
   #app {
-    height: 100%;
     font-family: 'Libre Franklin', sans-serif;
   }
 
@@ -92,6 +121,14 @@ const calendars = [
   }
 
   .pdTitleColorInverted {
+    color: #7353D2;
+  }
+
+  .scrollColor {
+    color: #11AC8E;
+  }
+
+  .scrollColorInverted {
     color: #7353D2;
   }
 
@@ -174,11 +211,6 @@ const calendars = [
   }
   */
 
-  .navBar {
-    /*
-    background-color: indianred;
-    */
-  }
 
   .pageGrid {
     display: grid;

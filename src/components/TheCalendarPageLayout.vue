@@ -1,5 +1,6 @@
 <template>
-  <div :style="xxlAndUpLayout ? 'height: 100%;' : '' ">
+  <div id="TheCalenderPageLayout"
+    :style="xxlAndUpLayout ? 'height: 100%;' : '' ">
 
     <div v-if="lgLayout"
          class="calendarBG"

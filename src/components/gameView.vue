@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/no-v-text-v-html-on-component -->
 <script setup lang="ts">
   import gameGift from '@/assets/gameGift.png';
   // import surprise from '@/assets/surprise-small.gif';
@@ -5,7 +6,7 @@
   import { Card, BadgeRibbon, Row, Col } from 'ant-design-vue';
 
   import {useCalendarStore} from "@/stores/calendarStore";
-  import {computed, onMounted, ref, watch} from "vue";
+  import {computed, ref, watch} from "vue";
   import {usePlaydateStore} from "@/stores/pdStore";
   import {storeToRefs} from "pinia";
   import type {Ref} from "vue";

@@ -125,12 +125,9 @@ const xsLayout = computed(() => breaks.value.xs && !breaks.value.sm)
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: repeat(4, 1fr);
-    row-gap: 5px;
-    /*
-    gap: 5px;
-    */
-    width: 400px;
-    height: 238px;
+    row-gap: 3px;
+    width: 435px;
+    height: 280px;
     padding: 36px 0 0 30px;
     z-index: 1;
   }
@@ -148,14 +145,14 @@ const xsLayout = computed(() => breaks.value.xs && !breaks.value.sm)
   .gallery {
     position: absolute;
     top: 0;
-    width: 400px;
-    height: 238px;
+    width: 435px;
+    height: 280px;
     padding: 36px 0 0 34px;
     z-index: 1;
   }
 
   .playdateInCover {
-    padding: 0 10px 10px !important;
+    padding: 0 5px 10px !important;
   }
 
   .pdBackground {
@@ -163,16 +160,15 @@ const xsLayout = computed(() => breaks.value.xs && !breaks.value.sm)
     top: 0;
     left: 0;
     z-index: 0;
-    padding: 33px 0 0 40px;
-
-    height: 248px;
-    width: 408px;
+    padding: 33px 0 0 35px;
+    /* width: 435px; */
+    height: 280px;
   }
 
   .coverWrap {
     padding: 0 10px;
     border-radius: 25px;
-    width: 530px;
+    width: 545px;
     margin: auto;
   }
 

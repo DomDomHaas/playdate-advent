@@ -32,7 +32,7 @@
 
 <template>
 
-  <div style="width: 64px; height: 64px;">
+  <div class="logo">
     <img :src="pacLogo" />
   </div>
 
@@ -53,6 +53,14 @@
 </template>
 
 <style scoped>
+
+.navBar
+.logo,
+.logo > img {
+  width: 32px;
+  height: 32px;
+}
+
 .navBar {
   background-color: #11AC8E;
 }
@@ -63,11 +71,18 @@
 </style>
 
 <style>
-.navItem:hover::after {
-  border-bottom-color: #FFC900 !important;
-}
-.navItem:hover::after {
-  border-bottom-color: #FFC900 !important;
-}
+  .ant-layout-header,
+  .navBar {
+    height: 32px !important;
+    line-height: 32px !important;
+  }
+  
+  .navItem:hover::after {
+    border-bottom-color: #FFC900 !important;
+  }
+
+  .navItem:hover::after {
+    border-bottom-color: #FFC900 !important;
+  }
 </style>
 
