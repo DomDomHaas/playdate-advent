@@ -1,15 +1,19 @@
 import {createRouter, createWebHashHistory } from 'vue-router'
 
-import TheCalendarOverview from "@/components/TheCalendarOverview.vue";
+// import TheCalendarOverview from "@/components/TheCalendarOverview.vue";
 import TheCalendarPage from "@/components/TheCalendarPage.vue";
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [
+    // {
+    //   path: '/',
+    //   name: 'overview',
+    //   component: TheCalendarOverview,
+    // },
     {
       path: '/',
-      name: 'overview',
-      component: TheCalendarOverview,
+      redirect: { path: '/calender/2024/1' },
     },
     {
       path: '/calender/:year?/:day?',
