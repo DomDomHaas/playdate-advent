@@ -209,7 +209,7 @@
 
 <script setup lang="ts">
 
-  import calendarBG from "@/assets/calendarBGTexture.png";
+  import calendarBG from "@/assets/calendarBG.png";
   import {Col, Row} from "ant-design-vue";
   import {useCalendarStore} from "@/stores/calendarStore";
   import {computed, type Ref} from "vue";
