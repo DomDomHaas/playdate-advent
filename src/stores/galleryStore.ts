@@ -24,13 +24,13 @@ export const useGalleryStore = defineStore(GALLERY_STORE, () => {
     calStore = calendarStore;
 
     const pngAndGifs = await getScreenshots(year) || [];
-    screenshots = ref(pngAndGifs);
+    screenshots.value = pngAndGifs;
 
     const icns = await getIcons(year) || [];
-    icons = ref(icns);
+    icons.value = icns;
 
     const cards: string[] = await getCards(year) || [];
-    screenshotsCards = ref(cards);
+    screenshotsCards.value = cards;
 
     loading.value = false;
   }
