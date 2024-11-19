@@ -59,7 +59,8 @@
 </script>
 
 <template>
-  <div id="calendarView"
+  <div v-if="!galleryLoading"
+       id="calendarView"
        class="calenderGrid">
 
     <div v-for="index in calendarItems"

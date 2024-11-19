@@ -25,7 +25,7 @@
   // }
 
   const yearClick = (year) => {
-    router.push(`/calender/${year}`);
+    router.push(`/calender/${year}/1`);
   }
 
 </script>

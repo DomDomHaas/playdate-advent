@@ -85,6 +85,7 @@
 
       <Col v-if="adventGame.IframeMobile"
            :span="24"
+           id="iframeMobile"
            class="iframe"
            style="text-align: center;"
            v-html="adventGame.IframeMobile">
@@ -92,6 +93,7 @@
 
       <Col v-if="!adventGame.IframeMobile && adventGame.Iframe"
            :span="24"
+           id="iframe"
            class="iframe"
            v-html="adventGame.Iframe">
       </Col>
@@ -233,6 +235,11 @@
   .iframe > iframe {
     padding: 10px 0;
     border-radius: 15px;
+  }
+
+  .centerCatalog {
+    display: block;
+    margin: 0 auto;
   }
 
 </style>

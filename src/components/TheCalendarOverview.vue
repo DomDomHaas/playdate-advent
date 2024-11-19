@@ -42,7 +42,7 @@
 </template>
 
 <script setup lang="ts">
-  import {Popconfirm, Row} from "ant-design-vue";
+  import {Popconfirm, Row, Col} from "ant-design-vue";
   import {computed, type Ref} from "vue";
   import type {ScreenMap} from "ant-design-vue/es/_util/responsiveObserve";
   import useBreakpoint from "ant-design-vue/es/_util/hooks/useBreakpoint";
