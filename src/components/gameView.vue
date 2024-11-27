@@ -68,6 +68,7 @@
 
     <audio id="sfx"
            ref="sfx"
+           preload="auto"
            hidden="true" >
       <source :src="tada" type="audio/mpeg">
     </audio>
@@ -176,11 +177,11 @@
       <Col :span="24"
            class="gameGift">
 
-        <img v-if="calendarStore.dayIsOpening"
+        <img v-show="calendarStore.dayIsOpening"
              :src="gameGiftUnwrap"
              alt="game unwrapping present gif">
 
-        <div v-if="!calendarStore.dayIsOpening" >
+        <div v-show="!calendarStore.dayIsOpening" >
 
           <img :src="gameGift" alt="game present image" />
 
