@@ -84,15 +84,15 @@
   import CreditsView from "@/components/creditsView.vue";
   import LightSwitch from "@/components/lightSwitch.vue";
   import {useCalendarStore} from "@/stores/calendarStore";
-  import {computed, ref, watch, type Ref} from "vue";
+  import {computed, ref, watch } from "vue";
+  import type { Ref } from "vue";
   import type {ScreenMap} from "ant-design-vue/es/_util/responsiveObserve";
   import useBreakpoint from "ant-design-vue/es/_util/hooks/useBreakpoint";
   import {usePlaydateStore} from "@/stores/pdStore";
   import {useGalleryStore} from "@/stores/galleryStore";
   import {storeToRefs} from "pinia";
   import TheCalendarPageLayout from "@/components/TheCalendarPageLayout.vue";
-  import { useRoute } from "vue-router";
-  import {useRouter} from "vue-router";
+  import { useRoute, useRouter } from "vue-router";
 
   const route = useRoute();
   const router = useRouter();
@@ -103,7 +103,7 @@
 
   const playdateStore = usePlaydateStore();
   playdateStore.initStore(calendarYear.value);
-  const { themeDark } = storeToRefs(playdateStore);
+  const { themeDark, currentYear } = storeToRefs(playdateStore);
   let updateRoute = false;
   
   if (!calendarYear.value) {
@@ -121,7 +121,7 @@
   }
 
   const calendarStore = useCalendarStore();
-  calendarStore.initStore(calendarYear.value);
+  calendarStore.initStore(calendarYear.value, currentYear.value);
   const { setCalendarIndex } = calendarStore;
 
   const galleryStore = useGalleryStore();
@@ -138,7 +138,8 @@
   watch<string, boolean>((): any => route.params.year,
     async (newYear, oldYear) => {
       calendarYear.value = newYear;
-      calendarStore.initStore(calendarYear.value);
+      calendarStore.initStore(calendarYear.value, currentYear.value);
+      galleryStore.initGallery(calendarYear.value, calendarStore);      
     }
   )
 
@@ -171,7 +172,7 @@
 
   const catchButton = (buttonName: string) => {
     if (buttonName === BUTTON_A) {
-      if (calendarStore.isCurrentDayUnlockable) {
+      if (calendarStore.isCurrentDayUnlockable()) {
         calendarStore.openDay(calendarStore.calendarIndex);
         playdateStore.changeToGallery();
       } else {

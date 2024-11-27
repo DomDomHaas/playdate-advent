@@ -14,6 +14,13 @@ export const CALENDAR_STORE: string = `CALENDAR_STORE_${suffix}`;
 const startDate: string = import.meta.env.VITE_START_DATE
 let calendarStartDate = startDate || '2023-12-01';
 const unwrapAnimationTime = 3100;
+const allDaysOpen = [
+  1, 2, 3, 4, 5,
+  6, 7, 8 , 9, 10,
+  11, 12, 13, 14, 15,
+  16, 17, 18, 19, 20,
+  21, 22, 23, 24, 25
+];
 
 
 // logic for beta / prod storage names
@@ -22,17 +29,19 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
 
   const daysAmount: number = 25;
   const dayIsOpening: Ref<UnwrapRef<boolean>> = ref(false);
-  let calenderYear: string;
+  const calendarYear: Ref<UnwrapRef<string>> = ref('')
   let localStorageName: string;
 
   let consistent: RemovableRef<consistent>;
 
-  const initStore = (year: string) => {
-    calenderYear = year;
-    calendarStartDate = `${calenderYear}${calendarStartDate.substring(4, calendarStartDate.length)}`;
+  const initStore = (year: string, currentYear: string) => {
+    calendarYear.value = year;
+    calendarStartDate = `${calendarYear.value}${calendarStartDate.substring(4, calendarStartDate.length)}`;
     
     // console.log('calendarStartDate', calendarStartDate);
-    localStorageName = `${CALENDAR_STORE}_${calenderYear}`;
+    localStorageName = `${CALENDAR_STORE}_${calendarYear.value}`;
+
+    const isOldCalendar = currentYear > year;
 
     fetchGameInfos(year);
     
@@ -51,9 +60,14 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
             calendarIndex = storageValue.calendarIndex
           }
   
+          let openedDays = storageValue.openedDays ? storageValue.openedDays : defaults.openedDays;
+          if (isOldCalendar) {
+            openedDays = allDaysOpen;
+          }
+
           return {
             calendarIndex: calendarIndex > daysAmount ? daysAmount : calendarIndex,
-            openedDays: storageValue.openedDays ? storageValue.openedDays : defaults.openedDays,
+            openedDays,
           } as consistent;
         }),
       },
@@ -90,6 +104,9 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
       return false;
     }
 
+    if (currentYearNr > startYearNr) {
+      return true;
+    }
 
     const nowDay = nowString.substring(8, 10)
     const nowDayNumber = Number.parseInt(nowDay, 10); // - 10
@@ -97,15 +114,15 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
     return day <= nowDayNumber
   }
 
-  const isCurrentDayUnlockable = computed(() => {
+  const isCurrentDayUnlockable = () => {
     const playdateStore = usePlaydateStore();
     const { currentDayMonthYear, currentMonth, currentYear } = storeToRefs(playdateStore);
 
     return isUnlockable(currentDayMonthYear.value,
       consistent.value.calendarIndex, currentMonth.value, currentYear.value);
-  });
+  };
 
-  const isCalendarReady = computed(() => {
+  const isCalendarReady = () => {
     const playdateStore = usePlaydateStore();
     const { currentDayMonthYear, currentMonth, currentYear } = storeToRefs(playdateStore);
 
@@ -113,7 +130,7 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
     const dayNumber = Number.parseInt(startDay, 10);
 
     return isUnlockable(currentDayMonthYear.value, dayNumber, currentMonth.value, currentYear.value);
-  })
+  }
 
   const isCalendarActive = computed(() => {
     return false;
@@ -127,9 +144,8 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
   const setCalendarIndex = (newIndex: number, updateRoute: boolean = false) => {
     consistent.value.calendarIndex = newIndex;
     if (updateRoute) {
-//      router.push({ name: 'calendar', params: { year: calenderYear, day: newIndex }});
       const dayParam = newIndex.toString();
-      router.push({ params: { year: calenderYear, day: dayParam }});
+      router.push({ params: { year: calendarYear.value, day: dayParam }});
     }
   };
 
@@ -256,7 +272,7 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
     openDay, triggerWaitMessage, isCalendarReady,
     currentDayUnlocked, isCurrentDayUnlockable,
     showWaitMessage, selectedGame, daysAmount,
-    isCalendarActive,
+    isCalendarActive, calendarYear,
   }
 
 });

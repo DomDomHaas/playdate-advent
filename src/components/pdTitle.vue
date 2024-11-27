@@ -27,7 +27,7 @@ const xsAndSmLayout = computed(() => (breaks.value.xs || breaks.value.sm) && !br
 const style20 = computed(() => {
   let style = 'position: absolute;';
 //  style += xsAndSmLayout.value ? 'left: 170px; top: 0px;' : 'left: 275px; top: -127px;';
-  style += xsAndSmLayout.value ? 'left: 170px; top: 0px;' : 'left: 165px; top: 0;';
+  style += xsAndSmLayout.value ? 'left: 170px; top: 0px;' : 'left: 160px; top: 0;';
   return style;
 })
 

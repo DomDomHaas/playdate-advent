@@ -12,45 +12,7 @@
     </div>
 
 
-
-    <Row v-if="!calendarStore.isCalendarReady"
-         :gutter="[16, 16]"
-         style="height: 100vh;">
-
-      <Col :xs="{ span: 24 }"
-           :md="{ span: 8 }"
-           class="welcomeTitle">
-        <slot name="title" />
-      </Col>
-
-      <Col :xs="{ span: 24 }"
-           :md="{ span: 8 }"
-           style="line-height: 0.8em; text-align: center; font-size: 3rem;"
-           id="middleText"
-           class="welcomeTitle">
-
-        <div class="playdateYellowBright" >
-          Coming
-        </div>
-        <div class="playdateYellowDark" >
-          1st Dec
-        </div>
-      </Col>
-
-      <Col :xs="{ span: 24 }"
-           :md="{ span: 8 }"
-           class="welcomeTitle">
-        <slot name="timing" />
-      </Col>
-
-      <Col :xs="{ span: 24 }"
-           :md="{ span: 8 }">
-        <slot name="version" />
-      </Col>
-    </Row>
-
-
-    <Row v-if="calendarStore.isCalendarReady && xsAndSmLayout"
+    <Row v-if="xsAndSmLayout"
          :gutter="[8, 24]"
          class="mainContentXs"
          id="mainRow">
@@ -95,7 +57,7 @@
 
     </Row>
 
-    <Row v-if="calendarStore.isCalendarReady && mdLayout"
+    <Row v-if="mdLayout"
          :gutter="[8, 8]"
          class="mainContentSm"
          id="mainRow">
@@ -148,7 +110,7 @@
 
     </Row>
 
-    <Row v-if="calendarStore.isCalendarReady && lgLayout"
+    <Row v-if="lgLayout"
          :gutter="[16, 16]"
          class="mainContent"
          id="mainRow">

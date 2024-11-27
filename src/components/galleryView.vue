@@ -88,8 +88,9 @@
 
   .rotatedGallery {
     height: 400px !important;
-    width: 240px !important;
-    padding: 48px 0 0 256px !important;
+    width: 245px !important;
+    margin: 42px 0 0 256px !important;
+    padding: 0;
   }
 
   @media (max-width: 560px) {

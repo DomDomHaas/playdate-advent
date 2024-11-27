@@ -10,7 +10,8 @@ import { Row, Col } from 'ant-design-vue';
 import {useCalendarStore} from "@/stores/calendarStore";
 import {usePlaydateStore} from "@/stores/pdStore";
 import {useRoute} from "vue-router";
-import {watch, computed, type Ref} from "vue";
+import {watch, computed, ref} from "vue";
+import type { Ref } from "vue";
 import {storeToRefs} from "pinia";
 import type {ScreenMap} from "ant-design-vue/es/_util/responsiveObserve";
 import useBreakpoint from "ant-design-vue/es/_util/hooks/useBreakpoint";
@@ -25,10 +26,20 @@ const breaks: Ref<ScreenMap> = useBreakpoint();
 const route = useRoute();
 
 watch<string, boolean>((): any => route.params.day,
-  async (newDay, oldDay) => {
+  (newDay) => {
     const newDayNumber: number = Number.parseInt(newDay, 10);
     setCalendarIndex(newDayNumber, false);
   }
+)
+
+const isReady = ref(false);
+
+watch<string, boolean>((): any => route.params.year,
+  () => {
+    const updatedStore = useCalendarStore();
+    isReady.value = updatedStore.isCalendarReady();
+  }, 
+  { immediate: true },
 )
 
 
@@ -77,13 +88,36 @@ const xsLayout = computed(() => breaks.value.xs && !breaks.value.sm)
             id="middle"
            class="playdateInCover"
       >
+        <div v-if="!isReady"
+          class="calendarNotReady"
+          id="calendarNotReady"
+          >
+
+          <div class="playdateYellowBright"
+              style="padding: 12px 0;"
+           >
+            Coming
+          </div>
+          <div class="playdateYellowDark"
+              style="padding: 12px 0;"
+            >
+
+            1st Dec
+          </div>
+          <div :class="themeDark ? 'pdTitleColor' : 'pdTitleColorInverted'"
+                style="padding: 12px 0;"
+          >
+            {{ calendarStore.calendarYear }}
+          </div>          
+        </div>
+            
         <ConsoleView class=""
                      @dPadClick="catchPad"
                      @buttonClick="catchButton">
 
         </ConsoleView>
 
-        <CalendarView v-show="playdateStore.showCalendar"
+        <CalendarView v-show="isReady && playdateStore.showCalendar"
                       :selection="calendarStore.calendarIndex"
                       :daysAmount="calendarStore.daysAmount"
                       :openedDays="openedDays"
@@ -91,7 +125,7 @@ const xsLayout = computed(() => breaks.value.xs && !breaks.value.sm)
         >
         </CalendarView>
 
-        <GalleryView v-show="playdateStore.showGallery"  >
+        <GalleryView v-show="isReady && playdateStore.showGallery"  >
 
         </GalleryView>
 
@@ -119,7 +153,7 @@ const xsLayout = computed(() => breaks.value.xs && !breaks.value.sm)
 </template>
 
 <style>
-  .calenderGrid {
+  .calendarGrid {
     position: absolute;
     top: 0;
     display: grid;
@@ -145,9 +179,9 @@ const xsLayout = computed(() => breaks.value.xs && !breaks.value.sm)
   .gallery {
     position: absolute;
     top: 0;
-    width: 435px;
-    height: 280px;
-    padding: 36px 0 0 34px;
+    width: 400px;
+    height: 240px;
+    margin: 36px 0 0 34px;
     z-index: 1;
   }
 
@@ -170,6 +204,16 @@ const xsLayout = computed(() => breaks.value.xs && !breaks.value.sm)
     border-radius: 25px;
     width: 545px;
     margin: auto;
+  }
+
+  .calendarNotReady {
+    line-height: 0.8em;
+    text-align: center;
+    font-size: 3rem;
+    position: absolute;
+    top: 55px;
+    left: 160px;
+    z-index: 1;    
   }
 
   /*
@@ -217,19 +261,26 @@ const xsLayout = computed(() => breaks.value.xs && !breaks.value.sm)
       height: 180px;
     }
 
-    .calenderGrid {
+    .calendarGrid {
       /*
       width: 270px;
       */
       width: 285px;
-      height: 175px;
+      height: 220px;
       row-gap: 0;
-      padding: 24px 0 0 24px !important;
+      margin: 24px 0 0 24px !important;
+      padding: 0;
     }
 
     .gallery,
     .pdBackground {
-      padding: 21px 0 0 21px !important;
+      margin: 21px 0 0 21px !important;
+      padding: 0;
+    }
+
+    .calendarNotReady {
+      top: 15px;
+      left: 85px;
     }
 
 
@@ -267,7 +318,8 @@ const xsLayout = computed(() => breaks.value.xs && !breaks.value.sm)
   .rotatedBg {
     height: 410px !important;
     width: 245px !important;
-    padding: 45px 0 0 264px !important;
+    margin: 43px 0 0 262px !important;
+    padding: 0;
   }
 
   @media (max-width: 560px) {

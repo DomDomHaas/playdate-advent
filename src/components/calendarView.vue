@@ -61,7 +61,7 @@
 <template>
   <div v-if="!galleryLoading"
        id="calendarView"
-       class="calenderGrid">
+       class="calendarGrid">
 
     <div v-for="index in calendarItems"
         :key="`day_${index}`"
