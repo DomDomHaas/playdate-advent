@@ -12,7 +12,7 @@
       name: 'Xania Lasagna',
       role: 'Art, Conception & Marketing ',
       itch: 'https://xanialasagna.itch.io',
-      social: 'https://x.com/XaniaLasagna',
+      social: 'https://linktr.ee/xanialasagna',
     },
     {
       name: 'Pizza Fuel Dev',

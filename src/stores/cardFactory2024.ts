@@ -6,10 +6,10 @@ import card5 from '@/assets/2024/cards/card=5.png';
 import card6 from '@/assets/2024/cards/card=6.png';
 import card7 from '@/assets/2024/cards/card=7.png';
 import card8 from '@/assets/2024/cards/card=8.png';
-// import card9 from '@/assets/2024/cards/card=9.png';
+import card9 from '@/assets/2024/cards/card=9.png';
 import card10 from '@/assets/2024/cards/card=10.png';
-// import card11 from '@/assets/2024/cards/card=11.gif';
-// import card12 from '@/assets/2024/cards/card=12.png';
+import card11 from '@/assets/2024/cards/card=11.png';
+import card12 from '@/assets/2024/cards/card=12.png';
 import card13 from '@/assets/2024/cards/card=13.png';
 import card14 from '@/assets/2024/cards/card=14.gif';
 import card15 from '@/assets/2024/cards/card=15.png';
@@ -29,9 +29,9 @@ export const getCards = () => {
   return [
     card1, card2, card3, card4,
     card5, card6,
-    card7, card8, // card9,
-    card10, // card11,
-    // card12,
+    card7, card8, card9,
+    card10, card11,
+    card12,
     card13, card14, card15, card16, card17,
     card18,
     card19, card20, card21, card22, card23, card24,
