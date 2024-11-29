@@ -134,24 +134,35 @@
   // const mdLayout = computed(() => (breaks.value.md || breaks.value.lg) && !breaks.value.xl)
   // const lgLayout = computed(() => breaks.value.xl)
 
+  const isReady = ref(calendarStore.isCalendarReady());
+
 
   watch<string, boolean>((): any => route.params.year,
-    async (newYear, oldYear) => {
+    (newYear) => {
       calendarYear.value = newYear;
       calendarStore.initStore(calendarYear.value, currentYear.value);
       galleryStore.initGallery(calendarYear.value, calendarStore);      
+
+      isReady.value = calendarStore.isCalendarReady();
     }
   )
 
   watch<string, boolean>((): any => route.params.day,
-    async (newDay, oldDay) => {
+    (newDay) => {
       calendarDay.value = newDay;
       const newDayNumber: number = Number.parseInt(calendarDay.value, 10);
-      setCalendarIndex(newDayNumber, false);
+
+      if (calendarStore.calendarIndex !== newDayNumber) {
+        setCalendarIndex(newDayNumber, false);
+      }
     }
   )
 
   const catchPad = (upOrDown: number, leftOrRight: number) => {
+    if (!isReady.value) {
+      return;
+    }
+
     if (playdateStore.showCalendar) {
       calendarStore.updateCalendarIndex(upOrDown, leftOrRight);
       /*
@@ -171,6 +182,10 @@
   }
 
   const catchButton = (buttonName: string) => {
+    if (!isReady.value) {
+      return;
+    }
+
     if (buttonName === BUTTON_A) {
       if (calendarStore.isCurrentDayUnlockable()) {
         calendarStore.openDay(calendarStore.calendarIndex);

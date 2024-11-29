@@ -18,26 +18,24 @@ import useBreakpoint from "ant-design-vue/es/_util/hooks/useBreakpoint";
 
 const calendarStore = useCalendarStore();
 const { openedDays } = storeToRefs(calendarStore);
-const { setCalendarIndex } = calendarStore;
 const playdateStore = usePlaydateStore();
 const { themeDark } = storeToRefs(playdateStore);
 const breaks: Ref<ScreenMap> = useBreakpoint();
 
 const route = useRoute();
 
-watch<string, boolean>((): any => route.params.day,
-  (newDay) => {
-    const newDayNumber: number = Number.parseInt(newDay, 10);
-    setCalendarIndex(newDayNumber, false);
-  }
-)
+// watch<string, boolean>((): any => route.params.day,
+//   (newDay) => {
+//     const newDayNumber: number = Number.parseInt(newDay, 10);
+//     setCalendarIndex(newDayNumber, false);
+//   }
+// )
 
 const isReady = ref(false);
 
 watch<string, boolean>((): any => route.params.year,
   () => {
-    const updatedStore = useCalendarStore();
-    isReady.value = updatedStore.isCalendarReady();
+    isReady.value = calendarStore.isCalendarReady();
   }, 
   { immediate: true },
 )

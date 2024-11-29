@@ -29,26 +29,29 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
 
   const daysAmount: number = 25;
   const dayIsOpening: Ref<UnwrapRef<boolean>> = ref(false);
-  const calendarYear: Ref<UnwrapRef<string>> = ref('')
-  let localStorageName: string;
+  const calendarYear: Ref<UnwrapRef<string>> = ref('');
+  const localStorageName: Ref<UnwrapRef<string>> = ref('');
 
-  let consistent: RemovableRef<consistent>;
+  const consistent: RemovableRef<consistent> = ref({
+    calendarIndex: 1,
+    openedDays: [],
+  });
 
   const initStore = (year: string, currentYear: string) => {
     calendarYear.value = year;
     calendarStartDate = `${calendarYear.value}${calendarStartDate.substring(4, calendarStartDate.length)}`;
     
     // console.log('calendarStartDate', calendarStartDate);
-    localStorageName = `${CALENDAR_STORE}_${calendarYear.value}`;
+    localStorageName.value = `${CALENDAR_STORE}_${calendarYear.value}`;
 
     const isOldCalendar = currentYear > year;
 
     fetchGameInfos(year);
     
-    consistent = useStorage(localStorageName,
+    const mergedStore = useStorage(localStorageName.value,
       {
         calendarIndex: 1,
-        openedDays: [],
+        openedDays: isOldCalendar ? allDaysOpen : [],
       }, localStorage,
       // { mergeDefaults: true },
       {
@@ -56,13 +59,13 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
           // todo logic for 2023 & 2024, etc.
           let calendarIndex = defaults.calendarIndex;
   
-          if (storageValue.calendarIndex != undefined && storageValue.calendarIndex >= 0) {
-            calendarIndex = storageValue.calendarIndex
-          }
-  
           let openedDays = storageValue.openedDays ? storageValue.openedDays : defaults.openedDays;
           if (isOldCalendar) {
             openedDays = allDaysOpen;
+          } else {
+            if (storageValue.calendarIndex != undefined && storageValue.calendarIndex >= 0) {
+              calendarIndex = storageValue.calendarIndex
+            }              
           }
 
           return {
@@ -73,7 +76,9 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
       },
     );
 
-    // console.log('init localStorage ', localStorageName);
+    consistent.value = mergedStore.value;
+
+    // console.log('init localStorage ', localStorageName.value);
   }
 
 
@@ -273,6 +278,7 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
     currentDayUnlocked, isCurrentDayUnlockable,
     showWaitMessage, selectedGame, daysAmount,
     isCalendarActive, calendarYear,
+    localStorageName,
   }
 
 });
