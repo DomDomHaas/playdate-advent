@@ -24,12 +24,19 @@ const breaks: Ref<ScreenMap> = useBreakpoint();
 
 const route = useRoute();
 
-// watch<string, boolean>((): any => route.params.day,
-//   (newDay) => {
-//     const newDayNumber: number = Number.parseInt(newDay, 10);
-//     setCalendarIndex(newDayNumber, false);
-//   }
-// )
+// is needed for setting the index when directly open the app on a certain day
+watch<string, boolean>((): any => route.params.day,
+  (newDay) => {
+
+    const newDayNumber: number = Number.parseInt(newDay, 10);
+    // calendarStore.setCalendarIndex(newDayNumber, false);
+
+    if (calendarStore.calendarIndex !== newDayNumber) {
+      calendarStore.setCalendarIndex(newDayNumber, false);
+    }
+  }, 
+  { immediate: true },
+)
 
 const isReady = ref(false);
 
