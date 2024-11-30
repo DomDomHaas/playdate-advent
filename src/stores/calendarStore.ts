@@ -212,18 +212,22 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
 
   const selectedGame: ComputedRef<adventGame> = computed(() => {
 
+    const indexDiff = consistent.value.calendarIndex - 1;
+    const currentGame = gameList.value[indexDiff] as adventGame;
+
     if (currentDayUnlocked.value && gameList.value.length > 0) {
-      const indexDiff = consistent.value.calendarIndex - 1
       // console.log(gameList.value[indexDiff])
-      return gameList.value[indexDiff] as adventGame;
+      return currentGame as adventGame;
     }
 
+    
+    // don't return the full infos because it's not yet unlocked by the user
     return {
       Day: consistent.value.calendarIndex.toString(),
       Name: `Advent ${consistent.value.calendarIndex}`,
       Discount: '',
       Dev: '',
-      "Secret words": '',
+      "Secret words": currentGame ? currentGame["Secret words"] : '',
       "Date confirmed": '',
       "Sale confirmed": '',
       Url: '',

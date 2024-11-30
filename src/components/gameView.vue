@@ -171,7 +171,7 @@
 
       <Col :span="24"
             class="appCardText gameViewContent">
-        Advent Gift with secret word "{{ adventGame["Secret words"] }}", what could it be?
+        Day {{ adventGame.Day }} with secret word "<strong>{{ adventGame["Secret words"] }}</strong>", what could it be?
       </Col>
 
       <Col :span="24"
