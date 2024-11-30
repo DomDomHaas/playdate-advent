@@ -190,40 +190,6 @@
 </script>
 
 <style>
-.appCard {
-  background-color: #d76565;
-  /*
-  background-color: #CD5C5C;
-  */
-}
-
-.appCard .ant-card-head {
-  padding: 0 12px;
-  font-size: 1.2em;
-}
-
-.appCard .ant-card-body {
-  padding: 12px;
-}
-
-@media (max-width: 768px) {
-  .appCard {
-    width: 550px;
-    max-width: 100%;
-  }
-}
-
-.playdateYellowBright {
-  color: #FFC900;
-}
-
-.playdateYellowDark {
-  color: #FFB200;
-}
-
-.appCard a {
-  color: #FFC900;
-}
 
 .appCardText {
   font-size: 1.1rem;

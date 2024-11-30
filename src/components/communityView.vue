@@ -1,10 +1,15 @@
 <script setup lang="ts">
-  import {Row, Col, Card} from 'ant-design-vue';
+  import {Card} from 'ant-design-vue';
   import discordIcon from '@/assets/icons/ui/discord-logo.svg'
   import twitterIcon from '@/assets/icons/ui/twitter-logo.svg'
   import linkIcon from '@/assets/icons/ui/link-2.svg'
   import bookmark from '@/assets/icons/ui/bookmark.svg'
   import video from '@/assets/icons/ui/video.svg'
+  import { usePlaydateStore } from '@/stores/pdStore';
+  import { storeToRefs } from 'pinia';
+
+  const playdateStore = usePlaydateStore();
+  const { themeDark } = storeToRefs(playdateStore);
 
   const communityLinks = [
     {
@@ -90,7 +95,10 @@
     <Col :span="24">
 -->
       <Card title="Playdate Communities"
-            class="appCard" >
+            class="appCard"
+            :class="themeDark ? 'pdLinkColor pdBorderColor' : 'pdLinkColorInverted pdBorderColorInverted'"            
+            >
+
         <div v-for="(communityObj, index) in communityLinks"
               :key="`communities_${index}`"
               style="padding-bottom: 4px;"

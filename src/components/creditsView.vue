@@ -1,5 +1,10 @@
 <script setup lang="ts">
+  import { usePlaydateStore } from '@/stores/pdStore';
   import {Row, Col, Card} from 'ant-design-vue';
+  import { storeToRefs } from 'pinia';
+
+  const playdateStore = usePlaydateStore();
+  const { themeDark } = storeToRefs(playdateStore);
 
   const credits = [
     {
@@ -27,6 +32,7 @@
 <template>
   <Card title="Credits"
         class="appCard"
+        :class="themeDark ? 'pdLinkColor pdBorderColor' : 'pdLinkColorInverted pdBorderColorInverted'"    
         >
 
     <Row :gutter="[5, 10]">

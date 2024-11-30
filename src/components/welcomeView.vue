@@ -1,14 +1,18 @@
 <script setup lang="ts">
+  import { usePlaydateStore } from '@/stores/pdStore';
   import { Card, Row, Col } from 'ant-design-vue';
-/*
-  import Time from "@/components/time.vue";
-*/
+  import { storeToRefs } from 'pinia';
 
+  const playdateStore = usePlaydateStore();
+  const { themeDark } = storeToRefs(playdateStore);
+    
 </script>
 
 <template>
   <Card title="Welcome to the Playdate Advent Calender!"
-        class="appCard" >
+        class="appCard"
+        :class="themeDark ? 'pdLinkColor pdBorderColor' : 'pdLinkColorInverted pdBorderColorInverted'"    
+        >
 
     <Row style="padding-bottom: 16px;">
       <Col :span="24" >

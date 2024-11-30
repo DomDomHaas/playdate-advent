@@ -70,7 +70,7 @@ const calendars = [
   }
 
   .appCard {
-    background-color: #d76565;
+    background-color: #efe8bb;
     /*
     background-color: #CD5C5C;
     */
@@ -100,8 +100,25 @@ const calendars = [
     color: #FFB200;
   }
 
-  .appCard a {
-    color: #FFC900;
+  .pdBorderColor,
+  .pdBorderColor .ant-card-head
+  {
+    border-color: #11AC8E;
+  }
+
+  .pdBorderColorInverted,
+  .pdBorderColorInverted .ant-card-head {
+    border-color: #7353D2;
+  }
+
+  .pdLinkColor a {
+    color: #11AC8E;
+    text-decoration: underline;
+  }
+
+  .pdLinkColorInverted a {
+    color: #7353D2;
+    text-decoration: underline;
   }
 
   .appCardText {
