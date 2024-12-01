@@ -21,19 +21,19 @@
     {
       title: "Checkout the",
       text: "Uncrank'd Community Magazine",
-      url: 'https://xanialasagna.storenvy.com/products/36635764-uncrank-d-magazine-digital',
+      url: 'https://xanialasagna.storenvy.com/',
       icon: linkIcon,
     },
     {
       title: 'The birthplace of this calendar',
       text: "on the Uncrank'd Discord",
-      url: 'https://discord.gg/bMB9yZTf',
+      url: 'https://discord.gg/hQ76Xx833H',
       icon: discordIcon,
     },
     {
       title: 'Playdate Squad:',
       text: 'meet gamers and game devs alike',
-      url: 'https://discord.gg/4ZBEMZF9',
+      url: 'https://discord.gg/kXFwuz7q',
       icon: discordIcon,
     },
     {
