@@ -15,7 +15,7 @@
     {
       title: "News, reviews and much more on",
       text: "Hello Playdate Podcast",
-      url: 'https://discord.gg/yg4wu7q6',
+      url: 'https://discord.gg/NKjqkXphM6',
       icon: discordIcon,
     },
     {
