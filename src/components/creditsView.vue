@@ -11,7 +11,7 @@
       name: 'Dominik Haas',
       role: 'Web Dev, Conception & Communication',
       itch: 'https://dominik-haas.itch.io',
-      social: 'linktr.ee/dominikhaas',
+      social: 'https://linktr.ee/dominikhaas',
     },
     {
       name: 'Xania Lasagna',
