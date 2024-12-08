@@ -87,7 +87,7 @@
 
       <Col v-if="hasCoverUrl"
            :span="24">
-        <div style="overflow: hidden;">
+        <div class="coverImg">
           <img class="centerCatalog" height="200" :src="adventGame.CoverImgUrl" :alt="adventGame.Name">
         </div>
       </Col>
@@ -125,22 +125,9 @@
     <Row v-if="!xsAndSmLayout && calendarStore.currentDayUnlocked"
          :gutter="[0, 5]">
 
-      <Col v-if="!adventGame.Iframe"
-           :span="24"
-           class="appCardText gameViewContent">
-        {{ adventGame.Name }}
-      </Col>
-
-      <Col v-if="!adventGame.Iframe"
-           class="gameViewContent"
-           :span="24">
-        <a v-if="adventGame.Url"
-           :href="adventGame.Url" target="_blank" >{{adventGame.Url}}</a>
-      </Col>
-
       <Col v-if="hasCoverUrl"
            :span="24">
-        <div style="overflow: hidden;">
+        <div class="coverImg" >
           <img class="centerCatalog" height="200" :src="adventGame.CoverImgUrl" :alt="adventGame.Name">
         </div>
       </Col>
@@ -243,11 +230,6 @@
     padding: 0 4px !important;
   }
 
-  .iframe > iframe {
-    padding: 10px 0;
-    border-radius: 15px;
-  }
-
   .centerCatalog {
     display: block;
     margin: 0 auto;
@@ -296,6 +278,12 @@
 
   .doubleDigit {
     left: 220px;
+  }
+
+  .coverImg {
+    max-height: 200px;
+    max-width: 100%;
+    overflow: hidden;
   }
 
   @media (max-width: 560px) {

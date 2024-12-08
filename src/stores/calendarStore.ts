@@ -233,7 +233,6 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
       Url: '',
       DevUrl: '',
       CoverImgUrl: '',
-      Iframe: '',
       IframeMobile: '',
       Notes: '',
       Catalog: '',

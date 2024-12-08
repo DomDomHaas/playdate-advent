@@ -13,8 +13,6 @@ export type adventGame = {
   Url: string,
   DevUrl: string,
   CoverImgUrl: string,
-  Iframe: string,
-  IframeMobile: string,
   Notes: string,
   Catalog: string,
 }
