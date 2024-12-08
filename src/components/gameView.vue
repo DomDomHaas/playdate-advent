@@ -3,7 +3,7 @@
   import gameGift from '@/assets/gameGift.png';
   // import surprise from '@/assets/surprise-small.gif';
   import gameGiftUnwrap from '@/assets/gameGiftUnwrap.gif';
-  import { Card, BadgeRibbon, Row, Col } from 'ant-design-vue';
+  import { Card, BadgeRibbon, Row, Col, Button } from 'ant-design-vue';
 
   import {useCalendarStore} from "@/stores/calendarStore";
   import {computed, ref, watch} from "vue";
@@ -53,11 +53,19 @@
     sfx.value?.play();
   });
 
+  const hasCoverUrl = computed(() => {
+    return adventGame.value.CoverImgUrl;
+  })
+
+
 </script>
 
 <template>
   <BadgeRibbon :text="discountText"
+               class="discount"
                :class="!discountText ? 'hiddenRibbon' : ''"
+               :style="xsAndSmLayout ? 'top: 0;' : ''"
+               id="discount"
                 color="gold">
 
   <Card :title="cardTitle"
@@ -76,34 +84,27 @@
     <Row v-if="xsAndSmLayout && calendarStore.currentDayUnlocked"
          :gutter="[0, 5]">
 
-      <Col v-if="!adventGame.Iframe"
-          id="gameViewContent"
-          class="gameViewContent"
-          :span="24">
-        <a v-if="adventGame.Url"
-           :href="adventGame.Url" target="_blank" >{{adventGame.Url}}</a>
+
+      <Col v-if="hasCoverUrl"
+           :span="24">
+        <div style="overflow: hidden;">
+          <img class="centerCatalog" height="200" :src="adventGame.CoverImgUrl" :alt="adventGame.Name">
+        </div>
       </Col>
 
-      <Col v-if="adventGame.IframeMobile"
-           :span="24"
-           id="iframeMobile"
-           class="iframe"
-           style="text-align: center;"
-           v-html="adventGame.IframeMobile">
-      </Col>
+      <Col class="gameViewContent"
+           style="width: 100%;"
+            >
 
-      <Col v-if="!adventGame.IframeMobile && adventGame.Iframe"
-           :span="24"
-           id="iframe"
-           class="iframe"
-           v-html="adventGame.Iframe">
-      </Col>
-
-      <Col v-if="adventGame.Catalog"
-           class="gameViewContent" >
-        Get it on Catalog:
-        <a :href="adventGame.Catalog" target="_blank" >{{adventGame.Catalog}}</a>
-      </Col >
+        <Row justify="space-between">
+          <Col v-if="adventGame.Url">
+            <Button type="primary" :href="`${adventGame.Url}/purchase?popup=1`" target="_blank">Get it on Itch.io</Button>
+          </Col>
+          <Col v-if="adventGame.Catalog">
+            <Button type="primary" :href="adventGame.Catalog" target="_blank">Get it on Catalog</Button>
+          </Col>
+        </Row>
+      </Col >         
 
       <Col v-if="adventGame.DevUrl"
            class="gameViewContent"
@@ -137,19 +138,28 @@
            :href="adventGame.Url" target="_blank" >{{adventGame.Url}}</a>
       </Col>
 
-      <Col v-if="adventGame.Iframe"
-           :span="24"
-           class="iframe"
-           style="border-radius: 25px;"
-           v-html="adventGame.Iframe">
+      <Col v-if="hasCoverUrl"
+           :span="24">
+        <div style="overflow: hidden;">
+          <img class="centerCatalog" height="200" :src="adventGame.CoverImgUrl" :alt="adventGame.Name">
+        </div>
       </Col>
 
-      <Col v-if="adventGame.Catalog"
-           class="gameViewContent" >
-        Get it on Catalog:
-        <a :href="adventGame.Catalog" target="_blank" >{{adventGame.Catalog}}</a>
+      <Col class="gameViewContent"
+           style="width: 100%;"
+            >
+
+        <Row justify="space-between">
+          <Col v-if="adventGame.Url">
+            <Button type="primary" :href="`${adventGame.Url}/purchase?popup=1`" target="_blank">Get it on Itch.io</Button>
+          </Col>
+          <Col v-if="adventGame.Catalog">
+            <Button type="primary" :href="adventGame.Catalog" target="_blank">Get it on Catalog</Button>
+          </Col>
+        </Row>
       </Col >
 
+      
       <Col v-if="adventGame.DevUrl"
            class="gameViewContent"
            style="padding-bottom: 5px;"
@@ -243,6 +253,14 @@
     margin: 0 auto;
   }
 
+  @media (max-width: 560px) {
+    .ant-ribbon {
+      top: 0 !important;
+    }  
+
+  }
+
+
 </style>
 
 <style scoped>
@@ -293,6 +311,7 @@
     .doubleDigit {
       left: 127px;
     }
+
   }
 
 </style>

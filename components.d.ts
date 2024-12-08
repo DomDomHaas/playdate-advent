@@ -7,6 +7,7 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    CalendarCard: typeof import('./src/components/calendarCard.vue')['default']
     CalendarView: typeof import('./src/components/calendarView.vue')['default']
     CommunityView: typeof import('./src/components/communityView.vue')['default']
     ConsoleView: typeof import('./src/components/consoleView.vue')['default']
@@ -20,6 +21,9 @@ declare module 'vue' {
     PlaydatePageGrid: typeof import('./src/components/playdatePageGrid.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    TheCalendarOverview: typeof import('./src/components/TheCalendarOverview.vue')['default']
+    TheCalendarPage: typeof import('./src/components/TheCalendarPage.vue')['default']
+    TheCalendarPageLayout: typeof import('./src/components/TheCalendarPageLayout.vue')['default']
     TheNavBar: typeof import('./src/components/TheNavBar.vue')['default']
     Time: typeof import('./src/components/time.vue')['default']
     WelcomeView: typeof import('./src/components/welcomeView.vue')['default']

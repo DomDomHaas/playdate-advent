@@ -232,6 +232,7 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
       "Sale confirmed": '',
       Url: '',
       DevUrl: '',
+      CoverImgUrl: '',
       Iframe: '',
       IframeMobile: '',
       Notes: '',
