@@ -7,13 +7,12 @@ export type adventGame = {
   Name: string,
   Discount: string,
   Dev: string,
-  "Secret words": string,
-  "Date confirmed": string,
-  "Sale confirmed": string,
+  Secretwords: string,
+  DateConfirmed: string,
+  SaleConfirmed: string,
   Url: string,
   DevUrl: string,
   CoverImgUrl: string,
-  Notes: string,
   Catalog: string,
 }
 

@@ -13,6 +13,7 @@ declare module 'vue' {
     ConsoleView: typeof import('./src/components/consoleView.vue')['default']
     CreditsView: typeof import('./src/components/creditsView.vue')['default']
     GalleryView: typeof import('./src/components/galleryView.vue')['default']
+    GameCard: typeof import('./src/components/gameCard.vue')['default']
     GameView: typeof import('./src/components/gameView.vue')['default']
     LightSwitch: typeof import('./src/components/lightSwitch.vue')['default']
     PdTime: typeof import('./src/components/pdTime.vue')['default']

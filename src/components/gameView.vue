@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/no-v-text-v-html-on-component -->
 <script setup lang="ts">
   import gameGift from '@/assets/gameGift.png';
   // import surprise from '@/assets/surprise-small.gif';
@@ -13,6 +12,7 @@
   import type {ScreenMap} from "ant-design-vue/es/_util/responsiveObserve";
   import useBreakpoint from "ant-design-vue/es/_util/hooks/useBreakpoint";
   import tada from "@/assets/tada.mp3";
+  import GameCard from './gameCard.vue';
 
   const calendarStore = useCalendarStore();
   const playdateStore = usePlaydateStore();
@@ -57,6 +57,13 @@
     return adventGame.value.CoverImgUrl;
   })
 
+  // const newPrice = computed(() => {
+  //   return 1;
+  // });
+
+  // const oldPrice = computed(() => {
+  //   return 1;
+  // });
 
 </script>
 
@@ -96,6 +103,14 @@
            style="width: 100%;"
             >
 
+        <!-- <GameCard
+          :coverImgUrl="adventGame.CoverImgUrl"
+          :itchUrl="adventGame.Url"
+          :catalogUrl="adventGame.Catalog"
+          :newPrice="newPrice"
+          :oldPrice="oldPrice"
+        /> -->
+
         <Row justify="space-between">
           <Col v-if="adventGame.Url">
             <Button type="primary" :href="`${adventGame.Url}/purchase?popup=1`" target="_blank">Get it on Itch.io</Button>
@@ -115,11 +130,6 @@
         <a :href="adventGame.DevUrl" target="_blank" >{{adventGame.DevUrl}}</a>
       </Col>
 
-      <Col v-if="adventGame.Notes"
-           class="gameViewContent"
-           v-html="adventGame.Notes" >
-      </Col >
-
     </Row>
 
     <Row v-if="!xsAndSmLayout && calendarStore.currentDayUnlocked"
@@ -135,6 +145,12 @@
       <Col class="gameViewContent"
            style="width: 100%;"
             >
+
+        <!-- <GameCard
+          :coverImgUrl="adventGame.CoverImgUrl"
+          :itchUrl="adventGame.Url"
+          :catalogUrl="adventGame.Catalog"
+        /> -->
 
         <Row justify="space-between">
           <Col v-if="adventGame.Url">
@@ -156,11 +172,6 @@
         <a :href="adventGame.DevUrl" target="_blank" >{{adventGame.DevUrl}}</a>
       </Col>
 
-      <Col v-if="adventGame.Notes"
-           class="gameViewContent"
-           v-html="adventGame.Notes" >
-      </Col >
-
     </Row>
 
     <Row v-if="!calendarStore.currentDayUnlocked"
@@ -168,7 +179,7 @@
 
       <Col :span="24"
             class="appCardText gameViewContent">
-        Day {{ adventGame.Day }} with secret word "<strong>{{ adventGame["Secret words"] }}</strong>", what could it be?
+        Day {{ adventGame.Day }} with secret word "<strong>{{ adventGame.Secretwords }}</strong>", what could it be?
       </Col>
 
       <Col :span="24"

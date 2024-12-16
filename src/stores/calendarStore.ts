@@ -7,6 +7,7 @@ import type {adventGame, consistent} from "../../env";
 import {defineStore, storeToRefs} from 'pinia'
 import {usePlaydateStore} from "@/stores/pdStore";
 import router from "@/router";
+import csvToJsonConverter from 'convert-csv-to-json';
 
 const suffix = import.meta.env.VITE_LOCAL_STORAGE_SUFFIX
 export const CALENDAR_STORE: string = `CALENDAR_STORE_${suffix}`;
@@ -227,27 +228,30 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
       Name: `Advent ${consistent.value.calendarIndex}`,
       Discount: '',
       Dev: '',
-      "Secret words": currentGame ? currentGame["Secret words"] : '',
-      "Date confirmed": '',
-      "Sale confirmed": '',
+      Secretwords: currentGame?.Secretwords || '',
+      DateConfirmed: '',
+      SaleConfirmed: '',
       Url: '',
       DevUrl: '',
       CoverImgUrl: '',
-      IframeMobile: '',
-      Notes: '',
       Catalog: '',
     };
   });
 
    const fetchGameInfos = async (year: string) => {
-    const gsheetUrl = `https://opensheet.elk.sh/19o9HSmZBd0ENNoIA7qSMUHKlGgLFpDlpl_JTWaFMhBc/Calendar_${year}`;
+    const csvUrl = `./pac_${year}.csv`;
 
      try {
-      const response = await fetch(gsheetUrl);
-      gameList.value = await response.json();
+      const response = await fetch(csvUrl, {
+          method: 'get',
+          headers: { 'content-type': 'text/csv;charset=UTF-8',}
+      });
+      const csvText = await response.text();
+      const json = csvToJsonConverter.fieldDelimiter(',').csvStringToJson(csvText);
+      gameList.value = json;
        
      } catch (error) {
-      console.log(`Error loading ${gsheetUrl}`);
+      console.log(`Error loading ${csvUrl}`);
       console.error(error);
      }
 /*

@@ -1,6 +1,6 @@
 {
   "name": "playdate-advent",
-  "version": "1.5.16",
+  "version": "1.6.0",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -15,6 +15,7 @@
     "@ant-design/icons-vue": "^7.0.1",
     "@vueuse/core": "^11.3.0",
     "ant-design-vue": "^4.2.6",
+    "convert-csv-to-json": "^2.50.0",
     "material-design-icons-iconfont": "^6.7.0",
     "moment-timezone": "^0.5.46",
     "pinia": "^2.2.6",
