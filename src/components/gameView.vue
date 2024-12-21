@@ -13,6 +13,7 @@
   import useBreakpoint from "ant-design-vue/es/_util/hooks/useBreakpoint";
   import tada from "@/assets/tada.mp3";
   import GameCard from './gameCard.vue';
+  import { useGalleryStore } from '@/stores/galleryStore';
 
   const calendarStore = useCalendarStore();
   const playdateStore = usePlaydateStore();
@@ -53,9 +54,16 @@
     sfx.value?.play();
   });
 
-  const hasCoverUrl = computed(() => {
-    return adventGame.value.CoverImgUrl;
+  const coverUrl = computed(() => {
+    let url = adventGame.value.CoverImgUrl;
+    if (!url) {
+      const galleryStore = useGalleryStore();
+      url = galleryStore.currentScreenshots[0];
+    }
+
+    return url;
   })
+
 
   // const newPrice = computed(() => {
   //   return 1;
@@ -92,10 +100,9 @@
          :gutter="[0, 5]">
 
 
-      <Col v-if="hasCoverUrl"
-           :span="24">
+      <Col :span="24">
         <div class="coverImg">
-          <img class="centerCatalog" height="200" :src="adventGame.CoverImgUrl" :alt="adventGame.Name">
+          <img class="centerCatalog" height="200" :src="coverUrl" :alt="adventGame.Name">
         </div>
       </Col>
 
@@ -135,10 +142,9 @@
     <Row v-if="!xsAndSmLayout && calendarStore.currentDayUnlocked"
          :gutter="[0, 5]">
 
-      <Col v-if="hasCoverUrl"
-           :span="24">
+      <Col :span="24">
         <div class="coverImg" >
-          <img class="centerCatalog" height="200" :src="adventGame.CoverImgUrl" :alt="adventGame.Name">
+          <img class="centerCatalog" height="200" :src="coverUrl" :alt="adventGame.Name">
         </div>
       </Col>
 
@@ -154,7 +160,7 @@
 
         <Row justify="space-between">
           <Col v-if="adventGame.Url">
-            <Button type="primary" :href="`${adventGame.Url}/purchase?popup=1`" target="_blank">Get it on Itch.io</Button>
+            <Button type="primary" :href="adventGame.Url" target="_blank">Get it on Itch.io</Button>
           </Col>
           <Col v-if="adventGame.Catalog">
             <Button type="primary" :href="adventGame.Catalog" target="_blank">Get it on Catalog</Button>

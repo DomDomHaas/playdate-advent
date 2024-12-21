@@ -10,6 +10,7 @@ import router from "@/router";
 import csvToJsonConverter from 'convert-csv-to-json';
 
 const suffix = import.meta.env.VITE_LOCAL_STORAGE_SUFFIX
+const isProd = import.meta.env.PROD;
 export const CALENDAR_STORE: string = `CALENDAR_STORE_${suffix}`;
 
 const startDate: string = import.meta.env.VITE_START_DATE
@@ -239,7 +240,11 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
   });
 
    const fetchGameInfos = async (year: string) => {
-    const csvUrl = `./pac_${year}.csv`;
+    let csvUrl = `https://www.playdate-advent.com/pac_${year}.csv?nocache=${new Date().getTime()}`;
+    if (!isProd) {
+      csvUrl = `./pac_${year}.csv?nocache=${new Date().getTime()}`;
+    }
+
 
      try {
       const response = await fetch(csvUrl, {
