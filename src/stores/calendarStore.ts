@@ -275,12 +275,19 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
    }
   }
 
-  const rotatedDays = [22];
+  const rotatedDays = new Map<string, number[]>(Object.entries({ '2023': [22],  '2024': [] }) );
 
   const currentDayRotated = computed(() => {
 
-    const dayNumber = calendarIndex.value;
-    return rotatedDays.includes(dayNumber)
+    const calYear = calendarYear.value;
+    const rotatedDaysPerYear = rotatedDays.get(calYear) || [];
+
+    if (rotatedDaysPerYear.length > 0) {
+      const dayNumber = calendarIndex.value;
+      return rotatedDaysPerYear.includes(dayNumber)  
+    }
+    
+    return false;
   })
 
   return {
