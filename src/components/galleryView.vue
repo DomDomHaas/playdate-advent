@@ -54,6 +54,9 @@
 
     <Carousel v-if="!galleryLoading && !calendarStore.dayIsOpening"
               class=""
+              effect="fade"
+              autoplay
+              :autoplay-speed="5000"
               ref="galleryCarousel">
 
       <div v-for="(screenShot, index) in screenshots"
