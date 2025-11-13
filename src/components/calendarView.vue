@@ -42,10 +42,15 @@
   }
 
   function getBadeStyle(index: number) {
+    const border = ''; // `border: 1px solid ${themeDark ? 'white' : 'black'};`;
+
+    let positionStyle = index % 2 === 0 ? 'top: -3px;': 'top: 30px;';
+
     if (xsAndSmLayout.value) {
-      return index % 2 === 0 ? 'top: 0;': 'top: 20px;'
+      positionStyle = index % 2 === 0 ? 'top: 0;': 'top: 20px;'
     }
-    return index % 2 === 0 ? 'top: -3px;': 'top: 30px;'
+
+    return border + positionStyle;
   }
 
   const calendarItems = computed(() => {
@@ -79,7 +84,7 @@
 
       <div :style="getBadeStyle(index)"
           class="dayBadge">
-        <span style="position: relative; top: 2px;">{{ index }}</span>
+        <span style="position: relative; top: 1px; font-weight: 700;">{{ index }}</span>
       </div>
 
       <div class="cellImg">
@@ -139,6 +144,7 @@
     font-size: 1rem;
     text-align: center;
     z-index: 1;
+    border: 1px solid white;
   }
 
   .cellSelected .cellImg {
@@ -188,6 +194,15 @@
   .cellSelected.cellInverted > .cellImg,
   .cellSelected.cellInverted > .dayBadge {
     filter: invert(0%) !important;
+  }
+
+  .cellSelected > .dayBadge,
+  .cellInverted > .dayBadge {
+    border: 1px solid black;
+  }
+
+  .calendarCell > .dayBadge {
+    border: 1px solid black;
   }
 
   .cellInverted > .cellImg,

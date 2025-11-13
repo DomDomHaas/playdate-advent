@@ -192,12 +192,13 @@
            class="gameGift">
 
         <img v-show="calendarStore.dayIsOpening"
+              id="gameImg"
              :src="gameGiftUnwrap"
              alt="game unwrapping present gif">
 
         <div v-show="!calendarStore.dayIsOpening" >
 
-          <img :src="gameGift" alt="game present image" />
+          <img id="gameGiftImg" :src="gameGift" alt="game present image" />
 
 <!--
           <img :src="surprise" alt="surprise box" />
