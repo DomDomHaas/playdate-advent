@@ -13,9 +13,9 @@ export const useGalleryStore = defineStore(GALLERY_STORE, () => {
   // let pngAndGifs: any[];
   let calStore : Store;
   // let screenshots: Ref<UnwrapRef<any[]>>;
-  let screenshots: Ref<string[]> = ref([]);
-  let icons: Ref<string[]> = ref([]);
-  let screenshotsCards: Ref<string[]> = ref([]);
+  const screenshots: Ref<string[]> = ref([]);
+  const icons: Ref<string[]> = ref([]);
+  const screenshotsCards: Ref<string[]> = ref([]);
   const loading: Ref<boolean> = ref(false);
 
   const initGallery = async (year: string, calendarStore: Store) => {

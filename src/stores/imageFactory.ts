@@ -1,44 +1,17 @@
 import { addImages, randomInt, sortASC } from './imageUtils';
 
 export const getScreenshots = async (year: string) => {
-  let screenShotImports;
-
-  if (year === '2023') {
-    screenShotImports = await import('./screenshotFactory2023');
-  }
-
-  if (year === '2024') {
-    screenShotImports = await import('./screenshotFactory2024');
-  }
-
+  const screenShotImports = await import(`./screenshotFactory${year}`);
   return screenShotImports?.getScreenshots();
 }
 
 export const getIcons = async (year: string) => {
-  let iconsImports;
-
-  if (year === '2023') {
-    iconsImports = await import('./iconFactory2023');
-  }
-
-  if (year === '2024') {
-    iconsImports = await import('./iconFactory2024');
-  }
-
+  const iconsImports = await import(`./iconFactory${year}`);
   return iconsImports?.getIcons();
 }
 
 export const getCards = async (year: string) => {
-  let cardImports;
-
-  if (year === '2023') {
-    cardImports = await import('./cardFactory2023');
-  }
-
-  if (year === '2024') {
-    cardImports = await import('./cardFactory2024');
-  }
-
+  const cardImports = await import(`./cardFactory${year}`);
   return cardImports?.getCards();
 }
 
