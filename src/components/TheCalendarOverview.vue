@@ -43,7 +43,7 @@
 
 <script setup lang="ts">
   import {Popconfirm, Row, Col} from "ant-design-vue";
-  import {computed, type Ref} from "vue";
+  import {computed, inject, type Ref} from "vue";
   import type {ScreenMap} from "ant-design-vue/es/_util/responsiveObserve";
   import useBreakpoint from "ant-design-vue/es/_util/hooks/useBreakpoint";
   // import {usePlaydateStore} from "@/stores/pdStore";
@@ -61,25 +61,14 @@
   // const xsAndSmLayout = computed(() => (breaks.value.xs || breaks.value.sm) && !breaks.value.md)
   // const mdLayout = computed(() => (breaks.value.md || breaks.value.lg) && !breaks.value.xl)
   // const lgLayout = computed(() => breaks.value.xl)
-
-  const calendars = [
-    '2023',
-    '2024',
-    '2025',
-    '2026',
-/*
-      '2027',
-      '2028',
-*/
-  ];
   
-  calendars.reverse();
+  const calendarYears = inject<string[]>('calendarYears') || [];
 
 
   const calenderTimeline = computed(() => {
     const timeline = [];
 
-    const entries = calendars.length * 2 - 1;
+    const entries = calendarYears.length * 2 - 1;
     let calIndex = -1;
 
     for (let i = 0; i < entries; i++) {
@@ -87,7 +76,7 @@
 
       if (addCalTitle) {
         calIndex = calIndex + 1;
-        timeline[i] = calendars[calIndex];
+        timeline[i] = calendarYears[calIndex];
       } else {
         timeline[i] = 'delimiter';
       }

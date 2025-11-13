@@ -1,4 +1,6 @@
 <script setup lang="ts">
+  import { inject } from "vue";
+
   // @ts-nocheck
   // import {Row, Col, Switch} from 'ant-design-vue';
   import {Menu, MenuItem} from 'ant-design-vue';
@@ -9,11 +11,8 @@
   import {useRouter} from "vue-router";
   import pacLogo from '@/assets/PAC_logo24_64.png';
   
-  const {
-    calendarYears,
-  } = defineProps<{
-    calendarYears: Array,
-  }>()
+  const calendarYears = inject<string[]>('calendarYears') || [];
+
 
   const router = useRouter();
   // const pdStore = usePlaydateStore();
@@ -24,7 +23,7 @@
   //   pdStore.changeThemeDark(checked);
   // }
 
-  const yearClick = (year) => {
+  const yearClick = (year: string) => {
     router.push(`/calender/${year}/1`);
   }
 

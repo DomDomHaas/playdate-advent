@@ -2,20 +2,23 @@
 import {Layout, LayoutHeader, LayoutContent} from 'ant-design-vue';
 
 import TheNavBar from './components/TheNavBar.vue';
+import { provide } from 'vue';
 
 
-const calendars = [
+const calendarYears = [
     '2023',
     '2024',
-/*
     '2025',
+/*
     '2026',
     '2027',
     '2028',
 */
   ];
 
-  calendars.reverse();
+  calendarYears.reverse();
+
+  provide<string[]>('calendarYears', calendarYears);
 
 </script>
 
@@ -27,7 +30,7 @@ const calendars = [
     <!-- :class="themeDark ? 'scrollColor' : 'scrollColorInverted'" -->
 
     <LayoutHeader id="headerLayout" class="headerLayout">
-      <TheNavBar :calendarYears="calendars"/>
+      <TheNavBar :calendarYears="calendarYears"/>
     </LayoutHeader>
 
     <LayoutContent id="calendarLayout" class="calendarLayout">
