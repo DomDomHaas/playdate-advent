@@ -1,9 +1,9 @@
-// import card1 from '@/assets/2025/cards/card=1.png';
+import card1 from '@/assets/2025/cards/card=1.png';
 import card2 from '@/assets/2025/cards/card=2.png';
 import card3 from '@/assets/2025/cards/card=3.png';
 import card4 from '@/assets/2025/cards/card=4.png';
 import card5 from '@/assets/2025/cards/card=5.png';
-// import card6 from '@/assets/2025/cards/card=6.png';
+import card6 from '@/assets/2025/cards/card=6.png';
 import card7 from '@/assets/2025/cards/card=7.png';
 import card8 from '@/assets/2025/cards/card=8.png';
 // import card9 from '@/assets/2025/cards/card=9.png';
@@ -27,10 +27,10 @@ import card20 from '@/assets/2025/cards/card=20.png';
 export const getCards = () => {
 
   return [
-    // card1,
+    card1,
     card2, card3, card4,
     card5,
-    // card6,
+    card6,
     card7, card8,
     // card9,
     // card10,
