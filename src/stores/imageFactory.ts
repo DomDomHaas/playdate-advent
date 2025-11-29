@@ -1,17 +1,57 @@
 import { addImages, randomInt, sortASC } from './imageUtils';
 
 export const getScreenshots = async (year: string) => {
-  const screenShotImports = await import(`./screenshotFactory${year}`);
+
+  let screenShotImports;
+
+  if (year === '2023') {
+    screenShotImports = await import('./screenshotFactory2023');
+  }
+
+  if (year === '2024') {
+    screenShotImports = await import('./screenshotFactory2024');
+  }
+
+  if (year === '2025') {
+    screenShotImports = await import('./screenshotFactory2025');
+  }
+
   return screenShotImports?.getScreenshots();
 }
 
 export const getIcons = async (year: string) => {
-  const iconsImports = await import(`./iconFactory${year}`);
+  let iconsImports;
+
+  if (year === '2023') {
+    iconsImports = await import('./iconFactory2023');
+  }
+
+  if (year === '2024') {
+    iconsImports = await import('./iconFactory2024');
+  }
+
+  if (year === '2025') {
+    iconsImports = await import('./iconFactory2025');
+  }
+
   return iconsImports?.getIcons();
 }
 
 export const getCards = async (year: string) => {
-  const cardImports = await import(`./cardFactory${year}`);
+  let cardImports;
+
+  if (year === '2023') {
+    cardImports = await import('./cardFactory2023');
+  }
+
+  if (year === '2024') {
+    cardImports = await import('./cardFactory2024');
+  }
+
+  if (year === '2025') {
+    cardImports = await import('./cardFactory2025');
+  }
+
   return cardImports?.getCards();
 }
 

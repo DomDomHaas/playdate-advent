@@ -275,7 +275,7 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
    }
   }
 
-  const rotatedDays = new Map<string, number[]>(Object.entries({ '2023': [22],  '2024': [] }) );
+  const rotatedDays = new Map<string, number[]>(Object.entries({ '2023': [22],  '2024': [], '2025': [] }) );
 
   const currentDayRotated = computed(() => {
 

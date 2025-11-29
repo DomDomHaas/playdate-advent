@@ -13,7 +13,7 @@ const router = createRouter({
     // },
     {
       path: '/',
-      redirect: { path: '/calender/2024/1' },
+      redirect: { path: '/calender/2025/1' },
     },
     {
       path: '/calender/:year?/:day?',
