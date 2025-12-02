@@ -1,10 +1,7 @@
 <script setup lang="ts">
   import {Card} from 'ant-design-vue';
   import discordIcon from '@/assets/icons/ui/discord-logo.svg'
-  import twitterIcon from '@/assets/icons/ui/twitter-logo.svg'
-  // import twitterIcon from '@/assets/icons/ui/twitter-logo.svg'
   import linkIcon from '@/assets/icons/ui/link-2.svg'
-  import youtubeIcon from '@/assets/icons/ui/youtube-2.svg'
   import bookmark from '@/assets/icons/ui/bookmark.svg'
   import desktop from '@/assets/icons/ui/desktop.svg'
   import video from '@/assets/icons/ui/video.svg'
