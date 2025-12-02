@@ -45,7 +45,7 @@
       class="navItem"
       @click="yearClick(year)"
       >
-      Advent {{ year }}
+      {{ year }}
     </MenuItem>
   </Menu>
 
