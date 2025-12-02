@@ -2,8 +2,11 @@
   import {Card} from 'ant-design-vue';
   import discordIcon from '@/assets/icons/ui/discord-logo.svg'
   import twitterIcon from '@/assets/icons/ui/twitter-logo.svg'
+  // import twitterIcon from '@/assets/icons/ui/twitter-logo.svg'
   import linkIcon from '@/assets/icons/ui/link-2.svg'
+  import youtubeIcon from '@/assets/icons/ui/youtube-2.svg'
   import bookmark from '@/assets/icons/ui/bookmark.svg'
+  import desktop from '@/assets/icons/ui/desktop.svg'
   import video from '@/assets/icons/ui/video.svg'
   import { usePlaydateStore } from '@/stores/pdStore';
   import { storeToRefs } from 'pinia';
@@ -19,10 +22,22 @@
       icon: discordIcon,
     },
     {
+      title: "Stay up-to-date with upcoming Playdate projects",
+      text: "on the Uncrank'd Substack",
+      url: 'https://uncrankdpdzine.substack.com/',
+      icon: linkIcon,
+    },
+    {
       title: "Checkout the",
       text: "Uncrank'd Community Magazine",
-      url: 'https://xanialasagna.storenvy.com/',
+      url: 'https://uncrankd.myshopify.com/',
       icon: linkIcon,
+    },
+    {
+      title: "Have a look at the ",
+      text: "Uncrank'd Presentation playlists",
+      url: 'https://youtube.com/playlist?list=PL5yNx4IJJZOsjNJspBWZumPS9kIQDMmxG&si=VKAlLvAA6YNtSjJt',
+      icon: video,
     },
     {
       title: 'The birthplace of this calendar',
@@ -79,10 +94,10 @@
       icon: bookmark,
     },
     {
-      title: 'Playdate Devs Tweeting',
-      text: 'Follow this list on Twitter',
-      url: 'https://twitter.com/i/lists/1609957861307580416',
-      icon: twitterIcon,
+      title: 'Playdate Devs posting',
+      text: 'Follow this list on Bluesky',
+      url: 'https://bsky.app/profile/did:plc:o4nuf64d3lvfscj5xe5rbl7q/lists/3kfj67kbdvx23',
+      icon: desktop,
     }
   ];
 
