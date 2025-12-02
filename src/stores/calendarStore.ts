@@ -240,11 +240,7 @@ export const useCalendarStore = defineStore(CALENDAR_STORE, () => {
   });
 
    const fetchGameInfos = async (year: string) => {
-    let csvUrl = `https://www.playdate-advent.com/pac_${year}.csv?nocache=${new Date().getTime()}`;
-    if (!isProd) {
-      csvUrl = `./pac_${year}.csv?nocache=${new Date().getTime()}`;
-    }
-
+    const csvUrl = `./pac_${year}.csv?nocache=${new Date().getTime()}`;
 
      try {
       const response = await fetch(csvUrl, {
