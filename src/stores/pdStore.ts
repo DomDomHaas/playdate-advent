@@ -123,7 +123,7 @@ export const usePlaydateStore = defineStore(PD_STORE, () => {
 
   setInterval(() => {
     fetchConfig();
-  }, 5000)
+  }, 60000) // check every minute
 
   return {
     initStore,

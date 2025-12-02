@@ -45,6 +45,33 @@ export default ({ mode } : { mode: string}) => {
       rollupOptions: {
         output: {
           sanitizeFileName: false,
+          manualChunks: (id) => {
+            if (id.includes('vueuse')) {
+              return 'vueuse_vendors';
+            }
+
+            if (id.includes('lodash')) {
+              return 'lodash_vendors';
+            }
+
+            if (id.includes('seedrandom')) {
+              return 'seedrandom_vendors';
+            }
+
+            if (id.includes('moment') || id.includes('dayjs')) {
+              return 'date_vendors';
+            }
+
+            if (id.includes('ant-design')) {
+              return 'ant_vendors';
+            }
+
+            if (id.includes('vue') && !id.includes('.vue')) {
+              return 'vue_vendors';
+            }
+
+            return undefined;
+          }
         },
       },
     },
