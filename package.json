@@ -1,6 +1,6 @@
 {
   "name": "playdate-advent",
-  "version": "1.6.4",
+  "version": "1.7.0",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -20,8 +20,6 @@
     "moment-timezone": "^0.5.46",
     "pinia": "^2.2.6",
     "seedrandom": "^3.0.5",
-    "vite-plugin-inspect": "^11.3.2",
-    "vite-plugin-vue-devtools": "^7.6.4",
     "vue": "^3.5.13",
     "vue-router": "^4.4.5"
   },
@@ -41,6 +39,8 @@
     "typescript": "^5.6.3",
     "unplugin-vue-components": "^0.25.2",
     "vite": "^7.1.12",
+    "vite-plugin-inspect": "^11.3.3",
+    "vite-plugin-vue-devtools": "^8.0.5",
     "vue-tsc": "^2.1.10"
   }
 }
