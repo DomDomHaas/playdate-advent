@@ -150,7 +150,7 @@
         <Row :gutter="[24, 24]" >
 
           <Col :span="24"
-               class="welcomeTitle">
+               class="timingLayout">
             <slot name="timing" />
           </Col>
 
@@ -371,6 +371,11 @@ main {
   position: fixed;
   top: 10px;
   left: 10px;
+}
+
+.timingLayout {
+  height: 130px;
+  padding: 10px 20px !important;
 }
 
 </style>
