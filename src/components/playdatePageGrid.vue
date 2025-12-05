@@ -180,13 +180,14 @@ const xsLayout = computed(() => breaks.value.xs && !breaks.value.sm)
   z-index: 1;
 }
 
-/*
   @media (max-width: 530px) {
     .coverWrap {
-      width: 100%;
+      margin: 0;
+      width: 100% !important;
     }
   }
 
+/*
 
   @media (max-width: 400px) {
     .playdateFrame {

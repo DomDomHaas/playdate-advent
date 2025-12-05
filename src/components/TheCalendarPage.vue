@@ -77,7 +77,7 @@
   import PdTitle from "@/components/pdTitle.vue";
   import PdTime from "@/components/pdTime.vue";
   import WelcomeView from "@/components/welcomeView.vue";
-  import {Popconfirm, Row} from "ant-design-vue";
+  import {Popconfirm} from "ant-design-vue";
   import PlaydatePageGrid from "@/components/playdatePageGrid.vue";
   import {BUTTON_A, BUTTON_B} from "@/interaction";
   import CommunityView from "@/components/communityView.vue";

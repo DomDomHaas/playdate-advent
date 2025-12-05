@@ -84,6 +84,10 @@ const calendarYears = [
     font-size: 1.2em;
   }
 
+  .appCard .ant-card-head-title {
+    white-space: break-spaces;
+  }
+
   .appCard .ant-card-body {
     padding: 12px;
   }
