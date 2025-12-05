@@ -39,7 +39,7 @@
             <Button
               class="cardButton"
               type="primary"
-              :href="`${itchUrl}/purchase?popup=1`"
+              :href="itchUrl"
               target="_blank">
               Get it on Itch.io
             </Button>

@@ -120,7 +120,7 @@
 
         <Row justify="space-between">
           <Col v-if="adventGame.Url">
-            <Button type="primary" :href="`${adventGame.Url}/purchase?popup=1`" target="_blank">Get it on Itch.io</Button>
+            <Button type="primary" :href="adventGame.Url" target="_blank">Get it on Itch.io</Button>
           </Col>
           <Col v-if="adventGame.Catalog">
             <Button type="primary" :href="adventGame.Catalog" target="_blank">Get it on Catalog</Button>
