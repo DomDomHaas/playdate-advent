@@ -101,7 +101,8 @@
     .rotatedGallery {
       height: 290px !important;
       width: 178px !important;
-      padding: 12px 0 0 196px !important;
+      margin: 16px 0 0 198px !important;
+      padding: 0;
     }
 
   }
