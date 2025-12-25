@@ -44,7 +44,8 @@ export const useGalleryStore = defineStore(GALLERY_STORE, () => {
     const indexDiff = calStore.calendarIndex - 1;
 
     if (indexDiff >= 0 && !loading.value) {
-      return [screenshotsCards.value[indexDiff], ...screenshots.value[indexDiff]];
+      const screen = screenshots.value ? screenshots.value[indexDiff] : '';
+      return [screenshotsCards.value[indexDiff], screen];
     }
 
     return [];

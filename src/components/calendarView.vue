@@ -38,7 +38,8 @@
       return gameIcons.value[diffIndex];
     }
 
-    return giftImages[giftIndecies[diffIndex]]
+    const giftIndex = giftIndecies[diffIndex];
+    return giftIndex ? giftImages[giftIndex] : undefined;
   }
 
   function getBadeStyle(index: number) {

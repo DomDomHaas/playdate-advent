@@ -54,10 +54,10 @@ export const sortDESC = (a: string , b: string) => {
 const getFileNumber = (filePath: string) => {
   const splits = filePath.split('=');
   const fileNameWitHash = splits[splits.length - 1];
-  const numberStr = fileNameWitHash.split('-')[0];
+  const numberStr = fileNameWitHash?.split('-')[0];
   // const numberStr = fileName.split('.')[0];
 
-  return Number.parseInt(numberStr, 10);
+  return numberStr ? Number.parseInt(numberStr, 10) : -1;
 }
 
 

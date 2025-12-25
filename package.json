@@ -13,12 +13,12 @@
   },
   "dependencies": {
     "@ant-design/icons-vue": "^7.0.1",
-    "@vueuse/core": "^11.3.0",
+    "@vueuse/core": "^14.1.0",
     "ant-design-vue": "^4.2.6",
-    "convert-csv-to-json": "^2.50.0",
+    "convert-csv-to-json": "^3.20.0",
     "material-design-icons-iconfont": "^6.7.0",
-    "moment-timezone": "^0.5.48",
-    "pinia": "^2.3.1",
+    "moment-timezone": "^0.6.0",
+    "pinia": "^3.0.4",
     "seedrandom": "^3.0.5",
     "vue": "^3.5.26",
     "vue-router": "^4.6.4"
