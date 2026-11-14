@@ -1,73 +1,53 @@
 <template>
-  <div id="TheCalenderPageLayout"
-    :style="xxlAndUpLayout ? 'height: 100%;' : '' ">
-
-    <div v-if="lgLayout"
-         class="calendarBG"
-         :style="`background: url(${calendarBG}); repeat: no-repeat;`"
+  <div id="TheCalenderPageLayout" :style="xxlAndUpLayout ? 'height: 100%;' : ''">
+    <div
+      v-if="lgLayout"
+      class="calendarBG"
+      :style="`background: url(${calendarBG}); repeat: no-repeat;`"
     >
       <!--
           <img :src="calendarBG" alt="background" />
       -->
     </div>
 
-
-    <Row v-if="xsAndSmLayout"
-         :gutter="[8, 24]"
-         class="mainContentXs"
-         id="mainRow">
-
-      <Col :span="24"
-           class="welcomeTitle">
+    <Row v-if="xsAndSmLayout" :gutter="[8, 24]" class="mainContentXs" id="mainRow">
+      <Col :span="24" class="welcomeTitle">
         <slot name="title" />
       </Col>
 
-      <Col :span="24"
-           id="infoCol">
+      <Col :span="24" id="infoCol">
         <slot name="welcomeInfo" />
       </Col>
 
-      <Col :span="24"
-           style="padding: 0 10px;"
-           class="white-text">
+      <Col :span="24" style="padding: 0 10px" class="white-text">
         <slot name="timeDetailed" />
       </Col>
 
-      <Col :span="24"
-           id="playdateCol">
+      <Col :span="24" id="playdateCol">
         <slot name="playdate" />
       </Col>
 
-      <Col :span="24" >
+      <Col :span="24">
         <slot name="lightSwitch" />
       </Col>
 
-      <Col :span="24"
-           id="communityCol">
+      <Col :span="24" id="communityCol">
         <slot name="community" />
       </Col>
 
-      <Col :span="24" >
+      <Col :span="24">
         <slot name="credits" />
       </Col>
 
       <Col :span="24">
         <slot name="version" />
       </Col>
-
     </Row>
 
-    <Row v-if="mdLayout"
-         :gutter="[8, 8]"
-         class="mainContentSm"
-         id="mainRow">
-
-      <Col :span="10"
-           id="infoCol">
-
+    <Row v-if="mdLayout" :gutter="[8, 8]" class="mainContentSm" id="mainRow">
+      <Col :span="10" id="infoCol">
         <Row :gutter="[15, 20]">
-          <Col :span="24"
-               class="welcomeTitle">
+          <Col :span="24" class="welcomeTitle">
             <slot name="title" />
           </Col>
 
@@ -75,27 +55,23 @@
             <slot name="lightSwitch" />
           </Col>
 
-          <Col :span="24" >
+          <Col :span="24">
             <slot name="welcomeInfo" />
           </Col>
 
-          <Col :span="24"
-               id="communityCol">
+          <Col :span="24" id="communityCol">
             <slot name="community" />
           </Col>
 
           <Col :span="24">
             <slot name="version" />
           </Col>
-
         </Row>
       </Col>
 
-      <Col :span="14"
-           id="playdateCol">
-
+      <Col :span="14" id="playdateCol">
         <Row :gutter="[0, 20]">
-          <Col :span="24" >
+          <Col :span="24">
             <slot name="playdate" />
           </Col>
 
@@ -103,29 +79,17 @@
             <slot name="credits" />
           </Col>
         </Row>
-
-
       </Col>
-
-
     </Row>
 
-    <Row v-if="lgLayout"
-         :gutter="[16, 16]"
-         class="mainContent"
-         id="mainRow">
-
-      <Col :span="7"
-           id="infoCol">
-
+    <Row v-if="lgLayout" :gutter="[16, 16]" class="mainContent" id="mainRow">
+      <Col :span="7" id="infoCol">
         <Row :gutter="[15, 20]">
-
-          <Col :span="24"
-               class="welcomeTitle">
+          <Col :span="24" class="welcomeTitle">
             <slot name="title" />
           </Col>
 
-          <Col :span="24" >
+          <Col :span="24">
             <slot name="lightSwitch" />
           </Col>
 
@@ -139,58 +103,48 @@
         </Row>
       </Col>
 
-      <Col :span="10"
-           id="playdateCol">
+      <Col :span="10" id="playdateCol">
         <slot name="playdate" />
       </Col>
 
-      <Col :span="7"
-           id="communityCol">
-
-        <Row :gutter="[24, 24]" >
-
-          <Col :span="24"
-               class="timingLayout">
+      <Col :span="7" id="communityCol">
+        <Row :gutter="[24, 24]">
+          <Col :span="24" class="timingLayout">
             <slot name="timing" />
           </Col>
 
-          <Col :span="24" >
+          <Col :span="24">
             <slot name="community" />
           </Col>
 
-          <Col :span="24" >
+          <Col :span="24">
             <slot name="credits" />
           </Col>
         </Row>
       </Col>
-
     </Row>
-
   </div>
 </template>
 
 <script setup lang="ts">
+import calendarBG from '@/assets/calendarBG.png'
+import { Col, Row } from 'ant-design-vue'
+import { useCalendarStore } from '@/stores/calendarStore'
+import { computed, type Ref } from 'vue'
+import type { ScreenMap } from 'ant-design-vue/es/_util/responsiveObserve'
+import useBreakpoint from 'ant-design-vue/es/_util/hooks/useBreakpoint'
 
-  import calendarBG from "@/assets/calendarBG.png";
-  import {Col, Row} from "ant-design-vue";
-  import {useCalendarStore} from "@/stores/calendarStore";
-  import {computed, type Ref} from "vue";
-  import type {ScreenMap} from "ant-design-vue/es/_util/responsiveObserve";
-  import useBreakpoint from "ant-design-vue/es/_util/hooks/useBreakpoint";
+const calendarStore = useCalendarStore()
 
-  const calendarStore = useCalendarStore();
+const breaks: Ref<ScreenMap> = useBreakpoint()
+const xsAndSmLayout = computed(() => (breaks.value.xs || breaks.value.sm) && !breaks.value.md)
+const mdLayout = computed(() => (breaks.value.md || breaks.value.lg) && !breaks.value.xl)
+const lgLayout = computed(() => breaks.value.xl)
 
-  const breaks: Ref<ScreenMap> = useBreakpoint();
-  const xsAndSmLayout = computed(() => (breaks.value.xs || breaks.value.sm) && !breaks.value.md)
-  const mdLayout = computed(() => (breaks.value.md || breaks.value.lg) && !breaks.value.xl)
-  const lgLayout = computed(() => breaks.value.xl)
-
-  const xxlAndUpLayout = computed(() => breaks.value.xxl)
-
+const xxlAndUpLayout = computed(() => breaks.value.xxl)
 </script>
 
 <style>
-
 .appCardText {
   font-size: 1.1rem;
 }
@@ -204,15 +158,15 @@
 }
 
 .pdTitleColor {
-  color: #11AC8E;
+  color: #11ac8e;
 }
 
 .pdTitleColorInverted {
-  color: #7353D2;
+  color: #7353d2;
 }
 
 .pdCover {
-  background-color: #11AC8E;
+  background-color: #11ac8e;
 }
 
 .dPadButton.pdCover,
@@ -222,7 +176,7 @@
 }
 
 .pdCoverInverted {
-  background-color: #7353D2;
+  background-color: #7353d2;
 }
 
 .dPadButton.pdCoverInverted,
@@ -230,11 +184,9 @@
   border-color: rgba(115, 83, 210, 0.75);
   background-color: rgba(115, 83, 210, 0.15);
 }
-
 </style>
 
 <style scoped>
-
 main {
   padding: 10px;
   /*
@@ -298,7 +250,7 @@ main {
   display: grid;
   height: 100%;
   width: 100%;
-  grid-template-areas: "left middle right";
+  grid-template-areas: 'left middle right';
   background-color: #214646;
 }
 
@@ -307,9 +259,9 @@ main {
     grid-template-columns: 1fr;
     grid-template-rows: 2fr auto;
     grid-template-areas:
-        "middle"
-        "left"
-        "right";
+      'middle'
+      'left'
+      'right';
   }
 }
 
@@ -317,7 +269,6 @@ main {
   .pageGrid {
     grid-template-columns: 1fr 2fr 1fr;
     grid-template-rows: 1fr;
-
   }
 }
 
@@ -336,8 +287,8 @@ main {
   width: 560px;
   grid-template-columns: 1fr;
   grid-template-areas:
-        "playdate"
-        "game";
+    'playdate'
+    'game';
 }
 
 @media (max-width: 489px) {
@@ -377,5 +328,4 @@ main {
   height: 130px;
   padding: 10px 20px !important;
 }
-
 </style>

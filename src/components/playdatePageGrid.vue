@@ -180,12 +180,12 @@ const xsLayout = computed(() => breaks.value.xs && !breaks.value.sm)
   z-index: 1;
 }
 
-  @media (max-width: 530px) {
-    .coverWrap {
-      margin: 0;
-      width: 100% !important;
-    }
+@media (max-width: 530px) {
+  .coverWrap {
+    margin: 0;
+    width: 100% !important;
   }
+}
 
 /*
 

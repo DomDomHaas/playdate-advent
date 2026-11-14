@@ -1,116 +1,107 @@
 <script setup lang="ts">
-  import gameGift from '@/assets/gameGift.png';
-  // import surprise from '@/assets/surprise-small.gif';
-  import gameGiftUnwrap from '@/assets/gameGiftUnwrap.gif';
-  import { Card, BadgeRibbon, Row, Col, Button } from 'ant-design-vue';
+import gameGift from '@/assets/gameGift.png'
+// import surprise from '@/assets/surprise-small.gif';
+import gameGiftUnwrap from '@/assets/gameGiftUnwrap.gif'
+import { Card, BadgeRibbon, Row, Col, Button } from 'ant-design-vue'
 
-  import {useCalendarStore} from "@/stores/calendarStore";
-  import {computed, ref, watch} from "vue";
-  import {usePlaydateStore} from "@/stores/pdStore";
-  import {storeToRefs} from "pinia";
-  import type {Ref} from "vue";
-  import type {ScreenMap} from "ant-design-vue/es/_util/responsiveObserve";
-  import useBreakpoint from "ant-design-vue/es/_util/hooks/useBreakpoint";
-  import tada from "@/assets/tada.mp3";
-  import GameCard from './gameCard.vue';
-  import { useGalleryStore } from '@/stores/galleryStore';
+import { useCalendarStore } from '@/stores/calendarStore'
+import { computed, ref, watch } from 'vue'
+import { usePlaydateStore } from '@/stores/pdStore'
+import { storeToRefs } from 'pinia'
+import type { Ref } from 'vue'
+import type { ScreenMap } from 'ant-design-vue/es/_util/responsiveObserve'
+import useBreakpoint from 'ant-design-vue/es/_util/hooks/useBreakpoint'
+import tada from '@/assets/tada.mp3'
+import GameCard from './gameCard.vue'
+import { useGalleryStore } from '@/stores/galleryStore'
 
-  const calendarStore = useCalendarStore();
-  const playdateStore = usePlaydateStore();
-  const { dayIsOpening } = storeToRefs(calendarStore);
-  const { themeDark } = storeToRefs(playdateStore);
+const calendarStore = useCalendarStore()
+const playdateStore = usePlaydateStore()
+const { dayIsOpening } = storeToRefs(calendarStore)
+const { themeDark } = storeToRefs(playdateStore)
 
-  const breaks: Ref<ScreenMap> = useBreakpoint();
-  const xsAndSmLayout = computed(() => (breaks.value.xs || breaks.value.sm) && !breaks.value.md)
+const breaks: Ref<ScreenMap> = useBreakpoint()
+const xsAndSmLayout = computed(() => (breaks.value.xs || breaks.value.sm) && !breaks.value.md)
 
-  const adventGame = computed(() => {
-    return calendarStore.selectedGame;
-  })
+const adventGame = computed(() => {
+  return calendarStore.selectedGame
+})
 
-  const discountText = computed(() => {
-    if (!calendarStore.currentDayUnlocked) {
-      return ''
-    }
+const discountText = computed(() => {
+  if (!calendarStore.currentDayUnlocked) {
+    return ''
+  }
 
-    if (adventGame?.value?.Discount?.toLowerCase() !== 'free') {
-      return `- ${adventGame?.value?.Discount}`
-    }
+  if (adventGame?.value?.Discount?.toLowerCase() !== 'free') {
+    return `- ${adventGame?.value?.Discount}`
+  }
 
-    return adventGame?.value?.Discount;
-  })
+  return adventGame?.value?.Discount
+})
 
-  const cardTitle = computed(() => {
-    if (calendarStore.currentDayUnlocked) {
-      // return `Advent Game #${adventGame.value.Day}: ${adventGame.value.Name}`;
-      return `Advent Gift # ${adventGame.value.Day} is presented by ${adventGame.value.Dev}`;
-    }
+const cardTitle = computed(() => {
+  if (calendarStore.currentDayUnlocked) {
+    // return `Advent Game #${adventGame.value.Day}: ${adventGame.value.Name}`;
+    return `Advent Gift # ${adventGame.value.Day} is presented by ${adventGame.value.Dev}`
+  }
 
-    return `Advent Gift of Day ${adventGame?.value.Day}`;
-  })
+  return `Advent Gift of Day ${adventGame?.value.Day}`
+})
 
-  const sfx = ref<HTMLAudioElement>();
+const sfx = ref<HTMLAudioElement>()
 
-  watch(dayIsOpening, () => {
-    sfx.value?.play();
-  });
+watch(dayIsOpening, () => {
+  sfx.value?.play()
+})
 
-  const coverUrl = computed(() => {
-    let url = adventGame.value.CoverImgUrl;
-    if (!url) {
-      const galleryStore = useGalleryStore();
-      url = galleryStore.currentScreenshots[0];
-    }
+const coverUrl = computed(() => {
+  let url = adventGame.value.CoverImgUrl
+  if (!url) {
+    const galleryStore = useGalleryStore()
+    url = galleryStore.currentScreenshots[0]
+  }
 
-    return url;
-  })
+  return url
+})
 
+// const newPrice = computed(() => {
+//   return 1;
+// });
 
-  // const newPrice = computed(() => {
-  //   return 1;
-  // });
-
-  // const oldPrice = computed(() => {
-  //   return 1;
-  // });
-
+// const oldPrice = computed(() => {
+//   return 1;
+// });
 </script>
 
 <template>
-  <BadgeRibbon :text="discountText"
-               class="discount"
-               :class="!discountText ? 'hiddenRibbon' : ''"
-               :style="xsAndSmLayout ? 'top: 0;' : ''"
-               id="discount"
-                color="gold">
+  <BadgeRibbon
+    :text="discountText"
+    class="discount"
+    :class="!discountText ? 'hiddenRibbon' : ''"
+    :style="xsAndSmLayout ? 'top: 0;' : ''"
+    id="discount"
+    color="gold"
+  >
+    <Card
+      :title="cardTitle"
+      :bordered="true"
+      id="gameView"
+      class="gameView"
+      :class="themeDark ? 'pdCoverInverted' : 'pdCover'"
+    >
+      <audio id="sfx" ref="sfx" preload="auto" hidden="true">
+        <source :src="tada" type="audio/mpeg" />
+      </audio>
 
-  <Card :title="cardTitle"
-        :bordered="true"
-        id="gameView"
-        class="gameView"
-        :class="themeDark ? 'pdCoverInverted' : 'pdCover'"  >
+      <Row v-if="xsAndSmLayout && calendarStore.currentDayUnlocked" :gutter="[0, 5]">
+        <Col :span="24">
+          <div class="coverImg">
+            <img class="centerCatalog" height="200" :src="coverUrl" :alt="adventGame.Name" />
+          </div>
+        </Col>
 
-    <audio id="sfx"
-           ref="sfx"
-           preload="auto"
-           hidden="true" >
-      <source :src="tada" type="audio/mpeg">
-    </audio>
-
-    <Row v-if="xsAndSmLayout && calendarStore.currentDayUnlocked"
-         :gutter="[0, 5]">
-
-
-      <Col :span="24">
-        <div class="coverImg">
-          <img class="centerCatalog" height="200" :src="coverUrl" :alt="adventGame.Name">
-        </div>
-      </Col>
-
-      <Col class="gameViewContent"
-           style="width: 100%;"
-            >
-
-        <!-- <GameCard
+        <Col class="gameViewContent" style="width: 100%">
+          <!-- <GameCard
           :coverImgUrl="adventGame.CoverImgUrl"
           :itchUrl="adventGame.Url"
           :catalogUrl="adventGame.Catalog"
@@ -118,206 +109,190 @@
           :oldPrice="oldPrice"
         /> -->
 
-        <Row justify="space-between">
-          <Col v-if="adventGame.Url">
-            <Button type="primary" :href="adventGame.Url" target="_blank">Get it on Itch.io</Button>
-          </Col>
-          <Col v-if="adventGame.Catalog">
-            <Button type="primary" :href="adventGame.Catalog" target="_blank">Get it on Catalog</Button>
-          </Col>
-        </Row>
-      </Col >         
+          <Row justify="space-between">
+            <Col v-if="adventGame.Url">
+              <Button type="primary" :href="adventGame.Url" target="_blank"
+                >Get it on Itch.io</Button
+              >
+            </Col>
+            <Col v-if="adventGame.Catalog">
+              <Button type="primary" :href="adventGame.Catalog" target="_blank"
+                >Get it on Catalog</Button
+              >
+            </Col>
+          </Row>
+        </Col>
 
-      <Col v-if="adventGame.DevUrl"
-           class="gameViewContent"
-           style="padding-bottom: 5px;"
-      >
-        All games from {{ adventGame.Dev }} on itch.io:
+        <Col v-if="adventGame.DevUrl" class="gameViewContent" style="padding-bottom: 5px">
+          All games from {{ adventGame.Dev }} on itch.io:
 
-        <a :href="adventGame.DevUrl" target="_blank" >{{adventGame.DevUrl}}</a>
-      </Col>
+          <a :href="adventGame.DevUrl" target="_blank">{{ adventGame.DevUrl }}</a>
+        </Col>
+      </Row>
 
-    </Row>
+      <Row v-if="!xsAndSmLayout && calendarStore.currentDayUnlocked" :gutter="[0, 5]">
+        <Col :span="24">
+          <div class="coverImg">
+            <img class="centerCatalog" height="200" :src="coverUrl" :alt="adventGame.Name" />
+          </div>
+        </Col>
 
-    <Row v-if="!xsAndSmLayout && calendarStore.currentDayUnlocked"
-         :gutter="[0, 5]">
-
-      <Col :span="24">
-        <div class="coverImg" >
-          <img class="centerCatalog" height="200" :src="coverUrl" :alt="adventGame.Name">
-        </div>
-      </Col>
-
-      <Col class="gameViewContent"
-           style="width: 100%;"
-            >
-
-        <!-- <GameCard
+        <Col class="gameViewContent" style="width: 100%">
+          <!-- <GameCard
           :coverImgUrl="adventGame.CoverImgUrl"
           :itchUrl="adventGame.Url"
           :catalogUrl="adventGame.Catalog"
         /> -->
 
-        <Row justify="space-between">
-          <Col v-if="adventGame.Url">
-            <Button type="primary" :href="adventGame.Url" target="_blank">Get it on Itch.io</Button>
-          </Col>
-          <Col v-if="adventGame.Catalog">
-            <Button type="primary" :href="adventGame.Catalog" target="_blank">Get it on Catalog</Button>
-          </Col>
-        </Row>
-      </Col >
+          <Row justify="space-between">
+            <Col v-if="adventGame.Url">
+              <Button type="primary" :href="adventGame.Url" target="_blank"
+                >Get it on Itch.io</Button
+              >
+            </Col>
+            <Col v-if="adventGame.Catalog">
+              <Button type="primary" :href="adventGame.Catalog" target="_blank"
+                >Get it on Catalog</Button
+              >
+            </Col>
+          </Row>
+        </Col>
 
-      
-      <Col v-if="adventGame.DevUrl"
-           class="gameViewContent"
-           style="padding-bottom: 5px;"
-      >
-        All games from {{ adventGame.Dev }} on itch.io:
+        <Col v-if="adventGame.DevUrl" class="gameViewContent" style="padding-bottom: 5px">
+          All games from {{ adventGame.Dev }} on itch.io:
 
-        <a :href="adventGame.DevUrl" target="_blank" >{{adventGame.DevUrl}}</a>
-      </Col>
+          <a :href="adventGame.DevUrl" target="_blank">{{ adventGame.DevUrl }}</a>
+        </Col>
+      </Row>
 
-    </Row>
+      <Row v-if="!calendarStore.currentDayUnlocked" :gutter="[10, 10]">
+        <Col :span="24" class="appCardText gameViewContent">
+          Day {{ adventGame.Day }} with secret word "<strong>{{ adventGame.Secretwords }}</strong
+          >", what could it be?
+        </Col>
 
-    <Row v-if="!calendarStore.currentDayUnlocked"
-         :gutter="[10, 10]">
+        <Col :span="24" class="gameGift">
+          <img
+            v-show="calendarStore.dayIsOpening"
+            id="gameImg"
+            :src="gameGiftUnwrap"
+            alt="game unwrapping present gif"
+          />
 
-      <Col :span="24"
-            class="appCardText gameViewContent">
-        Day {{ adventGame.Day }} with secret word "<strong>{{ adventGame.Secretwords }}</strong>", what could it be?
-      </Col>
+          <div v-show="!calendarStore.dayIsOpening">
+            <img id="gameGiftImg" :src="gameGift" alt="game present image" />
 
-      <Col :span="24"
-           class="gameGift">
-
-        <img v-show="calendarStore.dayIsOpening"
-              id="gameImg"
-             :src="gameGiftUnwrap"
-             alt="game unwrapping present gif">
-
-        <div v-show="!calendarStore.dayIsOpening" >
-
-          <img id="gameGiftImg" :src="gameGift" alt="game present image" />
-
-<!--
+            <!--
           <img :src="surprise" alt="surprise box" />
 -->
-          <div :class="`${ Number.parseInt(adventGame.Day, 10) > 9 ? 'giftNumberOverlay doubleDigit' : 'giftNumberOverlay'}` ">
-            {{ adventGame.Day }}
+            <div
+              :class="`${Number.parseInt(adventGame.Day, 10) > 9 ? 'giftNumberOverlay doubleDigit' : 'giftNumberOverlay'}`"
+            >
+              {{ adventGame.Day }}
+            </div>
           </div>
-        </div>
-      </Col>
+        </Col>
+      </Row>
 
-    </Row>
-
-<!--
+      <!--
   </div>
 -->
-  </Card>
+    </Card>
   </BadgeRibbon>
-
-
 </template>
 
 <style>
+.hiddenRibbon {
+  display: none;
+}
 
-  .hiddenRibbon {
-    display: none;
-  }
-
-  .gameGift {
-    /*
+.gameGift {
+  /*
     width: 400px;
     */
-    height: 175px;
-    text-align: center;
+  height: 175px;
+  text-align: center;
+}
+
+.gameGift img {
+  border-radius: 15px;
+  height: 100%;
+  max-width: 100%;
+}
+
+.gameView .ant-card-head {
+  padding: 10px !important;
+}
+
+.gameView .ant-card-body {
+  padding: 0 4px !important;
+}
+
+.centerCatalog {
+  display: block;
+  margin: 0 auto;
+}
+
+@media (max-width: 560px) {
+  .ant-ribbon {
+    top: 0 !important;
   }
-
-  .gameGift img {
-    border-radius: 15px;
-    height: 100%;
-    max-width: 100%;
-  }
-
-  .gameView .ant-card-head {
-    padding: 10px !important;
-  }
-
-  .gameView .ant-card-body {
-    padding: 0 4px !important;
-  }
-
-  .centerCatalog {
-    display: block;
-    margin: 0 auto;
-  }
-
-  @media (max-width: 560px) {
-    .ant-ribbon {
-      top: 0 !important;
-    }  
-
-  }
-
-
+}
 </style>
 
 <style scoped>
-  .gameView {
-    /*
+.gameView {
+  /*
     width: 520px;
     height: 541px;
     */
-    height: 350px;
-    margin: 10px 0;
-    border-radius: 25px !important;
-    min-height: 280px;
-    background-color: #efefef;
-  }
+  height: 350px;
+  margin: 10px 0;
+  border-radius: 25px !important;
+  min-height: 280px;
+  background-color: #efefef;
+}
 
-  .gameViewContent {
-    padding: 0 20px !important;
-  }
+.gameViewContent {
+  padding: 0 20px !important;
+}
 
-  .gameViewCard {
-    border: white solid 1px;
-    padding: 5px;
+.gameViewCard {
+  border: white solid 1px;
+  padding: 5px;
+}
+
+.giftNumberOverlay {
+  position: absolute;
+  top: 60px;
+  left: 245px;
+  font-size: 5rem;
+  line-height: 0.7em;
+  color: #efefef;
+}
+
+.doubleDigit {
+  left: 220px;
+}
+
+.coverImg {
+  max-height: 200px;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+@media (max-width: 560px) {
+  .gameView {
+    height: 380px;
   }
 
   .giftNumberOverlay {
-    position: absolute;
-    top: 60px;
-    left: 245px;
-    font-size: 5rem;
-    line-height: 0.7em;
-    color: #efefef;
+    top: 46px;
+    left: 150px;
   }
 
   .doubleDigit {
-    left: 220px;
+    left: 127px;
   }
-
-  .coverImg {
-    max-height: 200px;
-    max-width: 100%;
-    overflow: hidden;
-  }
-
-  @media (max-width: 560px) {
-    .gameView {
-      height: 380px;
-    }
-
-    .giftNumberOverlay {
-      top: 46px;
-      left: 150px;
-    }
-
-    .doubleDigit {
-      left: 127px;
-    }
-
-  }
-
+}
 </style>
