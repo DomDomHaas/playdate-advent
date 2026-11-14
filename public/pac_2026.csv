@@ -1,27 +1,27 @@
 Day,Name,Discount,Dev,Requested artwork? Y/N,Screenshots (y/n),Icon (Y/N),Date Confirmed,Sale Confirmed,Url,Catalog,DevUrl,CoverImgUrl
-1,Dogs Play Pawker,,Ledbetter,Yes,yes,yes,TRUE,FALSE,https://ledbetter-games.itch.io/pawker,,,
-2,Gravi-Maze,,webdemon,Yes,yes,no,TRUE,FALSE,https://webdemon.itch.io/playdate-gravi-maze,,,
-3,Space Oddsock,,toni,Yes,yes,yes,TRUE,FALSE,https://toni.itch.io/space-oddsock,,,
+1,Dogs Play Pawker,,Ledbetter,Yes,yes,yes,TRUE,FALSE,https://ledbetter-games.itch.io/pawker,,https://ledbetter-games.itch.io/,
+2,Gravi-Maze,,webdemon,Yes,yes,no,TRUE,FALSE,https://webdemon.itch.io/playdate-gravi-maze,,https://webdemon.itch.io/,https://img.itch.zone/aW1hZ2UvNDM4NjQ5Ni8yNjE4Mzk1My5naWY=/original/Sbi7Xy.gif
+3,Space Oddsock,,toni,Yes,yes,yes,TRUE,FALSE,https://toni.itch.io/space-oddsock,,https://toni.itch.io/,https://img.itch.zone/aW1nLzMxNTY4MDE5LnBuZw==/original/WZCAIF.png
 4,,,,,no,no,FALSE,FALSE,,,,
-5,Mouse gun,,Silvermedal games,No,yes,yes,TRUE,FALSE,https://silvermedal.itch.io/mousegun,https://play.date/games/mousegun/,,
-6,Cranky miner,,Wiedo ,Yes,yes,yes,TRUE,FALSE,https://wiedo.itch.io/cranky-miner,,,
+5,Mouse gun,,Silvermedal games,No,yes,yes,TRUE,FALSE,https://silvermedal.itch.io/mousegun,https://play.date/games/mousegun/,https://silvermedal.itch.io/,https://img.itch.zone/aW1hZ2UvMzg3MDU4OS8yMzMyNjE3My5naWY=/original/JE0TC%2B.gif
+6,Cranky miner,,Wiedo ,Yes,yes,yes,TRUE,FALSE,https://wiedo.itch.io/cranky-miner,,https://wiedo.itch.io/,https://img.itch.zone/aW1nLzMxNDgwMzE0LnBuZw==/original/kzm%2FoQ.png
 7,,,,,no,no,FALSE,FALSE,,,,
 8,,,,,no,no,FALSE,FALSE,,,,
-9,Eve,,webdemon,Yes,yes,no,TRUE,FALSE,https://webdemon.itch.io/eve-learn-to-read,,,
+9,Eve,,webdemon,Yes,yes,no,TRUE,FALSE,https://webdemon.itch.io/eve-learn-to-read,,https://webdemon.itch.io/eve-learn-to-read,https://img.itch.zone/aW1hZ2UvNDQ2MjU4Ni8yNjYwMjkxMC5naWY=/original/P81mQD.gif
 10,,,,,no,no,FALSE,FALSE,,,,
 11,Scope,,Xesf,Yes,yes,no,FALSE,FALSE,,https://play.date/games/scope/,,
-12,Dead Water: Second Shift,,BitCaliber games,Yes,yes,yes,TRUE,FALSE,https://bitcalibergames.itch.io/dead-water-second-shift,,,
+12,Dead Water: Second Shift,,BitCaliber games,Yes,yes,yes,TRUE,FALSE,https://bitcalibergames.itch.io/dead-water-second-shift,,https://bitcalibergames.itch.io/,
 13,,,,,no,no,FALSE,FALSE,,,,
 14,,,,,no,no,FALSE,FALSE,,,,
-15,2026 Playdate Yulelog,,Xanialasagna,,yes,yes,TRUE,FALSE,https://xanialasagna.itch.io/the-yulelog-fireplace,,,
+15,2026 Playdate Yulelog,,Xanialasagna,,yes,yes,TRUE,FALSE,https://xanialasagna.itch.io/the-yulelog-fireplace,,https://xanialasagna.itch.io/,https://img.itch.zone/aW1nLzE0NTI3NTY4LnBuZw==/original/i2Cv9V.png
 16,,,,,no,no,FALSE,FALSE,,,,
-17,,,,,no,no,FALSE,FALSE,,,,
+17,Breakneck Caves,,YoukaiCountry,,no,no,FALSE,FALSE,https://youkaicountry.itch.io/breakneck-caverns,,https://youkaicountry.itch.io/,https://img.itch.zone/aW1nLzMxMjcxOTQ2LnBuZw==/original/b1Yiof.png
 18,,,,,no,no,FALSE,FALSE,,,,
-19,Boondoggle,,Xanialasagna,No,yes,yes,TRUE,FALSE,https://xanialasagna.itch.io/boondoggle-beta,,,
+19,Boondoggle,,Xanialasagna,No,yes,yes,TRUE,FALSE,https://xanialasagna.itch.io/boondoggle-beta,,https://xanialasagna.itch.io/,https://img.itch.zone/aW1nLzIyODM1ODk4LnBuZw==/original/V01YdI.png
 20,TBA,,Cassette,No,no,no,TRUE,FALSE,,,,
-21,Isolates,,Ledbetter,Yes,yes,yes,TRUE,FALSE,https://ledbetter-games.itch.io/isolates,https://play.date/games/isolates/,https://ledbetter-games.itch.io,
-22,Juggling Jolt,,Xesf,Yes,yes,no,TRUE,FALSE,,https://play.date/games/juggling-jolt/,,
-23,OUTSIDE PARTIES,,Adams Immersive,Yes,yes,yes,TRUE,FALSE,,https://play.date/games/outside-parties/,,
+21,Isolates,,Ledbetter,Yes,yes,yes,TRUE,FALSE,https://ledbetter-games.itch.io/isolates,https://play.date/games/isolates/,https://ledbetter-games.itch.io,https://img.itch.zone/aW1nLzI2Mjk5ODcwLmpwZw==/original/DEveEB.jpg
+22,Juggling Jolt,,Xesf,Yes,yes,no,TRUE,FALSE,,https://play.date/games/juggling-jolt/,,https://play.date/media/games/498976/website-featured_zgTO7Yq.png
+23,OUTSIDE PARTIES,,Adams Immersive,Yes,yes,yes,TRUE,FALSE,,https://play.date/games/outside-parties/,,https://play.date/media/games/450105/Feature-Image_K2hTcxe.jpg
 24,Goblin Village 2,,Irish Jiminy,Yes,no,no,TRUE,FALSE,,,https://irishjiminy.itch.io/,
 25,Project Yellow Sitcom Lab,,Collab,Yes,no,yes,TRUE,FALSE,https://xanialasagna.itch.io/the-yellow-lab-sitcom-experiment,,https://xanialasagna.itch.io/,
 ,,,,,,,,,,,,

@@ -1,43 +1,43 @@
 <script setup lang="ts">
-import pgBg from '@/assets/pdBackground.png'
+import pgBg from "@/assets/pdBackground.png";
 
-import CalendarView from '@/components/calendarView.vue'
-import ConsoleView from '@/components/consoleView.vue'
-import GalleryView from '@/components/galleryView.vue'
+import CalendarView from "@/components/calendarView.vue";
+import ConsoleView from "@/components/consoleView.vue";
+import GalleryView from "@/components/galleryView.vue";
 
-import { useCalendarStore } from '@/stores/calendarStore'
-import { usePlaydateStore } from '@/stores/pdStore'
-import { useRoute } from 'vue-router'
-import { watch } from 'vue'
-import { storeToRefs } from 'pinia'
+import { useCalendarStore } from "@/stores/calendarStore";
+import { usePlaydateStore } from "@/stores/pdStore";
+import { useRoute } from "vue-router";
+import { watch } from "vue";
+import { storeToRefs } from "pinia";
 
 const emit = defineEmits<{
-  dPadClick: [upOrDown: number, leftOrRight: number] // named tuple syntax
-  buttonClick: [buttonName: string]
-}>()
+  dPadClick: [upOrDown: number, leftOrRight: number]; // named tuple syntax
+  buttonClick: [buttonName: string];
+}>();
 
-const calendarStore = useCalendarStore()
-const { openedDays } = storeToRefs(calendarStore)
-const { setCalendarIndex } = calendarStore
-const playdateStore = usePlaydateStore()
+const calendarStore = useCalendarStore();
+const { openedDays } = storeToRefs(calendarStore);
+const { setCalendarIndex } = calendarStore;
+const playdateStore = usePlaydateStore();
 
-const route = useRoute()
+const route = useRoute();
 
 watch<string, boolean>(
   (): any => route.params.day,
   async (newDay, oldDay) => {
-    const newDayNumber: number = Number.parseInt(newDay, 10)
-    setCalendarIndex(newDayNumber, false)
-  }
-)
+    const newDayNumber: number = Number.parseInt(newDay, 10);
+    setCalendarIndex(newDayNumber, false);
+  },
+);
 
 const catchPad = (upOrDown: number, leftOrRight: number) => {
-  emit('dPadClick', upOrDown, leftOrRight)
-}
+  emit("dPadClick", upOrDown, leftOrRight);
+};
 
 const catchButton = (buttonName: string) => {
-  emit('buttonClick', buttonName)
-}
+  emit("buttonClick", buttonName);
+};
 </script>
 
 <template>

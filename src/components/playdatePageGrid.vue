@@ -1,71 +1,71 @@
 <script setup lang="ts">
-import pgBg from '@/assets/pdBackground.png'
+import pgBg from "@/assets/pdBackground.png";
 
-import CalendarView from '@/components/calendarView.vue'
-import ConsoleView from '@/components/consoleView.vue'
-import GalleryView from '@/components/galleryView.vue'
-import GameView from '@/components/gameView.vue'
+import CalendarView from "@/components/calendarView.vue";
+import ConsoleView from "@/components/consoleView.vue";
+import GalleryView from "@/components/galleryView.vue";
+import GameView from "@/components/gameView.vue";
 
-import { Row, Col } from 'ant-design-vue'
-import { useCalendarStore } from '@/stores/calendarStore'
-import { usePlaydateStore } from '@/stores/pdStore'
-import { useRoute } from 'vue-router'
-import { watch, computed, ref } from 'vue'
-import type { Ref } from 'vue'
-import { storeToRefs } from 'pinia'
-import type { ScreenMap } from 'ant-design-vue/es/_util/responsiveObserve'
-import useBreakpoint from 'ant-design-vue/es/_util/hooks/useBreakpoint'
+import { Row, Col } from "ant-design-vue";
+import { useCalendarStore } from "@/stores/calendarStore";
+import { usePlaydateStore } from "@/stores/pdStore";
+import { useRoute } from "vue-router";
+import { watch, computed, ref } from "vue";
+import type { Ref } from "vue";
+import { storeToRefs } from "pinia";
+import type { ScreenMap } from "ant-design-vue/es/_util/responsiveObserve";
+import useBreakpoint from "ant-design-vue/es/_util/hooks/useBreakpoint";
 
-const calendarStore = useCalendarStore()
-const { openedDays } = storeToRefs(calendarStore)
-const playdateStore = usePlaydateStore()
-const { themeDark } = storeToRefs(playdateStore)
-const breaks: Ref<ScreenMap> = useBreakpoint()
+const calendarStore = useCalendarStore();
+const { openedDays } = storeToRefs(calendarStore);
+const playdateStore = usePlaydateStore();
+const { themeDark } = storeToRefs(playdateStore);
+const breaks: Ref<ScreenMap> = useBreakpoint();
 
-const route = useRoute()
+const route = useRoute();
 
 // is needed for setting the index when directly open the app on a certain day
 watch<string, boolean>(
   (): any => route.params.day,
   (newDay) => {
-    const newDayNumber: number = Number.parseInt(newDay, 10)
+    const newDayNumber: number = Number.parseInt(newDay, 10);
     // calendarStore.setCalendarIndex(newDayNumber, false);
 
     if (calendarStore.calendarIndex !== newDayNumber) {
-      calendarStore.setCalendarIndex(newDayNumber, false)
+      calendarStore.setCalendarIndex(newDayNumber, false);
     }
   },
-  { immediate: true }
-)
+  { immediate: true },
+);
 
-const isReady = ref(false)
+const isReady = ref(false);
 
 watch<string, boolean>(
   (): any => route.params.year,
   () => {
-    isReady.value = calendarStore.isCalendarReady()
+    isReady.value = calendarStore.isCalendarReady();
   },
-  { immediate: true }
-)
+  { immediate: true },
+);
 
 const catchPad = (upOrDown: number, leftOrRight: number) => {
-  emit('dPadClick', upOrDown, leftOrRight)
-}
+  emit("dPadClick", upOrDown, leftOrRight);
+};
 
 const catchButton = (buttonName: string) => {
-  emit('buttonClick', buttonName)
-}
+  emit("buttonClick", buttonName);
+};
 
 const emit = defineEmits<{
-  dPadClick: [upOrDown: number, leftOrRight: number] // named tuple syntax
-  buttonClick: [buttonName: string]
-}>()
+  dPadClick: [upOrDown: number, leftOrRight: number]; // named tuple syntax
+  buttonClick: [buttonName: string];
+}>();
 
 const isPlaydateRotated = computed(() => {
-  return calendarStore.currentDayRotated && playdateStore.showGallery
-})
+  return calendarStore.currentDayRotated && playdateStore.showGallery;
+});
 
-const xsLayout = computed(() => breaks.value.xs && !breaks.value.sm)
+const xsLayout = computed(() => breaks.value.xs && !breaks.value.sm);
 </script>
 
 <template>

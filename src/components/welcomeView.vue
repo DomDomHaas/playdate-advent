@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { usePlaydateStore } from '@/stores/pdStore'
-import { Card, Row, Col } from 'ant-design-vue'
-import { storeToRefs } from 'pinia'
+import { usePlaydateStore } from "@/stores/pdStore";
+import { Card, Row, Col } from "ant-design-vue";
+import { storeToRefs } from "pinia";
 
-const playdateStore = usePlaydateStore()
-const { themeDark } = storeToRefs(playdateStore)
+const playdateStore = usePlaydateStore();
+const { themeDark } = storeToRefs(playdateStore);
 </script>
 
 <template>

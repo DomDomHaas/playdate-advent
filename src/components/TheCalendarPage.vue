@@ -70,98 +70,98 @@
 </template>
 
 <script setup lang="ts">
-import PdTitle from '@/components/pdTitle.vue'
-import PdTime from '@/components/pdTime.vue'
-import WelcomeView from '@/components/welcomeView.vue'
-import { Popconfirm } from 'ant-design-vue'
-import PlaydatePageGrid from '@/components/playdatePageGrid.vue'
-import { BUTTON_A, BUTTON_B } from '@/interaction'
-import CommunityView from '@/components/communityView.vue'
-import CreditsView from '@/components/creditsView.vue'
-import LightSwitch from '@/components/lightSwitch.vue'
-import { useCalendarStore } from '@/stores/calendarStore'
-import { computed, ref, watch } from 'vue'
-import type { Ref } from 'vue'
-import type { ScreenMap } from 'ant-design-vue/es/_util/responsiveObserve'
-import useBreakpoint from 'ant-design-vue/es/_util/hooks/useBreakpoint'
-import { usePlaydateStore } from '@/stores/pdStore'
-import { useGalleryStore } from '@/stores/galleryStore'
-import { storeToRefs } from 'pinia'
-import TheCalendarPageLayout from '@/components/TheCalendarPageLayout.vue'
-import { useRoute, useRouter } from 'vue-router'
+import PdTitle from "@/components/pdTitle.vue";
+import PdTime from "@/components/pdTime.vue";
+import WelcomeView from "@/components/welcomeView.vue";
+import { Popconfirm } from "ant-design-vue";
+import PlaydatePageGrid from "@/components/playdatePageGrid.vue";
+import { BUTTON_A, BUTTON_B } from "@/interaction";
+import CommunityView from "@/components/communityView.vue";
+import CreditsView from "@/components/creditsView.vue";
+import LightSwitch from "@/components/lightSwitch.vue";
+import { useCalendarStore } from "@/stores/calendarStore";
+import { computed, ref, watch } from "vue";
+import type { Ref } from "vue";
+import type { ScreenMap } from "ant-design-vue/es/_util/responsiveObserve";
+import useBreakpoint from "ant-design-vue/es/_util/hooks/useBreakpoint";
+import { usePlaydateStore } from "@/stores/pdStore";
+import { useGalleryStore } from "@/stores/galleryStore";
+import { storeToRefs } from "pinia";
+import TheCalendarPageLayout from "@/components/TheCalendarPageLayout.vue";
+import { useRoute, useRouter } from "vue-router";
 
-const route = useRoute()
-const router = useRouter()
-const calendarYear = ref('')
-calendarYear.value = route.params.year as string
-const calendarDay = ref('')
-calendarDay.value = route.params.day as string
+const route = useRoute();
+const router = useRouter();
+const calendarYear = ref("");
+calendarYear.value = route.params.year as string;
+const calendarDay = ref("");
+calendarDay.value = route.params.day as string;
 
-const playdateStore = usePlaydateStore()
-playdateStore.initStore(calendarYear.value)
-const { themeDark, currentYear } = storeToRefs(playdateStore)
-let updateRoute = false
+const playdateStore = usePlaydateStore();
+playdateStore.initStore(calendarYear.value);
+const { themeDark, currentYear } = storeToRefs(playdateStore);
+let updateRoute = false;
 
 if (!calendarYear.value) {
-  calendarYear.value = playdateStore.currentYear
-  updateRoute = true
+  calendarYear.value = playdateStore.currentYear;
+  updateRoute = true;
 }
 
 if (!calendarDay.value) {
-  calendarDay.value = playdateStore.currentDayOnly
-  updateRoute = true
+  calendarDay.value = playdateStore.currentDayOnly;
+  updateRoute = true;
 }
 
 if (updateRoute) {
-  router.push({ params: { year: calendarYear.value, day: calendarDay.value } })
+  router.push({ params: { year: calendarYear.value, day: calendarDay.value } });
 }
 
-const calendarStore = useCalendarStore()
-calendarStore.initStore(calendarYear.value, currentYear.value)
-const { setCalendarIndex } = calendarStore
+const calendarStore = useCalendarStore();
+calendarStore.initStore(calendarYear.value, currentYear.value);
+const { setCalendarIndex } = calendarStore;
 
-const galleryStore = useGalleryStore()
-galleryStore.initGallery(calendarYear.value, calendarStore)
+const galleryStore = useGalleryStore();
+galleryStore.initGallery(calendarYear.value, calendarStore);
 
-const version = import.meta.env.VITE_VERSION
+const version = import.meta.env.VITE_VERSION;
 
-const breaks: Ref<ScreenMap> = useBreakpoint()
-const xsAndSmLayout = computed(() => (breaks.value.xs || breaks.value.sm) && !breaks.value.md)
+const breaks: Ref<ScreenMap> = useBreakpoint();
+const xsAndSmLayout = computed(() => (breaks.value.xs || breaks.value.sm) && !breaks.value.md);
 // const mdLayout = computed(() => (breaks.value.md || breaks.value.lg) && !breaks.value.xl)
 // const lgLayout = computed(() => breaks.value.xl)
 
-const isReady = ref(calendarStore.isCalendarReady())
+const isReady = ref(calendarStore.isCalendarReady());
 
 watch<string, boolean>(
   (): any => route.params.year,
   (newYear) => {
-    calendarYear.value = newYear
-    calendarStore.initStore(calendarYear.value, currentYear.value)
-    galleryStore.initGallery(calendarYear.value, calendarStore)
+    calendarYear.value = newYear;
+    calendarStore.initStore(calendarYear.value, currentYear.value);
+    galleryStore.initGallery(calendarYear.value, calendarStore);
 
-    isReady.value = calendarStore.isCalendarReady()
-  }
-)
+    isReady.value = calendarStore.isCalendarReady();
+  },
+);
 
 watch<string, boolean>(
   (): any => route.params.day,
   (newDay) => {
-    calendarDay.value = newDay
-    const newDayNumber: number = Number.parseInt(calendarDay.value, 10)
+    calendarDay.value = newDay;
+    const newDayNumber: number = Number.parseInt(calendarDay.value, 10);
 
     if (calendarStore.calendarIndex !== newDayNumber) {
-      setCalendarIndex(newDayNumber, false)
+      setCalendarIndex(newDayNumber, false);
     }
-  }
-)
+  },
+);
 
 const catchPad = (upOrDown: number, leftOrRight: number) => {
   if (!isReady.value) {
-    return
+    return;
   }
 
   if (playdateStore.showCalendar) {
-    calendarStore.updateCalendarIndex(upOrDown, leftOrRight)
+    calendarStore.updateCalendarIndex(upOrDown, leftOrRight);
     /*
           console.log('calendarIndex')
           console.log(calendarStore.calendarIndex)
@@ -169,35 +169,35 @@ const catchPad = (upOrDown: number, leftOrRight: number) => {
   }
 
   if (playdateStore.showGallery) {
-    galleryStore.updateGalleryIndex(upOrDown, leftOrRight)
+    galleryStore.updateGalleryIndex(upOrDown, leftOrRight);
     /*
           console.log('screenshotIndex')
           console.log(galleryStore.screenshotIndex)
       */
   }
-}
+};
 
 const catchButton = (buttonName: string) => {
   if (!isReady.value) {
-    return
+    return;
   }
 
   if (buttonName === BUTTON_A) {
     if (calendarStore.isCurrentDayUnlockable()) {
-      calendarStore.openDay(calendarStore.calendarIndex)
-      playdateStore.changeToGallery()
+      calendarStore.openDay(calendarStore.calendarIndex);
+      playdateStore.changeToGallery();
     } else {
-      calendarStore.triggerWaitMessage()
+      calendarStore.triggerWaitMessage();
     }
   }
 
   if (buttonName === BUTTON_B) {
-    playdateStore.changeToCalendar()
+    playdateStore.changeToCalendar();
   }
-}
+};
 
 function reloadApp() {
-  window.location.reload()
+  window.location.reload();
 }
 </script>
 

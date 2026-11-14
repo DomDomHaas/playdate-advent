@@ -1,79 +1,79 @@
 <script setup lang="ts">
-import playdateConsole from '@/assets/playdate.png'
-import { BUTTON_A, BUTTON_B, DPAD_L, DPAD_R, DPAD_B, DPAD_T } from '@/interaction'
-import { Button } from 'ant-design-vue'
-import { computed } from 'vue'
-import type { Ref } from 'vue'
-import type { ScreenMap } from 'ant-design-vue/es/_util/responsiveObserve'
-import useBreakpoint from 'ant-design-vue/es/_util/hooks/useBreakpoint'
-import { usePlaydateStore } from '@/stores/pdStore'
-import { storeToRefs } from 'pinia'
-import { useCalendarStore } from '@/stores/calendarStore'
-import { onKeyStroke } from '@vueuse/core'
+import playdateConsole from "@/assets/playdate.png";
+import { BUTTON_A, BUTTON_B, DPAD_L, DPAD_R, DPAD_B, DPAD_T } from "@/interaction";
+import { Button } from "ant-design-vue";
+import { computed } from "vue";
+import type { Ref } from "vue";
+import type { ScreenMap } from "ant-design-vue/es/_util/responsiveObserve";
+import useBreakpoint from "ant-design-vue/es/_util/hooks/useBreakpoint";
+import { usePlaydateStore } from "@/stores/pdStore";
+import { storeToRefs } from "pinia";
+import { useCalendarStore } from "@/stores/calendarStore";
+import { onKeyStroke } from "@vueuse/core";
 
-const calendarStore = useCalendarStore()
-const playdateStore = usePlaydateStore()
-const { themeDark } = storeToRefs(playdateStore)
+const calendarStore = useCalendarStore();
+const playdateStore = usePlaydateStore();
+const { themeDark } = storeToRefs(playdateStore);
 
 const emit = defineEmits<{
-  dPadClick: [upOrDown: number, leftOrRight: number] // named tuple syntax
-  buttonClick: [buttonName: string]
-}>()
+  dPadClick: [upOrDown: number, leftOrRight: number]; // named tuple syntax
+  buttonClick: [buttonName: string];
+}>();
 
 function buttonClick(event: any) {
-  const buttonName = event.target.id
-  emit('buttonClick', buttonName)
+  const buttonName = event.target.id;
+  emit("buttonClick", buttonName);
 }
 
 function dPadClick(event: any) {
-  const id = event.target.id
-  let upOrDown = 0
-  let leftOrRight = 0
+  const id = event.target.id;
+  let upOrDown = 0;
+  let leftOrRight = 0;
 
   if (id === DPAD_R) {
-    leftOrRight = 1
+    leftOrRight = 1;
   } else if (id === DPAD_L) {
-    leftOrRight = -1
+    leftOrRight = -1;
   } else if (id === DPAD_T) {
-    upOrDown = -1
+    upOrDown = -1;
   } else if (id === DPAD_B) {
-    upOrDown = 1
+    upOrDown = 1;
   }
 
   // upOrDown: number, leftOrRight: number
-  emit('dPadClick', upOrDown, leftOrRight)
+  emit("dPadClick", upOrDown, leftOrRight);
 }
 
-onKeyStroke('ArrowDown', () => {
-  emit('dPadClick', 1, 0)
-})
+onKeyStroke("ArrowDown", () => {
+  emit("dPadClick", 1, 0);
+});
 
-onKeyStroke('ArrowUp', () => {
-  emit('dPadClick', -1, 0)
-})
+onKeyStroke("ArrowUp", () => {
+  emit("dPadClick", -1, 0);
+});
 
-onKeyStroke('ArrowLeft', () => {
-  emit('dPadClick', 0, -1)
-})
+onKeyStroke("ArrowLeft", () => {
+  emit("dPadClick", 0, -1);
+});
 
-onKeyStroke('ArrowRight', () => {
-  emit('dPadClick', 0, 1)
-})
+onKeyStroke("ArrowRight", () => {
+  emit("dPadClick", 0, 1);
+});
 
-onKeyStroke('Enter', () => {
-  emit('buttonClick', BUTTON_A)
-})
+onKeyStroke("Enter", () => {
+  emit("buttonClick", BUTTON_A);
+});
 
-onKeyStroke('Esc', () => {
-  emit('buttonClick', BUTTON_B)
-})
+onKeyStroke("Esc", () => {
+  emit("buttonClick", BUTTON_B);
+});
 
-const breaks: Ref<ScreenMap> = useBreakpoint()
-const xsAndSmLayout = computed(() => (breaks.value.xs || breaks.value.sm) && !breaks.value.md)
+const breaks: Ref<ScreenMap> = useBreakpoint();
+const xsAndSmLayout = computed(() => (breaks.value.xs || breaks.value.sm) && !breaks.value.md);
 
 const isPlaydateRotated = computed(() => {
-  return calendarStore.currentDayRotated && playdateStore.showGallery
-})
+  return calendarStore.currentDayRotated && playdateStore.showGallery;
+});
 </script>
 
 <template>

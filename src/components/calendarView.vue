@@ -1,61 +1,66 @@
 <script setup lang="ts">
-import { getGiftIndecies, getGifts } from '@/stores/imageFactory'
-import { storeToRefs } from 'pinia'
-import { usePlaydateStore } from '@/stores/pdStore'
-import { computed } from 'vue'
-import type { Ref } from 'vue'
-import type { ScreenMap } from 'ant-design-vue/es/_util/responsiveObserve'
-import useBreakpoint from 'ant-design-vue/es/_util/hooks/useBreakpoint'
-import { useGalleryStore } from '@/stores/galleryStore'
+import { getGiftIndecies, getGifts } from "@/stores/imageFactory";
+import { storeToRefs } from "pinia";
+import { usePlaydateStore } from "@/stores/pdStore";
+import { computed } from "vue";
+import type { Ref } from "vue";
+import type { ScreenMap } from "ant-design-vue/es/_util/responsiveObserve";
+import useBreakpoint from "ant-design-vue/es/_util/hooks/useBreakpoint";
+import { useGalleryStore } from "@/stores/galleryStore";
+import empty from "@/assets/empty.png";
 
 const { selection, daysAmount, openedDays, showWaitMessage } = defineProps<{
-  selection: number
-  daysAmount: number
-  openedDays: number[]
-  showWaitMessage: boolean
-}>()
+  selection: number;
+  daysAmount: number;
+  openedDays: number[];
+  showWaitMessage: boolean;
+}>();
 
-const pdStore = usePlaydateStore()
-const { themeDark } = storeToRefs(pdStore)
+const pdStore = usePlaydateStore();
+const { themeDark } = storeToRefs(pdStore);
 
-const giftImages = getGifts()
-const galleryStore = useGalleryStore()
-const { galleryLoading, gameIcons } = storeToRefs(galleryStore)
-const giftIndecies = getGiftIndecies(daysAmount, giftImages.length - 1)
+const giftImages = getGifts();
+const galleryStore = useGalleryStore();
+const { galleryLoading, gameIcons } = storeToRefs(galleryStore);
+const giftIndecies = getGiftIndecies(daysAmount, giftImages.length - 1);
 
-const breaks: Ref<ScreenMap> = useBreakpoint()
-const xsAndSmLayout = computed(() => (breaks.value.xs || breaks.value.sm) && !breaks.value.md)
+const breaks: Ref<ScreenMap> = useBreakpoint();
+const xsAndSmLayout = computed(() => (breaks.value.xs || breaks.value.sm) && !breaks.value.md);
 
 function cellImage(index: number) {
-  let diffIndex = index - 1
+  let diffIndex = index - 1;
 
-  if (openedDays.includes(index)) {
-    return gameIcons.value[diffIndex]
+  if (gameIcons.value[diffIndex] === undefined) {
+    return empty;
   }
 
-  const giftIndex = giftIndecies[diffIndex]
-  return giftIndex ? giftImages[giftIndex] : undefined
+  if (openedDays.includes(index)) {
+    return gameIcons.value[diffIndex];
+  }
+
+  const giftIndex = giftIndecies[diffIndex];
+  return giftIndex ? giftImages[giftIndex] : undefined;
 }
 
 function getBadeStyle(index: number) {
-  const border = '' // `border: 1px solid ${themeDark ? 'white' : 'black'};`;
+  const border = ""; // `border: 1px solid ${themeDark ? 'white' : 'black'};`;
 
-  let positionStyle = index % 2 === 0 ? 'top: -3px;' : 'top: 30px;'
+  let positionStyle = index % 2 === 0 ? "top: -3px;" : "top: 30px;";
 
   if (xsAndSmLayout.value) {
-    positionStyle = index % 2 === 0 ? 'top: 0;' : 'top: 20px;'
+    positionStyle = index % 2 === 0 ? "top: 0;" : "top: 20px;";
   }
 
-  return border + positionStyle
+  return border + positionStyle;
 }
 
 const calendarItems = computed(() => {
   if (galleryLoading.value) {
-    return []
+    return [];
   }
 
-  return daysAmount
-})
+  return daysAmount;
+});
 </script>
 
 <template>
@@ -71,7 +76,7 @@ const calendarItems = computed(() => {
         cellSelected: selection === index,
         cellInverted: !themeDark,
         day24: index === 24,
-        day25: index === 25
+        day25: index === 25,
       }"
     >
       <div :style="getBadeStyle(index)" class="dayBadge">

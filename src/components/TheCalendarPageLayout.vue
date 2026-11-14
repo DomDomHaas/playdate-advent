@@ -127,21 +127,21 @@
 </template>
 
 <script setup lang="ts">
-import calendarBG from '@/assets/calendarBG.png'
-import { Col, Row } from 'ant-design-vue'
-import { useCalendarStore } from '@/stores/calendarStore'
-import { computed, type Ref } from 'vue'
-import type { ScreenMap } from 'ant-design-vue/es/_util/responsiveObserve'
-import useBreakpoint from 'ant-design-vue/es/_util/hooks/useBreakpoint'
+import calendarBG from "@/assets/calendarBG.png";
+import { Col, Row } from "ant-design-vue";
+import { useCalendarStore } from "@/stores/calendarStore";
+import { computed, type Ref } from "vue";
+import type { ScreenMap } from "ant-design-vue/es/_util/responsiveObserve";
+import useBreakpoint from "ant-design-vue/es/_util/hooks/useBreakpoint";
 
-const calendarStore = useCalendarStore()
+const calendarStore = useCalendarStore();
 
-const breaks: Ref<ScreenMap> = useBreakpoint()
-const xsAndSmLayout = computed(() => (breaks.value.xs || breaks.value.sm) && !breaks.value.md)
-const mdLayout = computed(() => (breaks.value.md || breaks.value.lg) && !breaks.value.xl)
-const lgLayout = computed(() => breaks.value.xl)
+const breaks: Ref<ScreenMap> = useBreakpoint();
+const xsAndSmLayout = computed(() => (breaks.value.xs || breaks.value.sm) && !breaks.value.md);
+const mdLayout = computed(() => (breaks.value.md || breaks.value.lg) && !breaks.value.xl);
+const lgLayout = computed(() => breaks.value.xl);
 
-const xxlAndUpLayout = computed(() => breaks.value.xxl)
+const xxlAndUpLayout = computed(() => breaks.value.xxl);
 </script>
 
 <style>
@@ -250,7 +250,7 @@ main {
   display: grid;
   height: 100%;
   width: 100%;
-  grid-template-areas: 'left middle right';
+  grid-template-areas: "left middle right";
   background-color: #214646;
 }
 
@@ -259,9 +259,9 @@ main {
     grid-template-columns: 1fr;
     grid-template-rows: 2fr auto;
     grid-template-areas:
-      'middle'
-      'left'
-      'right';
+      "middle"
+      "left"
+      "right";
   }
 }
 
@@ -287,8 +287,8 @@ main {
   width: 560px;
   grid-template-columns: 1fr;
   grid-template-areas:
-    'playdate'
-    'game';
+    "playdate"
+    "game";
 }
 
 @media (max-width: 489px) {

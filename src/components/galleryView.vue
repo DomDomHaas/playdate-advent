@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import { useCalendarStore } from '@/stores/calendarStore'
-import { useGalleryStore } from '@/stores/galleryStore'
-import { storeToRefs } from 'pinia'
+import { useCalendarStore } from "@/stores/calendarStore";
+import { useGalleryStore } from "@/stores/galleryStore";
+import { storeToRefs } from "pinia";
 
-import { Carousel } from 'ant-design-vue'
-import { type CarouselRef } from 'ant-design-vue/es/carousel'
-import { computed, ref, watch } from 'vue'
-import gameGiftUnwrap from '@/assets/gameGiftUnwrap.gif'
-import { usePlaydateStore } from '@/stores/pdStore'
+import { Carousel } from "ant-design-vue";
+import { type CarouselRef } from "ant-design-vue/es/carousel";
+import { computed, ref, watch } from "vue";
+import gameGiftUnwrap from "@/assets/gameGiftUnwrap.gif";
+import { usePlaydateStore } from "@/stores/pdStore";
 
-const galleryCarousel = ref<CarouselRef>()
+const galleryCarousel = ref<CarouselRef>();
 
-const calendarStore = useCalendarStore()
-const galleryStore = useGalleryStore()
-const { galleryLoading, galleryIndex } = storeToRefs(galleryStore)
-const playdateStore = usePlaydateStore()
+const calendarStore = useCalendarStore();
+const galleryStore = useGalleryStore();
+const { galleryLoading, galleryIndex } = storeToRefs(galleryStore);
+const playdateStore = usePlaydateStore();
 
 const isPlaydateRotated = computed(() => {
-  return calendarStore.currentDayRotated && playdateStore.showGallery
-})
+  return calendarStore.currentDayRotated && playdateStore.showGallery;
+});
 /*
   console.log('galleryStore screenshots');
   console.log(galleryStore.currentScreenshots);
@@ -28,19 +28,19 @@ watch(
   galleryIndex,
   (newValue, oldValue) => {
     //@ts-ignore
-    galleryCarousel.value?.goTo(newValue)
+    galleryCarousel.value?.goTo(newValue);
   },
-  { deep: true }
-)
+  { deep: true },
+);
 
 function getScreenShot(index: number) {
-  return galleryStore.currentScreenshots[index] || ''
+  return galleryStore.currentScreenshots[index] || "";
 }
 
 const screenshots = computed(() => {
   // console.log('galleryStore.currentScreenshots', galleryStore.currentScreenshots);
-  return galleryStore.currentScreenshots
-})
+  return galleryStore.currentScreenshots;
+});
 </script>
 
 <template>

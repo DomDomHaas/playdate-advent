@@ -43,26 +43,26 @@
 </template>
 
 <script setup lang="ts">
-import { computed, type Ref } from 'vue'
-import { Row, Col, Button } from 'ant-design-vue'
+import { computed, type Ref } from "vue";
+import { Row, Col, Button } from "ant-design-vue";
 
-import type { ScreenMap } from 'ant-design-vue/es/_util/responsiveObserve'
-import useBreakpoint from 'ant-design-vue/es/_util/hooks/useBreakpoint'
+import type { ScreenMap } from "ant-design-vue/es/_util/responsiveObserve";
+import useBreakpoint from "ant-design-vue/es/_util/hooks/useBreakpoint";
 
 const { title, coverImgUrl, itchUrl, catalogUrl, newPrice, oldPrice } = defineProps<{
-  title: string
-  coverImgUrl: string
-  itchUrl: string
-  catalogUrl: string
-  newPrice: number
-  oldPrice: number
-}>()
+  title: string;
+  coverImgUrl: string;
+  itchUrl: string;
+  catalogUrl: string;
+  newPrice: number;
+  oldPrice: number;
+}>();
 
-const breaks: Ref<ScreenMap> = useBreakpoint()
+const breaks: Ref<ScreenMap> = useBreakpoint();
 
 const discount = computed(() => {
-  return Math.floor((oldPrice / newPrice - 1) * 100)
-})
+  return Math.floor((oldPrice / newPrice - 1) * 100);
+});
 </script>
 
 <style scoped>

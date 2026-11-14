@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import { Layout, LayoutHeader, LayoutContent } from 'ant-design-vue'
+import { Layout, LayoutHeader, LayoutContent } from "ant-design-vue";
 
-import TheNavBar from './components/TheNavBar.vue'
-import { provide } from 'vue'
+import TheNavBar from "./components/TheNavBar.vue";
+import { provide } from "vue";
 
 const calendarYears = [
-  '2023',
-  '2024',
-  '2025',
-  '2026'
+  "2023",
+  "2024",
+  "2025",
+  "2026",
   /*
     '2027',
     '2028',
 */
-]
+];
 
-calendarYears.reverse()
+calendarYears.reverse();
 
-provide<string[]>('calendarYears', calendarYears)
+provide<string[]>("calendarYears", calendarYears);
 </script>
 
 <template>
@@ -61,7 +61,7 @@ body {
 }
 
 #app {
-  font-family: 'Libre Franklin', sans-serif;
+  font-family: "Libre Franklin", sans-serif;
 }
 
 .appCard {
@@ -228,7 +228,7 @@ header {
   display: grid;
   height: 100%;
   width: 100%;
-  grid-template-areas: 'left middle right';
+  grid-template-areas: "left middle right";
   background-color: #214646;
 }
 
@@ -237,9 +237,9 @@ header {
     grid-template-columns: 1fr;
     grid-template-rows: 2fr auto;
     grid-template-areas:
-      'middle'
-      'left'
-      'right';
+      "middle"
+      "left"
+      "right";
   }
 }
 
@@ -265,8 +265,8 @@ header {
   width: 560px;
   grid-template-columns: 1fr;
   grid-template-areas:
-    'playdate'
-    'game';
+    "playdate"
+    "game";
 }
 
 @media (max-width: 489px) {

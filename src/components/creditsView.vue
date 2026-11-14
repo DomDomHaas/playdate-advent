@@ -1,31 +1,31 @@
 <script setup lang="ts">
-import { usePlaydateStore } from '@/stores/pdStore'
-import { Row, Col, Card } from 'ant-design-vue'
-import { storeToRefs } from 'pinia'
+import { usePlaydateStore } from "@/stores/pdStore";
+import { Row, Col, Card } from "ant-design-vue";
+import { storeToRefs } from "pinia";
 
-const playdateStore = usePlaydateStore()
-const { themeDark } = storeToRefs(playdateStore)
+const playdateStore = usePlaydateStore();
+const { themeDark } = storeToRefs(playdateStore);
 
 const credits = [
   {
-    name: 'Dominik Haas',
-    role: 'Web Dev, Conception & Communication',
-    itch: 'https://dominik-haas.itch.io',
-    social: 'https://linktr.ee/dominikhaas'
+    name: "Dominik Haas",
+    role: "Web Dev, Conception & Communication",
+    itch: "https://dominik-haas.itch.io",
+    social: "https://linktr.ee/dominikhaas",
   },
   {
-    name: 'Xania Lasagna',
-    role: 'Art, Conception & Marketing ',
-    itch: 'https://xanialasagna.itch.io',
-    social: 'https://linktr.ee/xanialasagna'
+    name: "Xania Lasagna",
+    role: "Art, Conception & Marketing ",
+    itch: "https://xanialasagna.itch.io",
+    social: "https://linktr.ee/xanialasagna",
   },
   {
-    name: 'Pizza Fuel Dev',
-    role: 'Conception & Communication',
-    itch: 'https://pizzafuel.itch.io/',
-    social: 'https://x.com/PizzaFuelDev'
-  }
-]
+    name: "Pizza Fuel Dev",
+    role: "Conception & Communication",
+    itch: "https://pizzafuel.itch.io/",
+    social: "https://x.com/PizzaFuelDev",
+  },
+];
 </script>
 
 <template>
@@ -42,8 +42,7 @@ const credits = [
         style="font-size: 12px"
       >
         <span>
-          <strong>{{ credit.name }}</strong
-          >: {{ credit.role }} <br />
+          <strong>{{ credit.name }}</strong>: {{ credit.role }} <br />
           <a :href="credit.itch" target="_blank">{{ credit.itch }}</a>
         </span>
 

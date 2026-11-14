@@ -1,68 +1,68 @@
 <script setup lang="ts">
-import gameGift from '@/assets/gameGift.png'
+import gameGift from "@/assets/gameGift.png";
 // import surprise from '@/assets/surprise-small.gif';
-import gameGiftUnwrap from '@/assets/gameGiftUnwrap.gif'
-import { Card, BadgeRibbon, Row, Col, Button } from 'ant-design-vue'
+import gameGiftUnwrap from "@/assets/gameGiftUnwrap.gif";
+import { Card, BadgeRibbon, Row, Col, Button } from "ant-design-vue";
 
-import { useCalendarStore } from '@/stores/calendarStore'
-import { computed, ref, watch } from 'vue'
-import { usePlaydateStore } from '@/stores/pdStore'
-import { storeToRefs } from 'pinia'
-import type { Ref } from 'vue'
-import type { ScreenMap } from 'ant-design-vue/es/_util/responsiveObserve'
-import useBreakpoint from 'ant-design-vue/es/_util/hooks/useBreakpoint'
-import tada from '@/assets/tada.mp3'
-import GameCard from './gameCard.vue'
-import { useGalleryStore } from '@/stores/galleryStore'
+import { useCalendarStore } from "@/stores/calendarStore";
+import { computed, ref, watch } from "vue";
+import { usePlaydateStore } from "@/stores/pdStore";
+import { storeToRefs } from "pinia";
+import type { Ref } from "vue";
+import type { ScreenMap } from "ant-design-vue/es/_util/responsiveObserve";
+import useBreakpoint from "ant-design-vue/es/_util/hooks/useBreakpoint";
+import tada from "@/assets/tada.mp3";
+// import GameCard from './gameCard.vue'
+import { useGalleryStore } from "@/stores/galleryStore";
 
-const calendarStore = useCalendarStore()
-const playdateStore = usePlaydateStore()
-const { dayIsOpening } = storeToRefs(calendarStore)
-const { themeDark } = storeToRefs(playdateStore)
+const calendarStore = useCalendarStore();
+const playdateStore = usePlaydateStore();
+const { dayIsOpening } = storeToRefs(calendarStore);
+const { themeDark } = storeToRefs(playdateStore);
 
-const breaks: Ref<ScreenMap> = useBreakpoint()
-const xsAndSmLayout = computed(() => (breaks.value.xs || breaks.value.sm) && !breaks.value.md)
+const breaks: Ref<ScreenMap> = useBreakpoint();
+const xsAndSmLayout = computed(() => (breaks.value.xs || breaks.value.sm) && !breaks.value.md);
 
 const adventGame = computed(() => {
-  return calendarStore.selectedGame
-})
+  return calendarStore.selectedGame;
+});
 
 const discountText = computed(() => {
   if (!calendarStore.currentDayUnlocked) {
-    return ''
+    return "";
   }
 
-  if (adventGame?.value?.Discount?.toLowerCase() !== 'free') {
-    return `- ${adventGame?.value?.Discount}`
+  if (adventGame?.value?.Discount?.toLowerCase() !== "free") {
+    return `- ${adventGame?.value?.Discount}`;
   }
 
-  return adventGame?.value?.Discount
-})
+  return adventGame?.value?.Discount;
+});
 
 const cardTitle = computed(() => {
   if (calendarStore.currentDayUnlocked) {
     // return `Advent Game #${adventGame.value.Day}: ${adventGame.value.Name}`;
-    return `Advent Gift # ${adventGame.value.Day} is presented by ${adventGame.value.Dev}`
+    return `Advent Gift # ${adventGame.value.Day} is presented by ${adventGame.value.Dev}`;
   }
 
-  return `Advent Gift of Day ${adventGame?.value.Day}`
-})
+  return `Advent Gift of Day ${adventGame?.value.Day}`;
+});
 
-const sfx = ref<HTMLAudioElement>()
+const sfx = ref<HTMLAudioElement>();
 
 watch(dayIsOpening, () => {
-  sfx.value?.play()
-})
+  sfx.value?.play();
+});
 
 const coverUrl = computed(() => {
-  let url = adventGame.value.CoverImgUrl
+  let url = adventGame.value.CoverImgUrl;
   if (!url) {
-    const galleryStore = useGalleryStore()
-    url = galleryStore.currentScreenshots[0]
+    const galleryStore = useGalleryStore();
+    url = galleryStore.currentScreenshots[0];
   }
 
-  return url
-})
+  return url;
+});
 
 // const newPrice = computed(() => {
 //   return 1;
@@ -165,10 +165,24 @@ const coverUrl = computed(() => {
         </Col>
       </Row>
 
-      <Row v-if="!calendarStore.currentDayUnlocked" :gutter="[10, 10]">
+      <Row v-if="calendarStore.isCurrentDayEmpty" style="padding: 20px">
+        <Col>
+          <H2>Unfortunely no present is available for this day.</H2>
+        </Col>
+      </Row>
+
+      <Row
+        v-if="!calendarStore.isCurrentDayEmpty && !calendarStore.currentDayUnlocked"
+        :gutter="[10, 10]"
+      >
         <Col :span="24" class="appCardText gameViewContent">
-          Day {{ adventGame.Day }} with secret word "<strong>{{ adventGame.Secretwords }}</strong
-          >", what could it be?
+          Day {{ adventGame.Day
+          }}{{
+            playdateStore.currentYear !== "2026"
+              ? ` with secret word
+          "<strong>$adventGame.Secretwords</strong>"`
+              : ""
+          }}, what could it be?
         </Col>
 
         <Col :span="24" class="gameGift">

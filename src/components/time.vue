@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { usePlaydateStore } from '@/stores/pdStore'
-import { storeToRefs } from 'pinia'
-const playdateStore = usePlaydateStore()
-const { currentDateTime } = storeToRefs(playdateStore)
+import { usePlaydateStore } from "@/stores/pdStore";
+import { storeToRefs } from "pinia";
+const playdateStore = usePlaydateStore();
+const { currentDateTime } = storeToRefs(playdateStore);
 </script>
 
 <template>

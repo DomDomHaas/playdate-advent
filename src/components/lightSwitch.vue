@@ -1,12 +1,12 @@
 <script setup lang="ts">
 // @ts-nocheck
-import { BulbFilled, BulbOutlined } from '@ant-design/icons-vue'
-import { Switch } from 'ant-design-vue'
-import { usePlaydateStore } from '@/stores/pdStore'
-import { storeToRefs } from 'pinia'
+import { BulbFilled, BulbOutlined } from "@ant-design/icons-vue";
+import { Switch } from "ant-design-vue";
+import { usePlaydateStore } from "@/stores/pdStore";
+import { storeToRefs } from "pinia";
 
-const playdateStore = usePlaydateStore()
-const { themeDark } = storeToRefs(playdateStore)
+const playdateStore = usePlaydateStore();
+const { themeDark } = storeToRefs(playdateStore);
 
 /*
   watch(checked,
@@ -16,13 +16,13 @@ const { themeDark } = storeToRefs(playdateStore)
 */
 
 function changeTheme(checked: boolean) {
-  playdateStore.changeThemeDark(checked)
+  playdateStore.changeThemeDark(checked);
 }
 </script>
 
 <template>
   <div class="white-text">
-    {{ themeDark ? 'Turn off the lights?' : 'Turn on the lights?' }}
+    {{ themeDark ? "Turn off the lights?" : "Turn on the lights?" }}
 
     <Switch :checked="themeDark" class="white-text" @change="changeTheme">
       <template #checkedChildren><BulbFilled /></template>

@@ -1,39 +1,39 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import type { Ref } from 'vue'
+import { computed } from "vue";
+import type { Ref } from "vue";
 
-import type { ScreenMap } from 'ant-design-vue/es/_util/responsiveObserve'
-import useBreakpoint from 'ant-design-vue/es/_util/hooks/useBreakpoint'
+import type { ScreenMap } from "ant-design-vue/es/_util/responsiveObserve";
+import useBreakpoint from "ant-design-vue/es/_util/hooks/useBreakpoint";
 
-const breaks: Ref<ScreenMap> = useBreakpoint()
+const breaks: Ref<ScreenMap> = useBreakpoint();
 
 const { themeDark, calendarYear, showTitle, clickable } = defineProps<{
-  themeDark: boolean
-  calendarYear: string
-  showTitle: boolean
-  clickable: boolean
-}>()
+  themeDark: boolean;
+  calendarYear: string;
+  showTitle: boolean;
+  clickable: boolean;
+}>();
 
-defineEmits(['clicked'])
+defineEmits(["clicked"]);
 
-const xsAndSmLayout = computed(() => (breaks.value.xs || breaks.value.sm) && !breaks.value.md)
+const xsAndSmLayout = computed(() => (breaks.value.xs || breaks.value.sm) && !breaks.value.md);
 
 const style20 = computed(() => {
-  let style = 'position: absolute;'
+  let style = "position: absolute;";
   //  style += xsAndSmLayout.value ? 'left: 170px; top: 0px;' : 'left: 275px; top: -127px;';
-  style += xsAndSmLayout.value ? 'left: 170px; top: 0px;' : 'left: 160px; top: 0;'
-  return style
-})
+  style += xsAndSmLayout.value ? "left: 170px; top: 0px;" : "left: 160px; top: 0;";
+  return style;
+});
 
 const style2x = computed(() => {
-  let style = 'position: absolute;'
+  let style = "position: absolute;";
   //  style += xsAndSmLayout.value ? 'left: 170px; top: 70px;' : 'left: 275px; top: -127px;';
-  style += xsAndSmLayout.value ? 'left: 170px; top: 70px;' : 'left: 165px; top: 70px;'
-  return style
-})
+  style += xsAndSmLayout.value ? "left: 170px; top: 70px;" : "left: 165px; top: 70px;";
+  return style;
+});
 
-const yearFirstDigits = computed(() => calendarYear.substring(0, 2))
-const yearSecondaryDigits = computed(() => calendarYear.substring(2, 4))
+const yearFirstDigits = computed(() => calendarYear.substring(0, 2));
+const yearSecondaryDigits = computed(() => calendarYear.substring(2, 4));
 </script>
 
 <template>

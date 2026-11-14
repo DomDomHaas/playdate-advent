@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { inject } from 'vue'
+import { inject } from "vue";
 
 // @ts-nocheck
 // import {Row, Col, Switch} from 'ant-design-vue';
-import { Menu, MenuItem } from 'ant-design-vue'
+import { Menu, MenuItem } from "ant-design-vue";
 
 // import {storeToRefs} from "pinia";
 // import {usePlaydateStore} from "@/stores/pdStore";
 // import { BulbOutlined, BulbFilled } from '@ant-design/icons-vue'
-import { useRouter } from 'vue-router'
-import pacLogo from '@/assets/PAC_logo24_64.png'
+import { useRouter } from "vue-router";
+import pacLogo from "@/assets/PAC_logo24_64.png";
 
-const calendarYears = inject<string[]>('calendarYears') || []
+const calendarYears = inject<string[]>("calendarYears") || [];
 
-const router = useRouter()
+const router = useRouter();
 // const pdStore = usePlaydateStore();
 // const { themeDark } = storeToRefs(pdStore);
 
@@ -23,8 +23,8 @@ const router = useRouter()
 // }
 
 const yearClick = (year: string) => {
-  router.push(`/calender/${year}/1`)
-}
+  router.push(`/calender/${year}/1`);
+};
 </script>
 
 <template>
