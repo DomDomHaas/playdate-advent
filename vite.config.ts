@@ -5,6 +5,7 @@ import Components from "unplugin-vue-components/vite";
 import { AntDesignVueResolver } from "unplugin-vue-components/resolvers";
 import vue from "@vitejs/plugin-vue";
 import vueDevTools from "vite-plugin-vue-devtools";
+import { unstableRolldownAdapter, analyzer } from "vite-bundle-analyzer";
 
 const version = process.env.npm_package_version;
 
@@ -49,7 +50,8 @@ export default ({ mode }: { mode: string }) => {
           }),
         ],
       }),
-      vueDevTools(),
+      // vueDevTools(),
+      // unstableRolldownAdapter(analyzer()),
     ]),
     resolve: {
       alias: {
@@ -67,6 +69,7 @@ export default ({ mode }: { mode: string }) => {
       outDir: "dist",
       // outDir: 'public/assets/',
       assetsInlineLimit: 0,
+      minify: !buildSourceMaps,
       rollupOptions: {
         output: {
           sanitizeFileName: false,
@@ -83,7 +86,7 @@ export default ({ mode }: { mode: string }) => {
               return "seedrandom_vendors";
             }
 
-            if (id.includes("moment") || id.includes("dayjs")) {
+            if (id.includes("moment") || id.includes("day")) {
               return "date_vendors";
             }
 
