@@ -16,6 +16,10 @@ export const getScreenshots = (): string[] => {
   pngGlob = import.meta.glob("@/assets/2026/3/*.png", { eager: true });
   screenshots.push([...addImages(gifGlob, pngGlob)]);
 
+  gifGlob = import.meta.glob("@/assets/2026/4/*.gif", { eager: true });
+  pngGlob = import.meta.glob("@/assets/2026/4/*.png", { eager: true });
+  screenshots.push([...addImages(gifGlob, pngGlob)]);
+
   gifGlob = import.meta.glob("@/assets/2026/5/*.gif", { eager: true });
   pngGlob = import.meta.glob("@/assets/2026/5/*.png", { eager: true });
   screenshots.push([...addImages(gifGlob, pngGlob)]);
@@ -24,8 +28,20 @@ export const getScreenshots = (): string[] => {
   pngGlob = import.meta.glob("@/assets/2026/6/*.png", { eager: true });
   screenshots.push([...addImages(gifGlob, pngGlob)]);
 
+  gifGlob = import.meta.glob("@/assets/2026/7/*.gif", { eager: true });
+  pngGlob = import.meta.glob("@/assets/2026/7/*.png", { eager: true });
+  screenshots.push([...addImages(gifGlob, pngGlob)]);
+
+  gifGlob = import.meta.glob("@/assets/2026/8/*.gif", { eager: true });
+  pngGlob = import.meta.glob("@/assets/2026/8/*.png", { eager: true });
+  screenshots.push([...addImages(gifGlob, pngGlob)]);
+
   gifGlob = import.meta.glob("@/assets/2026/9/*.gif", { eager: true });
   pngGlob = import.meta.glob("@/assets/2026/9/*.png", { eager: true });
+  screenshots.push([...addImages(gifGlob, pngGlob)]);
+
+  gifGlob = import.meta.glob("@/assets/2026/10/*.gif", { eager: true });
+  pngGlob = import.meta.glob("@/assets/2026/10/*.png", { eager: true });
   screenshots.push([...addImages(gifGlob, pngGlob)]);
 
   gifGlob = import.meta.glob("@/assets/2026/11/*.gif", { eager: true });
@@ -36,12 +52,28 @@ export const getScreenshots = (): string[] => {
   pngGlob = import.meta.glob("@/assets/2026/12/*.png", { eager: true });
   screenshots.push([...addImages(gifGlob, pngGlob)]);
 
+  gifGlob = import.meta.glob("@/assets/2026/13/*.gif", { eager: true });
+  pngGlob = import.meta.glob("@/assets/2026/13/*.png", { eager: true });
+  screenshots.push([...addImages(gifGlob, pngGlob)]);
+
+  gifGlob = import.meta.glob("@/assets/2026/14/*.gif", { eager: true });
+  pngGlob = import.meta.glob("@/assets/2026/14/*.png", { eager: true });
+  screenshots.push([...addImages(gifGlob, pngGlob)]);
+
   gifGlob = import.meta.glob("@/assets/2026/15/*.gif", { eager: true });
   pngGlob = import.meta.glob("@/assets/2026/15/*.png", { eager: true });
   screenshots.push([...addImages(gifGlob, pngGlob)]);
 
+  gifGlob = import.meta.glob("@/assets/2026/16/*.gif", { eager: true });
+  pngGlob = import.meta.glob("@/assets/2026/16/*.png", { eager: true });
+  screenshots.push([...addImages(gifGlob, pngGlob)]);
+
   gifGlob = import.meta.glob("@/assets/2026/17/*.gif", { eager: true });
   pngGlob = import.meta.glob("@/assets/2026/17/*.png", { eager: true });
+  screenshots.push([...addImages(gifGlob, pngGlob)]);
+
+  gifGlob = import.meta.glob("@/assets/2026/18/*.gif", { eager: true });
+  pngGlob = import.meta.glob("@/assets/2026/18/*.png", { eager: true });
   screenshots.push([...addImages(gifGlob, pngGlob)]);
 
   gifGlob = import.meta.glob("@/assets/2026/19/*.gif", { eager: true });

@@ -38,7 +38,8 @@ export const useGalleryStore = defineStore(GALLERY_STORE, () => {
 
     if (indexDiff >= 0 && !loading.value) {
       const screen = screenshots.value ? screenshots.value[indexDiff] : "";
-      return [screenshotsCards.value[indexDiff], screen];
+      const card = screenshotsCards.value[indexDiff];
+      return [card, ...screen];
     }
 
     return [];
