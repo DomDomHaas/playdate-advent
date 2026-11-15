@@ -184,8 +184,10 @@ const catchButton = (buttonName: string) => {
 
   if (buttonName === BUTTON_A) {
     if (calendarStore.isCurrentDayUnlockable()) {
-      calendarStore.openDay(calendarStore.calendarIndex);
-      playdateStore.changeToGallery();
+      if (!calendarStore.isCurrentDayEmpty) {
+        calendarStore.openDay(calendarStore.calendarIndex);
+        playdateStore.changeToGallery();
+      }
     } else {
       calendarStore.triggerWaitMessage();
     }
