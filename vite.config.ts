@@ -26,6 +26,7 @@ export default ({ mode }: { mode: string }) => {
       },
       rules: {
         "vite-plus/prefer-vite-plus-imports": "error",
+        "no-misused-spread": "warn",
       },
       env: {
         builtin: true,
